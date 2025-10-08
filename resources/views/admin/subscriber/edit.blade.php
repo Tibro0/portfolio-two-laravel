@@ -38,7 +38,6 @@
                                 <div class="col-lg-12">
                                     <label class="form-label">Status</label>
                                     <select name="status" class="form-select">
-                                        <option value="">Select</option>
                                         <option @selected($subscriber->status === 1) value="1">Active</option>
                                         <option @selected($subscriber->status === 0) value="0">Block</option>
                                     </select>
