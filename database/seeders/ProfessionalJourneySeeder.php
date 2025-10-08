@@ -15,7 +15,7 @@ class ProfessionalJourneySeeder extends Seeder
     {
         ProfessionalJourney::insert([
             [
-                'year'=> '2025 January - 2025 August',
+                'year'=> '2025 June - 2025 August',
                 'title'=> 'SoClose Dhaka Limited',
                 'sub_title'=> 'Full Stack Web Developer (Php & Laravel)',
                 'description'=> 'Delivering cutting-edge web solutions for businesses of all sizes. From design and development to digital marketing, we drive online success.',
