@@ -42,18 +42,23 @@ Route::controller(FrontendController::class)->group(function () {
 
 Route::middleware('auth')->prefix('admin')->as('admin.')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     // Profile all Route
     Route::controller(AdminProfileController::class)->group(function () {
         Route::get('profile', 'index')->name('profile.index');
         Route::post('profile/update', 'profileUpdate')->name('profile.update');
         Route::post('profile/password/update', 'updatePassword')->name('profile.password.update');
     });
+
     // Animation Text
     Route::resource('animation-text', AnimationTextController::class);
+
     // Tag
     Route::resource('tag', TagController::class);
+
     // Social Icon
     Route::resource('social-icon', SocialIconController::class);
+    
     // Counter
     Route::resource('counter', CounterController::class);
 
