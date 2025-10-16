@@ -1,3 +1,14 @@
+@php
+    function setSidebarActive(array $routes)
+    {
+        foreach ($routes as $route) {
+            if (request()->routeIs($route)) {
+                return 'mm-active';
+            }
+        }
+        return '';
+    }
+@endphp
 <div class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
         <div>
@@ -11,7 +22,7 @@
     </div>
     <!--navigation-->
     <ul class="metismenu" id="menu">
-        <li>
+        <li class="{{ setSidebarActive(['admin.dashboard']) }}">
             <a href="{{ route('admin.dashboard') }}">
                 <div class="parent-icon"><i class="lni lni-dashboard"></i>
                 </div>
@@ -26,18 +37,24 @@
                 <div class="menu-title">Hero Section</div>
             </a>
             <ul>
-                <li> <a href="{{ route('admin.animation-text.index') }}"><i class="bx bx-right-arrow-alt"></i>Animation Text</a>
+                <li class="{{ setSidebarActive(['admin.animation-text.*']) }}"> <a
+                        href="{{ route('admin.animation-text.index') }}"><i class="bx bx-right-arrow-alt"></i>Animation
+                        Text</a>
                 </li>
-                <li> <a href="{{ route('admin.tag.index') }}"><i class="bx bx-right-arrow-alt"></i>Tag</a>
+                <li class="{{ setSidebarActive(['admin.tag.*']) }}"> <a href="{{ route('admin.tag.index') }}"><i
+                            class="bx bx-right-arrow-alt"></i>Tag</a>
                 </li>
-                <li> <a href="{{ route('admin.social-icon.index') }}"><i class="bx bx-right-arrow-alt"></i>Social Icon</a>
+                <li class="{{ setSidebarActive(['admin.social-icon.*']) }}"> <a
+                        href="{{ route('admin.social-icon.index') }}"><i class="bx bx-right-arrow-alt"></i>Social
+                        Icon</a>
                 </li>
-                <li> <a href="{{ route('admin.counter.index') }}"><i class="bx bx-right-arrow-alt"></i>Counter</a>
+                <li class="{{ setSidebarActive(['admin.counter.*']) }}"> <a
+                        href="{{ route('admin.counter.index') }}"><i class="bx bx-right-arrow-alt"></i>Counter</a>
                 </li>
             </ul>
         </li>
 
-        <li>
+        <li class="{{ setSidebarActive(['admin.about.index']) }}">
             <a href="{{ route('admin.about.index') }}">
                 <div class="parent-icon"><i class="lni lni-users"></i>
                 </div>
@@ -52,15 +69,23 @@
                 <div class="menu-title">Skill Section</div>
             </a>
             <ul>
-                <li> <a href="{{ route('admin.frontend-skill.index') }}"><i class="bx bx-right-arrow-alt"></i>Frontend</a>
+                <li class="{{ setSidebarActive(['admin.frontend-skill.*']) }}"> <a
+                        href="{{ route('admin.frontend-skill.index') }}"><i
+                            class="bx bx-right-arrow-alt"></i>Frontend</a>
                 </li>
-                <li> <a href="{{ route('admin.backend-skill.index') }}"><i class="bx bx-right-arrow-alt"></i>Backend</a>
+                <li class="{{ setSidebarActive(['admin.backend-skill.*']) }}"> <a
+                        href="{{ route('admin.backend-skill.index') }}"><i
+                            class="bx bx-right-arrow-alt"></i>Backend</a>
                 </li>
-                <li> <a href="{{ route('admin.design-skill.index') }}"><i class="bx bx-right-arrow-alt"></i>Design</a>
+                <li class="{{ setSidebarActive(['admin.design-skill.*']) }}"> <a
+                        href="{{ route('admin.design-skill.index') }}"><i class="bx bx-right-arrow-alt"></i>Design</a>
                 </li>
-                <li> <a href="{{ route('admin.cloud-skill.index') }}"><i class="bx bx-right-arrow-alt"></i>Cloud</a>
+                <li class="{{ setSidebarActive(['admin.cloud-skill.*']) }}"> <a
+                        href="{{ route('admin.cloud-skill.index') }}"><i class="bx bx-right-arrow-alt"></i>Cloud</a>
                 </li>
-                <li> <a href="{{ route('admin.certification.index') }}"><i class="bx bx-right-arrow-alt"></i>Certification</a>
+                <li class="{{ setSidebarActive(['admin.certification.*']) }}"> <a
+                        href="{{ route('admin.certification.index') }}"><i
+                            class="bx bx-right-arrow-alt"></i>Certification</a>
                 </li>
             </ul>
         </li>
@@ -72,14 +97,18 @@
                 <div class="menu-title">Resume Section</div>
             </a>
             <ul>
-                <li> <a href="{{ route('admin.professional-journey.index') }}"><i class="bx bx-right-arrow-alt"></i>Professional Journey</a>
+                <li class="{{ setSidebarActive(['admin.professional-journey.*']) }}"> <a
+                        href="{{ route('admin.professional-journey.index') }}"><i
+                            class="bx bx-right-arrow-alt"></i>Professional Journey</a>
                 </li>
-                <li> <a href="{{ route('admin.academic-excellence.index') }}"><i class="bx bx-right-arrow-alt"></i>Academic Excellence</a>
+                <li class="{{ setSidebarActive(['admin.academic-excellence.*']) }}"> <a
+                        href="{{ route('admin.academic-excellence.index') }}"><i
+                            class="bx bx-right-arrow-alt"></i>Academic Excellence</a>
                 </li>
             </ul>
         </li>
 
-        <li>
+        <li class="{{ setSidebarActive(['admin.service.*']) }}">
             <a href="{{ route('admin.service.index') }}">
                 <div class="parent-icon"><i class="lni lni-service"></i>
                 </div>
@@ -94,14 +123,16 @@
                 <div class="menu-title">Portfolio</div>
             </a>
             <ul>
-                <li> <a href="{{ route('admin.category.index') }}"><i class="bx bx-right-arrow-alt"></i>Category</a>
+                <li class="{{ setSidebarActive(['admin.category.*']) }}"> <a
+                        href="{{ route('admin.category.index') }}"><i class="bx bx-right-arrow-alt"></i>Category</a>
                 </li>
-                <li> <a href="{{ route('admin.portfolio.index') }}"><i class="bx bx-right-arrow-alt"></i>Portfolio</a>
+                <li class="{{ setSidebarActive(['admin.portfolio.*']) }}"> <a
+                        href="{{ route('admin.portfolio.index') }}"><i class="bx bx-right-arrow-alt"></i>Portfolio</a>
                 </li>
             </ul>
         </li>
 
-        <li>
+        <li class="{{ setSidebarActive(['admin.testimonial.*']) }}">
             <a href="{{ route('admin.testimonial.index') }}">
                 <div class="parent-icon"><i class="lni lni-slice"></i>
                 </div>
@@ -109,7 +140,7 @@
             </a>
         </li>
 
-        <li>
+        <li class="{{ setSidebarActive(['admin.faq.*']) }}">
             <a href="{{ route('admin.faq.index') }}">
                 <div class="parent-icon"><i class="lni lni-quotation"></i>
                 </div>
@@ -124,9 +155,11 @@
                 <div class="menu-title">Subscriber</div>
             </a>
             <ul>
-                <li> <a href="{{ route('admin.subscriber.index') }}"><i class="bx bx-right-arrow-alt"></i>Active</a>
+                <li class="{{ setSidebarActive(['admin.subscriber.index', 'admin.subscriber.edit']) }}"> <a
+                        href="{{ route('admin.subscriber.index') }}"><i class="bx bx-right-arrow-alt"></i>Active</a>
                 </li>
-                <li> <a href="{{ route('admin.subscriber.block') }}"><i class="bx bx-right-arrow-alt"></i>Block</a>
+                <li class="{{ setSidebarActive(['admin.subscriber.block']) }}"> <a
+                        href="{{ route('admin.subscriber.block') }}"><i class="bx bx-right-arrow-alt"></i>Block</a>
                 </li>
             </ul>
         </li>
