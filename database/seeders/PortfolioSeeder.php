@@ -22,7 +22,7 @@ class PortfolioSeeder extends Seeder
                 'preview_title' => 'Multi Vendor E-commerce Website',
                 'preview_description' => 'Language : Laravel, PHP, Bootstrap, HTML5, CSS3, JavaScript, jQuery.',
                 'live_link' => 'https://ecommerce.devtibro.com/',
-                'github_link' => 'https://github.com/Tibro0/multi-vendor-ecommerce-website-laravel',
+                'github_link' => 'https://github.com/Tibro0/sazao-laravel',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
