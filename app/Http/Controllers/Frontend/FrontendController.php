@@ -65,11 +65,14 @@ class FrontendController extends Controller
         ]);
 
         $email = User::where('id', 1)->first()->pluck('email')->toArray();
-
         Mail::to($email)->send(new ContactFormMail($request->name, $request->email, $request->subject, $request->message));
+        return response(['message' => 'Your Message Has been Sent!']);
 
-        toastr()->success('Your Message Has been Sent!');
-        return redirect()->back();
+
+        // $email = User::where('id', 1)->first()->pluck('email')->toArray();
+        // Mail::to($email)->send(new ContactFormMail($request->name, $request->email, $request->subject, $request->message));
+        // toastr()->success('Your Message Has been Sent!');
+        // return redirect()->back();
     }
 
     public function downloadCv()

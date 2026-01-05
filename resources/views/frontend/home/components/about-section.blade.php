@@ -13,12 +13,12 @@
                     <div class="profile-image">
                         <img src="{{ asset($user->avatar) }}" alt="Profile" class="img-fluid" />
                     </div>
-                    <div class="signature-section">
+                    {{-- <div class="signature-section">
                         <img src="{{ asset($about->signature) }}" alt="Signature" class="signature" />
                         <p class="quote">
                             {{ $about->signature_description }}
                         </p>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 
