@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
             TestimonialSeeder::class,
             FaqSeeder::class,
             SubscriberSeeder::class,
+            SettingSeeder::class,
         ]);
     }
 }

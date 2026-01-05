@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\FrontendSkillController;
 use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\ProfessionalJourneyController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialIconController;
 use App\Http\Controllers\Admin\SubscriberController;
 use App\Http\Controllers\Admin\TagController;
@@ -58,7 +59,7 @@ Route::middleware('auth')->prefix('admin')->as('admin.')->group(function () {
 
     // Social Icon
     Route::resource('social-icon', SocialIconController::class);
-    
+
     // Counter
     Route::resource('counter', CounterController::class);
 
@@ -146,6 +147,13 @@ Route::middleware('auth')->prefix('admin')->as('admin.')->group(function () {
         Route::post('/subscriber-sent', 'subscriberSent')->name('subscriber.sent');
     });
     Route::resource('subscriber', SubscriberController::class);
+
+    /** Setting Routes */
+    Route::controller(SettingController::class)->group(function () {
+        Route::get('setting', 'index')->name('setting.index');
+        Route::put('setting/general-setting', 'updateGeneralSetting')->name('general-setting.update');
+        Route::put('setting/mail-setting', 'updateMailSetting')->name('mail-setting.update');
+    });
 });
 
 require __DIR__ . '/auth.php';

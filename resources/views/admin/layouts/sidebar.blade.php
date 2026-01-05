@@ -164,6 +164,14 @@
             </ul>
         </li>
 
+        <li class="{{ setSidebarActive(['admin.setting.index']) }}">
+            <a href="{{ route('admin.setting.index') }}">
+                <div class="parent-icon"> <i class="bx bx-cog"></i>
+                </div>
+                <div class="menu-title">Setting</div>
+            </a>
+        </li>
+
         {{-- <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class='bx bx-home-circle'></i>
