@@ -1,4 +1,4 @@
-<div class="tab-pane fade active show" id="primaryhome" role="tabpanel">
+<div class="tab-pane fade {{ Session::has('admin_general_setting_list_style') && Session::get('admin_general_setting_list_style') == 'section_one' ? 'show active' : '' }} {{ !Session::has('admin_general_setting_list_style') ? 'show active' : '' }}" id="general-setting" role="tabpanel">
     <form action="{{ route('admin.general-setting.update') }}" method="POST">
         @csrf
         @method('PUT')

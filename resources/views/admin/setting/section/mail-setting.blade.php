@@ -1,4 +1,5 @@
-<div class="tab-pane fade" id="primaryprofile" role="tabpanel">
+<div class="tab-pane fade {{ Session::has('admin_general_setting_list_style') && Session::get('admin_general_setting_list_style') == 'section_two' ? 'show active' : '' }}"
+    id="email-configuration" role="tabpanel">
     <form action="{{ route('admin.mail-setting.update') }}" method="POST">
         @csrf
         @method('PUT')

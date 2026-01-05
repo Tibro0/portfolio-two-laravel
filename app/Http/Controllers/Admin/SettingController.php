@@ -7,6 +7,7 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Services\SettingsService;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 
 class SettingController extends Controller
 {
@@ -65,5 +66,10 @@ class SettingController extends Controller
             'type' => 'success',
             'message' => 'Updated Successfully!'
         ]);
+    }
+
+    public function adminGeneralSettingListStyle(Request $request)
+    {
+        Session::put('admin_general_setting_list_style', $request->style);
     }
 }

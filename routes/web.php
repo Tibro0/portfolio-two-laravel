@@ -153,6 +153,8 @@ Route::middleware('auth')->prefix('admin')->as('admin.')->group(function () {
         Route::get('setting', 'index')->name('setting.index');
         Route::put('setting/general-setting', 'updateGeneralSetting')->name('general-setting.update');
         Route::put('setting/mail-setting', 'updateMailSetting')->name('mail-setting.update');
+
+        Route::get('admin-general-setting-list-style', 'adminGeneralSettingListStyle')->name('admin-general-setting-list-style');
     });
 });
 
