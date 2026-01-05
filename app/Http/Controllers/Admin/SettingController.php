@@ -32,6 +32,7 @@ class SettingController extends Controller
 
         $settingsService = app(SettingsService::class);
         $settingsService->clearCachedSettings();
+        Cache::forget('mail_settings');
 
         return redirect()->back()->with('toast', [
             'type' => 'success',

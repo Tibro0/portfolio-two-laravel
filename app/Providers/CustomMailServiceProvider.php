@@ -23,17 +23,19 @@ class CustomMailServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $mailSetting = Cache::rememberForever('mail_settings', function () {
-            $key = ['mail_driver', 'mail_host', 'mail_port', 'mail_username', 'mail_password', 'mail_from_address', 'mail_receive_address'];
+            $key = ['site_name', 'mail_driver', 'mail_host', 'mail_port', 'mail_username', 'mail_password', 'mail_from_address', 'mail_receive_address'];
 
             return Setting::whereIn('key', $key)->pluck('value', 'key')->toArray();
         });
 
         if ($mailSetting) {
-            Config::set('mail.mailers.smtp.host', @$mailSetting['mail_host']);
-            Config::set('mail.mailers.smtp.port', @$mailSetting['mail_port']);
-            Config::set('mail.mailers.smtp.username', @$mailSetting['mail_username']);
-            Config::set('mail.mailers.smtp.password', @$mailSetting['mail_password']);
-            Config::set('mail.from.address', @$mailSetting['mail_from_address']);
+            Config::set('app.name', $mailSetting['site_name']);
+            
+            Config::set('mail.mailers.smtp.host', $mailSetting['mail_host']);
+            Config::set('mail.mailers.smtp.port', $mailSetting['mail_port']);
+            Config::set('mail.mailers.smtp.username', $mailSetting['mail_username']);
+            Config::set('mail.mailers.smtp.password', $mailSetting['mail_password']);
+            Config::set('mail.from.address', $mailSetting['mail_from_address']);
         }
     }
 }
