@@ -89,74 +89,80 @@
 
 @push('js-link')
     <script>
-        $('#contact-form').on('submit', function(e) {
-            e.preventDefault();
+        $(document).ready(function() {
+            $('#contact-form').on('submit', function(e) {
+                e.preventDefault();
 
-            // Clear previous errors
-            $('.invalid-feedback').text('');
-            $('input, textarea').removeClass('is-invalid border border-danger');
-            // Button Disabled
-            let submitBtn = $(this).find('button[type="submit"]');
-            let originalText = submitBtn.text();
-            submitBtn.prop('disabled', true).text('Sending...');
+                // Clear previous errors
+                $('.invalid-feedback').text('');
+                $('input, textarea').removeClass('is-invalid border border-danger');
+                // Button Disabled
+                let submitBtn = $(this).find('button[type="submit"]');
+                let originalText = submitBtn.text();
+                submitBtn.prop('disabled', true).text('Sending...');
 
-            $.ajax({
-                method: $(this).attr('method'),
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                beforeSend: function() {
+                $.ajax({
+                    method: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    beforeSend: function() {
 
-                },
-                success: function(data) {
-                    toastr.success(data.message);
-                },
-                error: function(xhr, status, error) {
-                    // Check if errors exist
-                    if (xhr.responseJSON && xhr.responseJSON.errors) {
-                        let errors = xhr.responseJSON.errors;
-                        // name error
-                        if (errors.name && errors.name[0]) {
-                            $("input[name='name']").addClass('is-invalid border border-danger');
-                            $('.name').text(errors.name[0]);
+                    },
+                    success: function(data) {
+                        toastr.success(data.message);
+                    },
+                    error: function(xhr, status, error) {
+                        // Check if errors exist
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
+                            // name error
+                            if (errors.name && errors.name[0]) {
+                                $("input[name='name']").addClass(
+                                    'is-invalid border border-danger');
+                                $('.name').text(errors.name[0]);
+                            }
+
+                            // email error
+                            if (errors.email && errors.email[0]) {
+                                $("input[name='email']").addClass(
+                                    'is-invalid border border-danger');
+                                $('.email').text(errors.email[0]);
+                            }
+
+                            // email error
+                            if (errors.subject && errors.subject[0]) {
+                                $("input[name='subject']").addClass(
+                                    'is-invalid border border-danger');
+                                $('.subject').text(errors.subject[0]);
+                            }
+
+                            // email error
+                            if (errors.message && errors.message[0]) {
+                                $("textarea[name='message']").addClass(
+                                    'is-invalid border border-danger');
+                                $('.message').text(errors.message[0]);
+                            }
                         }
-
-                        // email error
-                        if (errors.email && errors.email[0]) {
-                            $("input[name='email']").addClass('is-invalid border border-danger');
-                            $('.email').text(errors.email[0]);
+                        // If no validation errors but general error
+                        else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            toastr.error(xhr.responseJSON.message);
                         }
-
-                        // email error
-                        if (errors.subject && errors.subject[0]) {
-                            $("input[name='subject']").addClass('is-invalid border border-danger');
-                            $('.subject').text(errors.subject[0]);
+                        // Unknown error
+                        else {
+                            toastr.error('Something Went Wrong. Please Try Again Later.');
                         }
-
-                        // email error
-                        if (errors.message && errors.message[0]) {
-                            $("textarea[name='message']").addClass('is-invalid border border-danger');
-                            $('.message').text(errors.message[0]);
-                        }
+                    },
+                    complete: function() {
+                        // Button Disabled
+                        submitBtn.prop('disabled', false).text(originalText);
+                        // Reset all input value
+                        $("input[name='name']").val('');
+                        $("input[name='email']").val('');
+                        $("input[name='subject']").val('');
+                        $("textarea[name='message']").val('');
                     }
-                    // If no validation errors but general error
-                    else if (xhr.responseJSON && xhr.responseJSON.message) {
-                        toastr.error(xhr.responseJSON.message);
-                    }
-                    // Unknown error
-                    else {
-                        toastr.error('Something Went Wrong. Please Try Again Later.');
-                    }
-                },
-                complete: function() {
-                    // Button Disabled
-                    submitBtn.prop('disabled', false).text(originalText);
-                    // Reset all input value
-                    $("input[name='name']").val('');
-                    $("input[name='email']").val('');
-                    $("input[name='subject']").val('');
-                    $("textarea[name='message']").val('');
-                }
-            });
-        })
+                });
+            })
+        });
     </script>
 @endpush
