@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\GithubLoginController;
+use App\Http\Controllers\Frontend\GoogleLoginController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Socialite;
 
@@ -251,6 +252,11 @@ Route::middleware('auth')->prefix('admin')->as('admin.')->group(function () {
 Route::controller(GithubLoginController::class)->group(function () {
     Route::get('/auth/redirect', 'githubLogin')->name('github.login');
     Route::get('/auth/callback', 'githubCallback')->name('github.callback');
+});
+
+Route::controller(GoogleLoginController::class)->group(function () {
+    Route::get('/auth/google-redirect', 'googleLogin')->name('google.login');
+    Route::get('/auth/google-callback', 'googleCallback')->name('google.callback');
 });
 
 require __DIR__ . '/auth.php';

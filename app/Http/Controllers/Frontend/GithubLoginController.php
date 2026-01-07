@@ -19,18 +19,30 @@ class GithubLoginController extends Controller
     {
         $githubUser = Socialite::driver('github')->user();
 
-        $user = User::updateOrCreate([
-            'github_id' => $githubUser->id,
-        ], [
-            'avatar' => $githubUser->avatar,
-            'name' => $githubUser->name,
-            'email' => $githubUser->email,
-            'github_token' => $githubUser->token,
-            'github_refresh_token' => $githubUser->refreshToken,
-        ]);
+        $existingUser = User::where('email', $githubUser->email)->first();
+
+        if ($existingUser) {
+            $existingUser->update([
+                'avatar' => $githubUser->avatar,
+                'name' => $githubUser->name,
+                'github_id' => $githubUser->id,
+                'github_token' => $githubUser->token,
+                'github_refresh_token' => $githubUser->refreshToken,
+            ]);
+
+            $user = $existingUser;
+        } else {
+            $user = User::create([
+                'email' => $githubUser->email,
+                'avatar' => $githubUser->avatar,
+                'name' => $githubUser->name,
+                'github_id' => $githubUser->id,
+                'github_token' => $githubUser->token,
+                'github_refresh_token' => $githubUser->refreshToken,
+            ]);
+        }
 
         Auth::login($user, true);
-
         return redirect()->route('admin.dashboard');
     }
 }

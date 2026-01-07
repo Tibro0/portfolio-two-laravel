@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d8046971cbd27e9002b0a9453633de7",
+    "content-hash": "833f260d38a9b0ae206ad053c3275c34",
     "packages": [
         {
             "name": "brick/math",
@@ -2987,20 +2987,21 @@
         },
         {
             "name": "php-flasher/flasher",
-            "version": "v2.1.6",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-flasher/flasher.git",
-                "reference": "054a209515d2eb1bb72467023d8614a29b5d2e60"
+                "reference": "2c3231585af9303d7bc1d0603296ed56676d0675"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-flasher/flasher/zipball/054a209515d2eb1bb72467023d8614a29b5d2e60",
-                "reference": "054a209515d2eb1bb72467023d8614a29b5d2e60",
+                "url": "https://api.github.com/repos/php-flasher/flasher/zipball/2c3231585af9303d7bc1d0603296ed56676d0675",
+                "reference": "2c3231585af9303d7bc1d0603296ed56676d0675",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.2"
+                "php": ">=8.2",
+                "yoeunes/regex-parser": "^1.0"
             },
             "type": "library",
             "autoload": {
@@ -3040,34 +3041,30 @@
             },
             "funding": [
                 {
-                    "url": "https://www.paypal.com/paypalme/yoeunes",
-                    "type": "custom"
-                },
-                {
                     "url": "https://github.com/yoeunes",
                     "type": "github"
                 }
             ],
-            "time": "2025-02-21T20:05:00+00:00"
+            "time": "2025-12-31T10:43:34+00:00"
         },
         {
             "name": "php-flasher/flasher-laravel",
-            "version": "v2.1.6",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-flasher/flasher-laravel.git",
-                "reference": "7097ab207d602db59b241206048c9884aadc5c06"
+                "reference": "fe3acb75c0fe66a0e958d75d45b9a4b237bb5126"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-flasher/flasher-laravel/zipball/7097ab207d602db59b241206048c9884aadc5c06",
-                "reference": "7097ab207d602db59b241206048c9884aadc5c06",
+                "url": "https://api.github.com/repos/php-flasher/flasher-laravel/zipball/fe3acb75c0fe66a0e958d75d45b9a4b237bb5126",
+                "reference": "fe3acb75c0fe66a0e958d75d45b9a4b237bb5126",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "^11.0|^12.0",
                 "php": ">=8.2",
-                "php-flasher/flasher": "^2.1.6"
+                "php-flasher/flasher": "^2.4.0"
             },
             "type": "library",
             "extra": {
@@ -3118,33 +3115,29 @@
             },
             "funding": [
                 {
-                    "url": "https://www.paypal.com/paypalme/yoeunes",
-                    "type": "custom"
-                },
-                {
                     "url": "https://github.com/yoeunes",
                     "type": "github"
                 }
             ],
-            "time": "2025-02-21T20:05:00+00:00"
+            "time": "2025-12-31T10:43:34+00:00"
         },
         {
             "name": "php-flasher/flasher-toastr",
-            "version": "v2.1.6",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-flasher/flasher-toastr.git",
-                "reference": "e9772b7d4e7a2780e41caf0e2f142e3c1670358f"
+                "reference": "812e150e6a18f15091125abb71ca5c816559a292"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-flasher/flasher-toastr/zipball/e9772b7d4e7a2780e41caf0e2f142e3c1670358f",
-                "reference": "e9772b7d4e7a2780e41caf0e2f142e3c1670358f",
+                "url": "https://api.github.com/repos/php-flasher/flasher-toastr/zipball/812e150e6a18f15091125abb71ca5c816559a292",
+                "reference": "812e150e6a18f15091125abb71ca5c816559a292",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.2",
-                "php-flasher/flasher": "^2.1.6"
+                "php-flasher/flasher": "^2.4.0"
             },
             "type": "library",
             "autoload": {
@@ -3189,34 +3182,30 @@
             },
             "funding": [
                 {
-                    "url": "https://www.paypal.com/paypalme/yoeunes",
-                    "type": "custom"
-                },
-                {
                     "url": "https://github.com/yoeunes",
                     "type": "github"
                 }
             ],
-            "time": "2025-02-21T20:05:00+00:00"
+            "time": "2025-12-31T10:43:34+00:00"
         },
         {
             "name": "php-flasher/flasher-toastr-laravel",
-            "version": "v2.1.6",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-flasher/flasher-toastr-laravel.git",
-                "reference": "db6c6d98405643236c47735b5352ee41f4e4691e"
+                "reference": "a22a6f2096246c6f475d1c97e73379ef18609a38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-flasher/flasher-toastr-laravel/zipball/db6c6d98405643236c47735b5352ee41f4e4691e",
-                "reference": "db6c6d98405643236c47735b5352ee41f4e4691e",
+                "url": "https://api.github.com/repos/php-flasher/flasher-toastr-laravel/zipball/a22a6f2096246c6f475d1c97e73379ef18609a38",
+                "reference": "a22a6f2096246c6f475d1c97e73379ef18609a38",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.2",
-                "php-flasher/flasher-laravel": "^2.1.6",
-                "php-flasher/flasher-toastr": "^2.1.6"
+                "php-flasher/flasher-laravel": "^2.4.0",
+                "php-flasher/flasher-toastr": "^2.4.0"
             },
             "type": "library",
             "extra": {
@@ -3263,15 +3252,11 @@
             },
             "funding": [
                 {
-                    "url": "https://www.paypal.com/paypalme/yoeunes",
-                    "type": "custom"
-                },
-                {
                     "url": "https://github.com/yoeunes",
                     "type": "github"
                 }
             ],
-            "time": "2025-02-21T20:05:00+00:00"
+            "time": "2025-12-31T10:43:34+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -6848,22 +6833,107 @@
             "time": "2022-06-03T18:03:27+00:00"
         },
         {
-            "name": "yoeunes/toastr",
-            "version": "v3.1.1",
+            "name": "yoeunes/regex-parser",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/yoeunes/toastr.git",
-                "reference": "0e203a03c3144dcd72c913ee845970f118e65fa2"
+                "url": "https://github.com/yoeunes/regex-parser.git",
+                "reference": "53d6f5b9e0e30a40248b437a76c5d321aeb68bab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yoeunes/toastr/zipball/0e203a03c3144dcd72c913ee845970f118e65fa2",
-                "reference": "0e203a03c3144dcd72c913ee845970f118e65fa2",
+                "url": "https://api.github.com/repos/yoeunes/regex-parser/zipball/53d6f5b9e0e30a40248b437a76c5d321aeb68bab",
+                "reference": "53d6f5b9e0e30a40248b437a76c5d321aeb68bab",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "suggest": {
+                "phpstan/extension-installer": "To automatically enable the PHPStan rule for regex validation.",
+                "phpstan/phpstan": "To run static analysis and detect invalid regex patterns.",
+                "psr/cache": "To share AST cache via PSR-6 pools.",
+                "psr/simple-cache": "To share AST cache via PSR-16 caches."
+            },
+            "bin": [
+                "bin/regex"
+            ],
+            "type": "library",
+            "extra": {
+                "ide": {
+                    "regex.dist.json": "./regex.schema.json"
+                },
+                "phpstan": {
+                    "includes": [
+                        "extension.neon"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-main": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "RegexParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Younes ENNAJI",
+                    "email": "younes.ennaji.pro@gmail.com",
+                    "homepage": "https://www.linkedin.com/in/younes--ennaji/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A powerful PCRE regex parser with lexer, AST builder, validation, ReDoS analysis, and syntax highlighting. Zero dependencies, blazing fast, and production-ready.",
+            "homepage": "https://github.com/yoeunes/regex-parser",
+            "keywords": [
+                "PCRE",
+                "ast",
+                "cli",
+                "lexer",
+                "parser",
+                "php",
+                "redos",
+                "regex",
+                "security",
+                "syntax-highlighting",
+                "validation"
+            ],
+            "support": {
+                "docs": "https://github.com/yoeunes/regex-parser#readme",
+                "issues": "https://github.com/yoeunes/regex-parser/issues",
+                "source": "https://github.com/yoeunes/regex-parser"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/yoeunes",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-01-07T04:11:54+00:00"
+        },
+        {
+            "name": "yoeunes/toastr",
+            "version": "v3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yoeunes/toastr.git",
+                "reference": "83454ea5c229185f96382afeff1a4777d339f4e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yoeunes/toastr/zipball/83454ea5c229185f96382afeff1a4777d339f4e9",
+                "reference": "83454ea5c229185f96382afeff1a4777d339f4e9",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.2",
-                "php-flasher/flasher-toastr-laravel": "^2.1.6"
+                "php-flasher/flasher-toastr-laravel": "^2.4.0"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -6906,7 +6976,7 @@
                 }
             ],
             "abandoned": "php-flasher/flasher-toastr-laravel",
-            "time": "2025-02-26T14:13:03+00:00"
+            "time": "2025-12-31T10:47:55+00:00"
         }
     ],
     "packages-dev": [
