@@ -22,7 +22,9 @@ use App\Http\Controllers\Admin\SubscriberController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Socialite;
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -246,4 +248,22 @@ Route::middleware('auth')->prefix('admin')->as('admin.')->group(function () {
     });
 });
 
+Route::get('/auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+})->name('github.login');
+
+Route::get('/auth/callback', function () {
+    $user = Socialite::driver('github')->user();
+
+    $user = User::firstOrCreate([
+        'email' => $user->email,
+    ], [
+        'name' => $user->name,
+        'password' => bcrypt('password'),
+    ]);
+
+    Auth::login($user, true);
+
+    return redirect()->route('admin.dashboard');
+});
 require __DIR__ . '/auth.php';

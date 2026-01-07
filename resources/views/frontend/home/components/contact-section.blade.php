@@ -18,9 +18,9 @@
                         </div>
                         <div class="content">
                             <h4>Our Location</h4>
-                            <p>{{ $user->address_line_one }}</p>
-                            @if ($user->address_line_two)
-                                <p>{{ $user->address_line_two }}</p>
+                            <p>{{ @$user->address_line_one }}</p>
+                            @if (@$user->address_line_two)
+                                <p>{{ @$user->address_line_two }}</p>
                             @endif
                         </div>
                     </div>
@@ -31,9 +31,9 @@
                         </div>
                         <div class="content">
                             <h4>Phone Number</h4>
-                            <p><a href="tel:{{ $user->phone_one }}">{{ $user->phone_one }}</a></p>
-                            @if ($user->phone_two)
-                                <p><a href="tel:{{ $user->phone_two }}"></a>{{ $user->phone_two }}</p>
+                            <p><a href="tel:{{ @$user->phone_one }}">{{ @$user->phone_one }}</a></p>
+                            @if (@$user->phone_two)
+                                <p><a href="tel:{{ @$user->phone_two }}"></a>{{ @$user->phone_two }}</p>
                             @endif
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="content">
                             <h4>Email Address</h4>
-                            <p><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></p>
+                            <p><a href="mailto:{{ @$user->email }}">{{ @$user->email }}</a></p>
                         </div>
                     </div>
                 </div>

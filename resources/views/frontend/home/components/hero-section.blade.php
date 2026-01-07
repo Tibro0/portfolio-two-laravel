@@ -8,7 +8,7 @@
                         <span class="typed"
                             data-typed-items="@foreach ($animationTexts as $animationText) {{ $animationText->title }}@if (!$loop->last), @endif @endforeach"></span>
                     </h1>
-                    <p class="lead">{{ $user->short_description }}</p>
+                    <p class="lead">{{ @$user->short_description }}</p>
                     <div class="hero-stats" data-aos="fade-up" data-aos-delay="200">
                         @foreach ($counters as $counter)
                             @if ($loop->index == 0)
@@ -71,7 +71,7 @@
                             @endif
                         @endforeach
                     </div>
-                    <img src="{{ asset($user->avatar) }}" alt="Portfolio Hero" class="img-fluid hero-main-image" />
+                    <img src="{{ asset(@$user->avatar) }}" alt="Portfolio Hero" class="img-fluid hero-main-image" />
                     <div class="image-overlay"></div>
                 </div>
             </div>

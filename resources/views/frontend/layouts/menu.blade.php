@@ -2,12 +2,12 @@
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
         <nav id="navmenu" class="navmenu">
             <div class="profile-img">
-                <img src="{{ asset($user->avatar) }}" alt=""
+                <img src="{{ asset(@$user->avatar) }}" alt=""
                     class="img-fluid rounded-circle" />
             </div>
 
             <a href="index.html" class="logo d-flex align-items-center justify-content-center active">
-                <h1 class="sitename">{{ $user->name }}</h1>
+                <h1 class="sitename">{{ @$user->name }}</h1>
             </a>
             <ul>
                 <li><a href="#hero">Home</a></li>

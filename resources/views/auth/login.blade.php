@@ -37,6 +37,14 @@
                                         <h3 class="">Sign in</h3>
                                         <p class="mb-0">Login to your account</p>
                                     </div>
+
+                                    <div class="d-grid gap-3">
+                                        <a href="{{ route('github.login') }}" class="btn btn-facebook"><i
+                                                class="bx bxl-facebook"></i>Login with facebook</a>
+                                        <a href="javascript:void()" class="btn btn-google-plus"><i
+                                                class="bx bxl-google-plus"></i> <span>Login with google+</span></a>
+                                    </div>
+
                                     <div class="form-body">
                                         <form method="POST" action="{{ route('login') }}" class="row g-4">
                                             @csrf
