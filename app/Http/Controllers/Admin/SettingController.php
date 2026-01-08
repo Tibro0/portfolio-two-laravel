@@ -93,6 +93,31 @@ class SettingController extends Controller
             'message' => 'Updated Successfully!'
         ]);
     }
+    
+    public function updateGoogleSetting(Request $request)
+    {
+        $validatedData = $request->validate([
+            'google_client_id' => ['required'],
+            'google_client_secret' => ['required'],
+            'google_redirect_url' => ['required', 'url'],
+        ]);
+
+        foreach ($validatedData as $key => $value) {
+            Setting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value]
+            );
+        }
+
+        $settingsService = app(SettingsService::class);
+        $settingsService->clearCachedSettings();
+        Cache::forget('mail_settings');
+
+        return redirect()->back()->with('toast', [
+            'type' => 'success',
+            'message' => 'Updated Successfully!'
+        ]);
+    }
 
     public function adminGeneralSettingListStyle(Request $request)
     {

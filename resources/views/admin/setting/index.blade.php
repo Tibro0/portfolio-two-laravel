@@ -44,11 +44,23 @@
                                     </div>
                                 </a>
                             </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link list-view {{ Session::has('admin_general_setting_list_style') && Session::get('admin_general_setting_list_style') == 'section_four' ? 'active' : '' }}"
+                                    data-id="section_four" data-bs-toggle="tab" href="#google-setting" role="tab"
+                                    aria-selected="false" tabindex="-1">
+                                    <div class="d-flex align-items-center">
+                                        <div class="tab-icon"><i class="bx bx-envelope font-18 me-1"></i>
+                                        </div>
+                                        <div class="tab-title">Google Setting</div>
+                                    </div>
+                                </a>
+                            </li>
                         </ul>
                         <div class="tab-content py-3">
                             @include('admin.setting.section.general-setting')
                             @include('admin.setting.section.mail-setting')
                             @include('admin.setting.section.github-setting')
+                            @include('admin.setting.section.google-setting')
                         </div>
                     </div>
                 </div>
