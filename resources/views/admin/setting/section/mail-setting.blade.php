@@ -7,7 +7,7 @@
             <div class="col-md-4">
                 <label class="form-label">Mail Driver <span class="text-danger">*</span></label>
                 <input name="mail_driver" type="text" class="form-control @error('mail_driver') is-invalid @enderror"
-                    value="{{ config('settings.mail_driver') }}">
+                    value="{{ config('settings.mail_driver') }}" placeholder="smtp">
                 @error('mail_driver')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -15,7 +15,7 @@
             <div class="col-md-4">
                 <label class="form-label">Mail Host <span class="text-danger">*</span></label>
                 <input name="mail_host" type="text" class="form-control @error('mail_host') is-invalid @enderror"
-                    value="{{ config('settings.mail_host') }}">
+                    value="{{ config('settings.mail_host') }}" placeholder="smtp.gmail.com">
                 @error('mail_host')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -23,7 +23,7 @@
             <div class="col-md-4">
                 <label class="form-label">Mail Port <span class="text-danger">*</span></label>
                 <input name="mail_port" type="text" class="form-control @error('mail_port') is-invalid @enderror"
-                    value="{{ config('settings.mail_port') }}">
+                    value="{{ config('settings.mail_port') }}" placeholder="587">
                 @error('mail_port')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -32,7 +32,7 @@
                 <label class="form-label">Mail Username <span class="text-danger">*</span></label>
                 <input name="mail_username" type="text"
                     class="form-control @error('mail_username') is-invalid @enderror"
-                    value="{{ config('settings.mail_username') }}">
+                    value="{{ config('settings.mail_username') }}" placeholder="faysaltibro@gmail.com">
                 @error('mail_username')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -41,7 +41,7 @@
                 <label class="form-label">Mail Password <span class="text-danger">*</span></label>
                 <input name="mail_password" type="text"
                     class="form-control @error('mail_password') is-invalid @enderror"
-                    value="{{ config('settings.mail_password') }}">
+                    value="{{ config('settings.mail_password') }}" placeholder="wxyxtcbeeonmwcuc">
                 @error('mail_password')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -49,12 +49,12 @@
             <div class="col-md-12">
                 <label class="form-label">Mail Form Address <span class="text-danger">*</span></label>
                 <input name="mail_from_address" type="text" class="form-control"
-                    value="{{ config('settings.mail_from_address') }}">
+                    value="{{ config('settings.mail_from_address') }}" placeholder="faysaltibro@gmail.com">
             </div>
             <div class="col-md-12">
                 <label class="form-label">Mail Receive Address <span class="text-danger">*</span></label>
                 <input name="mail_receive_address" type="text" class="form-control"
-                    value="{{ config('settings.mail_receive_address') }}">
+                    value="{{ config('settings.mail_receive_address') }}" placeholder="faysaltibro@gmail.com">
             </div>
             <div class="col-md-12">
                 <button type="submit" class="btn btn-primary px-5">Save Changes</button>
