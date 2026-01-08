@@ -119,29 +119,22 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.contact.main-title.update') }}" method="POST">
+                    <form action="{{ route('admin.contact.main-title.update') }}" method="POST" id="contact-main-title">
                         @csrf
-                        @method('PUT')
                         <div class="row g-3">
                             <div class="col-lg-12">
                                 <label class="form-label">Contact Main Title <span class="text-danger">*</span></label>
-                                <input type="text" name="contact_main_title"
-                                    class="form-control @error('contact_main_title') is-invalid @enderror"
+                                <input type="text" name="contact_main_title" class="form-control"
                                     value="{{ old('contact_main_title') ?? @$title['contact_main_title'] }}"
                                     placeholder="Contact Main Title">
-                                @error('contact_main_title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <div class="invalid-feedback contact_main_title"></div>
                             </div>
                             <div class="col-lg-12">
                                 <label class="form-label">Contact Sub Title <span class="text-danger">*</span></label>
-                                <input type="text" name="contact_sub_title"
-                                    class="form-control @error('contact_sub_title') is-invalid @enderror"
+                                <input type="text" name="contact_sub_title" class="form-control"
                                     value="{{ old('contact_sub_title') ?? @$title['contact_sub_title'] }}"
                                     placeholder="Contact Sub Title">
-                                @error('contact_sub_title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <div class="invalid-feedback contact_sub_title"></div>
                             </div>
                             <div class="col-lg-12">
                                 <button type="submit" class="btn btn-primary px-5">Save Changes</button>
@@ -219,6 +212,60 @@
     <script>
         $(document).ready(function() {
             $('#summernote').summernote();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#contact-main-title').on('submit', function(e) {
+                e.preventDefault();
+
+                // Clear previous errors
+                $('.invalid-feedback').text('');
+                $('input').removeClass('is-invalid');
+                // Button Disabled
+                let submitBtn = $(this).find('button[type="submit"]');
+                let originalText = submitBtn.text();
+                submitBtn.prop('disabled', true).text('Saving...');
+
+                $.ajax({
+                    method: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            toastr.success(data.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Check if errors exist
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
+                            // contact_main_title error
+                            if (errors.contact_main_title && errors.contact_main_title[0]) {
+                                $("input[name='contact_main_title']").addClass('is-invalid');
+                                $('.contact_main_title').text(errors.contact_main_title[0]);
+                            }
+                            // contact_sub_title error
+                            if (errors.contact_sub_title && errors.contact_sub_title[0]) {
+                                $("input[name='contact_sub_title']").addClass('is-invalid');
+                                $('.contact_sub_title').text(errors.contact_sub_title[0]);
+                            }
+                        }
+                        // If no validation errors but general error
+                        else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            toastr.error(xhr.responseJSON.message);
+                        }
+                        // Unknown error
+                        else {
+                            toastr.error('Something Went Wrong. Please Try Again Later.');
+                        }
+                    },
+                    complete: function() {
+                        // Button Disabled
+                        submitBtn.prop('disabled', false).text(originalText);
+                    }
+                });
+            })
         });
     </script>
 @endsection

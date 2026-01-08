@@ -19,7 +19,7 @@ class SubscriberController extends Controller
         $keys = ['contact_main_title', 'contact_sub_title'];
         $title = SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
         $subscribers = Subscriber::where('status', 1)->get();
-        return view('admin.subscriber.index', compact('title','subscribers'));
+        return view('admin.subscriber.index', compact('title', 'subscribers'));
     }
 
     /**
@@ -138,9 +138,6 @@ class SubscriberController extends Controller
             );
         }
 
-        return redirect()->back()->with('toast', [
-            'type' => 'success',
-            'message' => 'Update Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Update Successfully!']);
     }
 }
