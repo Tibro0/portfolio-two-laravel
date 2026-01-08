@@ -62,6 +62,24 @@ class SettingSeeder extends Seeder
                 'created_at'=> now(),
                 'updated_at'=> now(),
             ],
+            [
+                'key' => 'github_client_id',
+                'value' => 'Ov23liCN96tlIvFlzFa5',
+                'created_at'=> now(),
+                'updated_at'=> now(),
+            ],
+            [
+                'key' => 'github_client_secret',
+                'value' => 'f1aae3ff64caa7325ba40ed375acb5f3e39815dd',
+                'created_at'=> now(),
+                'updated_at'=> now(),
+            ],
+            [
+                'key' => 'github_redirect_url',
+                'value' => 'http://127.0.0.1:8000/auth/github-callback',
+                'created_at'=> now(),
+                'updated_at'=> now(),
+            ],
         ]);
     }
 }

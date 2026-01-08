@@ -254,8 +254,8 @@ Route::middleware('auth')->prefix('admin')->as('admin.')->group(function () {
 });
 
 Route::controller(GithubLoginController::class)->group(function () {
-    Route::get('/auth/redirect', 'githubLogin')->name('github.login');
-    Route::get('/auth/callback', 'githubCallback')->name('github.callback');
+    Route::get('/auth/github-redirect', 'githubLogin')->name('github.login');
+    Route::get('/auth/github-callback', 'githubCallback')->name('github.callback');
 });
 
 Route::controller(GoogleLoginController::class)->group(function () {
