@@ -80,6 +80,24 @@ class SettingSeeder extends Seeder
                 'created_at'=> now(),
                 'updated_at'=> now(),
             ],
+                        [
+                'key' => 'google_client_id',
+                'value' => 'Tibro',
+                'created_at'=> now(),
+                'updated_at'=> now(),
+            ],
+            [
+                'key' => 'google_client_secret',
+                'value' => 'Tibro',
+                'created_at'=> now(),
+                'updated_at'=> now(),
+            ],
+            [
+                'key' => 'google_redirect_url',
+                'value' => 'http://127.0.0.1:8000/auth/google-callback',
+                'created_at'=> now(),
+                'updated_at'=> now(),
+            ],
         ]);
     }
 }
