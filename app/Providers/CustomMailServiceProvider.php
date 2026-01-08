@@ -38,6 +38,10 @@ class CustomMailServiceProvider extends ServiceProvider
             Config::set('services.github.client_id', $mailSetting['github_client_id']);
             Config::set('services.github.client_secret', $mailSetting['github_client_secret']);
             Config::set('services.github.redirect', $mailSetting['github_redirect_url']);
+
+            Config::set('services.google.client_id', $mailSetting['google_client_id']);
+            Config::set('services.google.client_secret', $mailSetting['google_client_secret']);
+            Config::set('services.google.redirect', $mailSetting['google_redirect_url']);
         }
     }
 }
