@@ -37,14 +37,15 @@
                                         <h3 class="">Sign in</h3>
                                         <p class="mb-0">Login to your account</p>
                                     </div>
-
-                                    <div class="d-grid gap-3 mb-3">
+                                    <div class="d-grid gap-3">
                                         <a href="{{ route('github.login') }}" class="btn btn-dark"><i
                                                 class="bx bx-git-commit"></i> <span>Login with github</span></a>
                                         <a href="{{ route('google.login') }}" class="btn btn-google-plus"><i
                                                 class="bx bxl-google-plus"></i> <span>Login with google+</span></a>
                                     </div>
-
+                                    <div class="login-separater text-center mb-4"> <span>OR SIGN IN WITH EMAIL</span>
+                                        <hr>
+                                    </div>
                                     <div class="form-body">
                                         <form method="POST" action="{{ route('login') }}" class="row g-4">
                                             @csrf

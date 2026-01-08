@@ -31,11 +31,11 @@ class CustomMailServiceProvider extends ServiceProvider
         if ($mailSetting) {
             Config::set('app.name', $mailSetting['site_name']);
 
-            // Config::set('mail.mailers.smtp.host', $mailSetting['mail_host']);
-            // Config::set('mail.mailers.smtp.port', $mailSetting['mail_port']);
-            // Config::set('mail.mailers.smtp.username', $mailSetting['mail_username']);
-            // Config::set('mail.mailers.smtp.password', $mailSetting['mail_password']);
-            // Config::set('mail.from.address', $mailSetting['mail_from_address']);
+            Config::set('mail.mailers.smtp.host', $mailSetting['mail_host']);
+            Config::set('mail.mailers.smtp.port', $mailSetting['mail_port']);
+            Config::set('mail.mailers.smtp.username', $mailSetting['mail_username']);
+            Config::set('mail.mailers.smtp.password', $mailSetting['mail_password']);
+            Config::set('mail.from.address', $mailSetting['mail_from_address']);
         }
     }
 }
