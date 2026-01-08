@@ -64,13 +64,13 @@ class SettingSeeder extends Seeder
             ],
             [
                 'key' => 'github_client_id',
-                'value' => 'Ov23liCN96tlIvFlzFa5',
+                'value' => 'Tibro',
                 'created_at'=> now(),
                 'updated_at'=> now(),
             ],
             [
                 'key' => 'github_client_secret',
-                'value' => 'f1aae3ff64caa7325ba40ed375acb5f3e39815dd',
+                'value' => 'Tibro',
                 'created_at'=> now(),
                 'updated_at'=> now(),
             ],
