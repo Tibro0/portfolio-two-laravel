@@ -39,7 +39,7 @@
                                     </div>
                                     <div class="d-grid gap-3">
                                         <a href="{{ route('github.login') }}" class="btn btn-dark"><i
-                                                class="bx bx-git-commit"></i> <span>Login with github</span></a>
+                                                class="lni lni-github-original"></i> <span>Login with github</span></a>
                                         <a href="{{ route('google.login') }}" class="btn btn-google-plus"><i
                                                 class="bx bxl-google-plus"></i> <span>Login with google+</span></a>
                                     </div>

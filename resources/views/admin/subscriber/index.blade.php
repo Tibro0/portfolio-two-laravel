@@ -127,7 +127,8 @@
                                 <label class="form-label">Contact Main Title <span class="text-danger">*</span></label>
                                 <input type="text" name="contact_main_title"
                                     class="form-control @error('contact_main_title') is-invalid @enderror"
-                                    value="{{ old('contact_main_title') ?? @$title['contact_main_title'] }}" placeholder="Contact Main Title">
+                                    value="{{ old('contact_main_title') ?? @$title['contact_main_title'] }}"
+                                    placeholder="Contact Main Title">
                                 @error('contact_main_title')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -136,7 +137,8 @@
                                 <label class="form-label">Contact Sub Title <span class="text-danger">*</span></label>
                                 <input type="text" name="contact_sub_title"
                                     class="form-control @error('contact_sub_title') is-invalid @enderror"
-                                    value="{{ old('contact_sub_title') ?? @$title['contact_sub_title'] }}" placeholder="Contact Sub Title">
+                                    value="{{ old('contact_sub_title') ?? @$title['contact_sub_title'] }}"
+                                    placeholder="Contact Sub Title">
                                 @error('contact_sub_title')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

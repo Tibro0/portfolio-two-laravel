@@ -38,7 +38,7 @@
                                     data-id="section_three" data-bs-toggle="tab" href="#github-setting" role="tab"
                                     aria-selected="false" tabindex="-1">
                                     <div class="d-flex align-items-center">
-                                        <div class="tab-icon"><i class="bx bx-envelope font-18 me-1"></i>
+                                        <div class="tab-icon"><i class="lni lni-github-original font-18 me-1"></i>
                                         </div>
                                         <div class="tab-title">Github Setting</div>
                                     </div>
@@ -49,7 +49,7 @@
                                     data-id="section_four" data-bs-toggle="tab" href="#google-setting" role="tab"
                                     aria-selected="false" tabindex="-1">
                                     <div class="d-flex align-items-center">
-                                        <div class="tab-icon"><i class="bx bx-envelope font-18 me-1"></i>
+                                        <div class="tab-icon"><i class="lni lni-google font-18 me-1"></i>
                                         </div>
                                         <div class="tab-title">Google Setting</div>
                                     </div>
