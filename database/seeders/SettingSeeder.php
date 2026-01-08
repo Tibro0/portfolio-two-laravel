@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Setting;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,55 @@ class SettingSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Setting::insert([
+            [
+                'key' => 'site_name',
+                'value' => 'Portfolio',
+                'created_at'=> now(),
+                'updated_at'=> now(),
+            ],
+            [
+                'key' => 'mail_driver',
+                'value' => 'smtp',
+                'created_at'=> now(),
+                'updated_at'=> now(),
+            ],
+            [
+                'key' => 'mail_host',
+                'value' => 'smtp.gmail.com',
+                'created_at'=> now(),
+                'updated_at'=> now(),
+            ],
+            [
+                'key' => 'mail_port',
+                'value' => '587',
+                'created_at'=> now(),
+                'updated_at'=> now(),
+            ],
+            [
+                'key' => 'mail_username',
+                'value' => 'faysaltibro@gmail.com',
+                'created_at'=> now(),
+                'updated_at'=> now(),
+            ],
+            [
+                'key' => 'mail_password',
+                'value' => 'wxyxtcbeeonmwcuc',
+                'created_at'=> now(),
+                'updated_at'=> now(),
+            ],
+            [
+                'key' => 'mail_from_address',
+                'value' => 'faysaltibro@gmail.com',
+                'created_at'=> now(),
+                'updated_at'=> now(),
+            ],
+            [
+                'key' => 'mail_receive_address',
+                'value' => 'faysaltibro@gmail.com',
+                'created_at'=> now(),
+                'updated_at'=> now(),
+            ],
+        ]);
     }
 }
