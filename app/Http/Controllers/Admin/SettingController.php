@@ -69,6 +69,31 @@ class SettingController extends Controller
         ]);
     }
 
+    public function updateGithubSetting(Request $request)
+    {
+        $validatedData = $request->validate([
+            'github_client_id' => ['required'],
+            'github_client_secret' => ['required'],
+            'github_redirect_url' => ['required', 'url'],
+        ]);
+
+        foreach ($validatedData as $key => $value) {
+            Setting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value]
+            );
+        }
+
+        $settingsService = app(SettingsService::class);
+        $settingsService->clearCachedSettings();
+        Cache::forget('mail_settings');
+
+        return redirect()->back()->with('toast', [
+            'type' => 'success',
+            'message' => 'Updated Successfully!'
+        ]);
+    }
+
     public function adminGeneralSettingListStyle(Request $request)
     {
         Session::put('admin_general_setting_list_style', $request->style);
