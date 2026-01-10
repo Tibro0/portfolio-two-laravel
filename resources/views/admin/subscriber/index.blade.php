@@ -232,9 +232,12 @@
                     type: 'PUT',
                     url: $(this).attr('action'),
                     data: $(this).serialize(),
+                    beforeSend: function() {
+
+                    },
                     success: function(data) {
                         if (data.status === 'success') {
-                            toastr.success(data.message);
+                            toastr.success(data.message, 'Success');
                         }
                     },
                     error: function(xhr, status, error) {
