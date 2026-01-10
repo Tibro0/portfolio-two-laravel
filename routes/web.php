@@ -235,7 +235,7 @@ Route::middleware('auth')->prefix('admin')->as('admin.')->group(function () {
         Route::get('subscriber/edit/{id}', 'edit')->name('subscriber.edit');
         Route::put('subscriber/{id}', 'update')->name('subscriber.update');
         Route::delete('subscriber/{id}', 'destroy')->name('subscriber.destroy');
-        Route::post('contact/main-title/update', 'contactMainTitleUpdate')->name('contact.main-title.update');
+        Route::put('contact/main-title/update', 'contactMainTitleUpdate')->name('contact.main-title.update');
         Route::get('/subscriber-block', 'subscriberBlock')->name('subscriber.block');
         Route::post('/subscriber-sent', 'subscriberSent')->name('subscriber.sent');
     });

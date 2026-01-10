@@ -127,8 +127,8 @@ class SubscriberController extends Controller
     public function contactMainTitleUpdate(Request $request)
     {
         $validatedData = $request->validate([
-            'contact_main_title' => ['max:255'],
-            'contact_sub_title' => ['max:255'],
+            'contact_main_title' => ['required', 'max:255'],
+            'contact_sub_title' => ['required', 'max:255'],
         ]);
 
         foreach ($validatedData as $key => $value) {

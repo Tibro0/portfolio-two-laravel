@@ -121,6 +121,7 @@
                 <div class="modal-body">
                     <form action="{{ route('admin.contact.main-title.update') }}" method="POST" id="contact-main-title">
                         @csrf
+                        @method('PUT')
                         <div class="row g-3">
                             <div class="col-lg-12">
                                 <label class="form-label">Contact Main Title <span class="text-danger">*</span></label>
@@ -228,7 +229,7 @@
                 submitBtn.prop('disabled', true).text('Saving...');
 
                 $.ajax({
-                    method: $(this).attr('method'),
+                    type: 'PUT',
                     url: $(this).attr('action'),
                     data: $(this).serialize(),
                     success: function(data) {
