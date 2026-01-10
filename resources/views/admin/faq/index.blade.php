@@ -74,7 +74,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.faq.main-title.update') }}" method="POST">
+                    <form action="{{ route('admin.faq.main-title.update') }}" method="POST" id="faq-main-title">
                         @csrf
                         @method('PUT')
                         <div class="row g-3">
@@ -84,9 +84,7 @@
                                     class="form-control @error('faq_main_title') is-invalid @enderror"
                                     value="{{ old('faq_main_title') ?? @$title['faq_main_title'] }}"
                                     placeholder="FAQ Main Title">
-                                @error('faq_main_title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <div class="invalid-feedback faq_main_title"></div>
                             </div>
                             <div class="col-lg-12">
                                 <label class="form-label">FAQ Sub Title <span class="text-danger">*</span></label>
@@ -94,9 +92,7 @@
                                     class="form-control @error('faq_sub_title') is-invalid @enderror"
                                     value="{{ old('faq_sub_title') ?? @$title['faq_sub_title'] }}"
                                     placeholder="FAQ Sub Title">
-                                @error('faq_sub_title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <div class="invalid-feedback faq_sub_title"></div>
                             </div>
                             <div class="col-lg-12">
                                 <button type="submit" class="btn btn-primary px-5">Save Changes</button>
@@ -168,5 +164,62 @@
             })
 
         })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#faq-main-title').on('submit', function(e) {
+                e.preventDefault();
+
+                // Clear previous errors
+                $('.invalid-feedback').text('');
+                $('input').removeClass('is-invalid');
+                // Button Disabled
+                let submitBtn = $(this).find('button[type="submit"]');
+                let originalText = submitBtn.text();
+                submitBtn.prop('disabled', true).text('Saving...');
+
+                $.ajax({
+                    type: 'PUT',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            toastr.success(data.message, 'Success');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Check if errors exist
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
+                            // faq_main_title error
+                            if (errors.faq_main_title && errors.faq_main_title[0]) {
+                                $("input[name='faq_main_title']").addClass('is-invalid');
+                                $('.faq_main_title').text(errors.faq_main_title[0]);
+                            }
+                            // faq_sub_title error
+                            if (errors.faq_sub_title && errors.faq_sub_title[0]) {
+                                $("input[name='faq_sub_title']").addClass('is-invalid');
+                                $('.faq_sub_title').text(errors.faq_sub_title[0]);
+                            }
+                        }
+                        // If no validation errors but general error
+                        else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            toastr.error(xhr.responseJSON.message, 'Error');
+                        }
+                        // Unknown error
+                        else {
+                            toastr.error('Something Went Wrong. Please Try Again Later.', 'Error');
+                        }
+                    },
+                    complete: function() {
+                        // Button Disabled
+                        submitBtn.prop('disabled', false).text(originalText);
+                    }
+                });
+            })
+        });
     </script>
 @endsection

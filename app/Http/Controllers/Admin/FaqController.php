@@ -17,7 +17,7 @@ class FaqController extends Controller
         $keys = ['faq_main_title', 'faq_sub_title'];
         $title = SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
         $faqs = Faq::all();
-        return view('admin.faq.index', compact('title','faqs'));
+        return view('admin.faq.index', compact('title', 'faqs'));
     }
 
     /**
@@ -100,8 +100,8 @@ class FaqController extends Controller
     public function faqMainTitleUpdate(Request $request)
     {
         $validatedData = $request->validate([
-            'faq_main_title' => ['max:255'],
-            'faq_sub_title' => ['max:255'],
+            'faq_main_title' => ['required', 'max:255'],
+            'faq_sub_title' => ['required', 'max:255'],
         ]);
 
         foreach ($validatedData as $key => $value) {
@@ -111,9 +111,6 @@ class FaqController extends Controller
             );
         }
 
-        return redirect()->back()->with('toast', [
-            'type' => 'success',
-            'message' => 'Update Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Update Successfully!']);
     }
 }

@@ -257,11 +257,12 @@
                         }
                         // If no validation errors but general error
                         else if (xhr.responseJSON && xhr.responseJSON.message) {
-                            toastr.error(xhr.responseJSON.message);
+                            toastr.error(xhr.responseJSON.message, 'Error');
                         }
                         // Unknown error
                         else {
-                            toastr.error('Something Went Wrong. Please Try Again Later.');
+                            toastr.error('Something Went Wrong. Please Try Again Later.',
+                                'Error');
                         }
                     },
                     complete: function() {
