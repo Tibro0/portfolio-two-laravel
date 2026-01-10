@@ -108,9 +108,6 @@ class DesignSkillController extends Controller
         $skillCardTitleOne->title = $request->title;
         $skillCardTitleOne->save();
 
-        return redirect()->back()->with('toast', [
-            'type' => 'success',
-            'message' => 'Updated Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Update Successfully!', 'skillCardTitleOne' => $skillCardTitleOne->icon]);
     }
 }
