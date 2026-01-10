@@ -103,14 +103,13 @@ class FrontendSkillController extends Controller
             'title'=>['required', 'max:255']
         ]);
 
+        $skillCardTitleOne = SkillCardTitle::where('id', 1)->first();
+
         $skillCardTitleOne = SkillCardTitle::findOrFail($id);
         $skillCardTitleOne->icon = $request->icon;
         $skillCardTitleOne->title = $request->title;
         $skillCardTitleOne->save();
 
-        return redirect()->back()->with('toast', [
-            'type' => 'success',
-            'message' => 'Updated Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Update Successfully!', 'skillCardTitleOne' => $skillCardTitleOne->icon]);
     }
 }
