@@ -67,8 +67,8 @@ class AboutController extends Controller
     public function aboutMainTitleUpdate(Request $request)
     {
         $validatedData = $request->validate([
-            'about_main_title' => ['max:255'],
-            'about_sub_title' => ['max:255'],
+            'about_main_title' => ['required', 'max:255'],
+            'about_sub_title' => ['required', 'max:255'],
         ]);
 
         foreach ($validatedData as $key => $value) {
@@ -78,9 +78,6 @@ class AboutController extends Controller
             );
         }
 
-        return redirect()->back()->with('toast', [
-            'type' => 'success',
-            'message' => 'Update Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Update Successfully!']);
     }
 }
