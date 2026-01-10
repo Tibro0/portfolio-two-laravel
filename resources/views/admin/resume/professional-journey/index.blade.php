@@ -20,10 +20,11 @@
                     <div class="breadcrumb-title border-0 pe-3">All Professional Journeys</div>
                     <div class="ms-auto">
                         <button type="button" class="btn btn-outline-primary px-5" data-bs-toggle="modal"
-                                        data-bs-target="#mainTitleUpdate">Main Title Update</button>
+                            data-bs-target="#mainTitleUpdate">Main Title Update</button>
                         <button type="button" class="btn btn-outline-primary px-5" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">Update Title</button>
-                        <a href="{{ route('admin.professional-journey.create') }}" class="btn btn-primary px-5">Create New</a>
+                        <a href="{{ route('admin.professional-journey.create') }}" class="btn btn-primary px-5">Create
+                            New</a>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -47,8 +48,8 @@
                                     <td>
                                         <a href="{{ route('admin.professional-journey.edit', $item->id) }}"
                                             class="btn btn-primary"><i class="lni lni-pencil-alt"></i></a>
-                                        <a href="{{ route('admin.professional-journey.destroy', $item->id) }}" id="delete"
-                                            class="btn btn-danger"><i class="lni lni-trash"></i></a>
+                                        <a href="{{ route('admin.professional-journey.destroy', $item->id) }}"
+                                            id="delete" class="btn btn-danger"><i class="lni lni-trash"></i></a>
                                     </td>
                                 </tr>
                             @empty
@@ -78,30 +79,31 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.professional-journey-title-update') }}" method="POST">
+                    <form action="{{ route('admin.professional-journey-title-update') }}" method="POST"
+                        id="professional-journey-title">
                         @csrf
                         @method('PUT')
-                    <div class="row g-3">
-                        <div class="col-lg-12">
-                            <label class="form-label">Professional Journey Title <span class="text-danger">*</span></label>
-                            <input type="text" name="professional_journey_title" class="form-control @error('professional_journey_title') is-invalid @enderror"
-                                value="{{ old('professional_journey_title') ?? @$title['professional_journey_title'] }}" placeholder="Professional Journey Title">
-                            @error('professional_journey_title')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label class="form-label">Professional Journey Title <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" name="professional_journey_title" class="form-control"
+                                    value="{{ old('professional_journey_title') ?? @$title['professional_journey_title'] }}"
+                                    placeholder="Professional Journey Title">
+                                <div class="invalid-feedback professional_journey_title"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <label class="form-label">Professional Journey Description <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" name="professional_journey_description" class="form-control"
+                                    value="{{ old('professional_journey_description') ?? @$title['professional_journey_description'] }}"
+                                    placeholder="Professional Journey Description">
+                                <div class="invalid-feedback professional_journey_description"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-primary px-5">Save Changes</button>
+                            </div>
                         </div>
-                        <div class="col-lg-12">
-                            <label class="form-label">Professional Journey Description <span class="text-danger">*</span></label>
-                            <input type="text" name="professional_journey_description" class="form-control @error('professional_journey_description') is-invalid @enderror"
-                                value="{{ old('professional_journey_description') ?? @$title['professional_journey_description'] }}" placeholder="Professional Journey Description">
-                            @error('professional_journey_description')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-lg-12">
-                            <button type="submit" class="btn btn-primary px-5">Save Changes</button>
-                        </div>
-                    </div>
                     </form>
                 </div>
             </div>
@@ -118,27 +120,23 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.resume.main-title.update') }}" method="POST">
+                    <form action="{{ route('admin.resume.main-title.update') }}" method="POST" id="resume-main-title">
                         @csrf
                         @method('PUT')
                         <div class="row g-3">
                             <div class="col-lg-12">
                                 <label class="form-label">Resume Main Title <span class="text-danger">*</span></label>
-                                <input type="text" name="resume_main_title"
-                                    class="form-control @error('resume_main_title') is-invalid @enderror"
-                                    value="{{ old('resume_main_title') ?? @$title['resume_main_title'] }}" placeholder="Resume Main Title">
-                                @error('resume_main_title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <input type="text" name="resume_main_title" class="form-control"
+                                    value="{{ old('resume_main_title') ?? @$title['resume_main_title'] }}"
+                                    placeholder="Resume Main Title">
+                                <div class="invalid-feedback resume_main_title"></div>
                             </div>
                             <div class="col-lg-12">
                                 <label class="form-label">Resume Sub Title <span class="text-danger">*</span></label>
-                                <input type="text" name="resume_sub_title"
-                                    class="form-control @error('resume_sub_title') is-invalid @enderror"
-                                    value="{{ old('resume_sub_title') ?? @$title['resume_sub_title'] }}" placeholder="Resume Sub Title">
-                                @error('resume_sub_title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <input type="text" name="resume_sub_title" class="form-control"
+                                    value="{{ old('resume_sub_title') ?? @$title['resume_sub_title'] }}"
+                                    placeholder="Resume Sub Title">
+                                <div class="invalid-feedback resume_sub_title"></div>
                             </div>
                             <div class="col-lg-12">
                                 <button type="submit" class="btn btn-primary px-5">Save Changes</button>
@@ -210,5 +208,138 @@
             })
 
         })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#professional-journey-title').on('submit', function(e) {
+                e.preventDefault();
+
+                // Clear previous errors
+                $('.invalid-feedback').text('');
+                $('input').removeClass('is-invalid');
+                // Button Disabled
+                let submitBtn = $(this).find('button[type="submit"]');
+                let originalText = submitBtn.text();
+                submitBtn.prop('disabled', true).text('Saving...');
+
+                $.ajax({
+                    type: 'PUT',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            toastr.success(data.message, 'Success');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Check if errors exist
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
+                            // professional_journey_title error
+                            if (errors.professional_journey_title && errors
+                                .professional_journey_title[
+                                    0]) {
+                                $("input[name='professional_journey_title']").addClass(
+                                    'is-invalid');
+                                $('.professional_journey_title').text(errors
+                                    .professional_journey_title[
+                                        0]);
+                            }
+                            // professional_journey_description error
+                            if (errors.professional_journey_description && errors
+                                .professional_journey_description[
+                                    0]) {
+                                $("input[name='professional_journey_description']").addClass(
+                                    'is-invalid');
+                                $('.professional_journey_description').text(errors
+                                    .professional_journey_description[
+                                        0]);
+                            }
+                        }
+                        // If no validation errors but general error
+                        else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            toastr.error(xhr.responseJSON.message, 'Error');
+                        }
+                        // Unknown error
+                        else {
+                            toastr.error('Something Went Wrong. Please Try Again Later.',
+                                'Error');
+                        }
+                    },
+                    complete: function() {
+                        // Button Disabled
+                        submitBtn.prop('disabled', false).text(originalText);
+                    }
+                });
+            })
+
+            $('#resume-main-title').on('submit', function(e) {
+                e.preventDefault();
+
+                // Clear previous errors
+                $('.invalid-feedback').text('');
+                $('input').removeClass('is-invalid');
+                // Button Disabled
+                let submitBtn = $(this).find('button[type="submit"]');
+                let originalText = submitBtn.text();
+                submitBtn.prop('disabled', true).text('Saving...');
+
+                $.ajax({
+                    type: 'PUT',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            toastr.success(data.message, 'Success');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Check if errors exist
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
+                            // resume_main_title error
+                            if (errors.resume_main_title && errors
+                                .resume_main_title[
+                                    0]) {
+                                $("input[name='resume_main_title']").addClass(
+                                    'is-invalid');
+                                $('.resume_main_title').text(errors
+                                    .resume_main_title[
+                                        0]);
+                            }
+                            // resume_sub_title error
+                            if (errors.resume_sub_title && errors
+                                .resume_sub_title[
+                                    0]) {
+                                $("input[name='resume_sub_title']").addClass(
+                                    'is-invalid');
+                                $('.resume_sub_title').text(errors
+                                    .resume_sub_title[
+                                        0]);
+                            }
+                        }
+                        // If no validation errors but general error
+                        else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            toastr.error(xhr.responseJSON.message, 'Error');
+                        }
+                        // Unknown error
+                        else {
+                            toastr.error('Something Went Wrong. Please Try Again Later.',
+                                'Error');
+                        }
+                    },
+                    complete: function() {
+                        // Button Disabled
+                        submitBtn.prop('disabled', false).text(originalText);
+                    }
+                });
+            })
+        });
     </script>
 @endsection

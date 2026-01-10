@@ -108,8 +108,8 @@ class ProfessionalJourneyController extends Controller
     public function professionalJourneyTitleUpdate(Request $request)
     {
         $validatedData = $request->validate([
-            'professional_journey_title' => ['max:255'],
-            'professional_journey_description' => ['max:255'],
+            'professional_journey_title' => ['required', 'max:255'],
+            'professional_journey_description' => ['required', 'max:255'],
         ]);
 
         foreach ($validatedData as $key => $value) {
@@ -119,17 +119,14 @@ class ProfessionalJourneyController extends Controller
             );
         }
 
-        return redirect()->back()->with('toast', [
-            'type' => 'success',
-            'message' => 'Update Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Update Successfully!']);
     }
 
     public function resumeMainTitleUpdate(Request $request)
     {
         $validatedData = $request->validate([
-            'resume_main_title' => ['max:255'],
-            'resume_sub_title' => ['max:255'],
+            'resume_main_title' => ['required', 'max:255'],
+            'resume_sub_title' => ['required', 'max:255'],
         ]);
 
         foreach ($validatedData as $key => $value) {
@@ -139,9 +136,6 @@ class ProfessionalJourneyController extends Controller
             );
         }
 
-        return redirect()->back()->with('toast', [
-            'type' => 'success',
-            'message' => 'Update Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Update Successfully!']);
     }
 }
