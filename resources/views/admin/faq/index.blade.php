@@ -80,16 +80,14 @@
                         <div class="row g-3">
                             <div class="col-lg-12">
                                 <label class="form-label">FAQ Main Title <span class="text-danger">*</span></label>
-                                <input type="text" name="faq_main_title"
-                                    class="form-control @error('faq_main_title') is-invalid @enderror"
+                                <input type="text" name="faq_main_title" class="form-control"
                                     value="{{ old('faq_main_title') ?? @$title['faq_main_title'] }}"
                                     placeholder="FAQ Main Title">
                                 <div class="invalid-feedback faq_main_title"></div>
                             </div>
                             <div class="col-lg-12">
                                 <label class="form-label">FAQ Sub Title <span class="text-danger">*</span></label>
-                                <input type="text" name="faq_sub_title"
-                                    class="form-control @error('faq_sub_title') is-invalid @enderror"
+                                <input type="text" name="faq_sub_title" class="form-control"
                                     value="{{ old('faq_sub_title') ?? @$title['faq_sub_title'] }}"
                                     placeholder="FAQ Sub Title">
                                 <div class="invalid-feedback faq_sub_title"></div>
@@ -211,7 +209,8 @@
                         }
                         // Unknown error
                         else {
-                            toastr.error('Something Went Wrong. Please Try Again Later.', 'Error');
+                            toastr.error('Something Went Wrong. Please Try Again Later.',
+                                'Error');
                         }
                     },
                     complete: function() {

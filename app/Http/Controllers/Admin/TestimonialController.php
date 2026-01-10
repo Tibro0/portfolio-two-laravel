@@ -148,8 +148,8 @@ class TestimonialController extends Controller
     public function testimonialMainTitleUpdate(Request $request)
     {
         $validatedData = $request->validate([
-            'testimonial_main_title' => ['max:255'],
-            'testimonial_sub_title' => ['max:255'],
+            'testimonial_main_title' => ['required', 'max:255'],
+            'testimonial_sub_title' => ['required', 'max:255'],
         ]);
 
         foreach ($validatedData as $key => $value) {
@@ -159,9 +159,6 @@ class TestimonialController extends Controller
             );
         }
 
-        return redirect()->back()->with('toast', [
-            'type' => 'success',
-            'message' => 'Update Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Update Successfully!']);
     }
 }
