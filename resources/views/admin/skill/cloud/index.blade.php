@@ -74,34 +74,33 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.cloud-skill-card-title-update', $skillCardTitleOne->id) }}" method="POST">
+                    <form action="{{ route('admin.cloud-skill-card-title-update', $skillCardTitleOne->id) }}" method="POST"
+                        id="cloud-skill-card-title">
                         @csrf
                         @method('PUT')
-                    <div class="row g-3">
-                        <div class="col-lg-12">
-                            <label class="form-label">Preview</label><br>
-                            <i class="{{ $skillCardTitleOne->icon }} h1"></i>
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label class="form-label">Preview</label><br>
+                                <i class="{{ $skillCardTitleOne->icon }} h1"></i>
+                            </div>
+                            <div class="col-lg-12">
+                                <label class="form-label">Icon <span class="text-danger">*</span> (<a
+                                        href="https://icons.getbootstrap.com/"
+                                        target="_blank">https://icons.getbootstrap.com/</a>)</label>
+                                <input type="text" name="icon" class="form-control"
+                                    value="{{ old('icon') ?? $skillCardTitleOne->icon }}" placeholder="Icon">
+                                <div class="invalid-feedback icon"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <label class="form-label">Title <span class="text-danger">*</span></label>
+                                <input type="text" name="title" class="form-control"
+                                    value="{{ old('title') ?? $skillCardTitleOne->title }}" placeholder="Title">
+                                <div class="invalid-feedback title"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-primary px-5">Save Changes</button>
+                            </div>
                         </div>
-                        <div class="col-lg-12">
-                            <label class="form-label">Icon <span class="text-danger">*</span> (<a href="https://icons.getbootstrap.com/" target="_blank">https://icons.getbootstrap.com/</a>)</label>
-                            <input type="text" name="icon" class="form-control @error('icon') is-invalid @enderror"
-                                value="{{ old('icon') ?? $skillCardTitleOne->icon }}" placeholder="Icon">
-                            @error('icon')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-lg-12">
-                            <label class="form-label">Title <span class="text-danger">*</span></label>
-                            <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
-                                value="{{ old('title') ?? $skillCardTitleOne->title }}" placeholder="Title">
-                            @error('title')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-lg-12">
-                            <button type="submit" class="btn btn-primary px-5">Save Changes</button>
-                        </div>
-                    </div>
                     </form>
                 </div>
             </div>
@@ -168,5 +167,65 @@
             })
 
         })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#cloud-skill-card-title').on('submit', function(e) {
+                e.preventDefault();
+
+                // Clear previous errors
+                $('.invalid-feedback').text('');
+                $('input').removeClass('is-invalid');
+                // Button Disabled
+                let submitBtn = $(this).find('button[type="submit"]');
+                let originalText = submitBtn.text();
+                submitBtn.prop('disabled', true).text('Saving...');
+
+                $.ajax({
+                    type: 'PUT',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            toastr.success(data.message, 'Success');
+                            $('#cloud-skill-card-title').find('i').removeClass().addClass(
+                                `${data.skillCardTitleOne} h1`);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Check if errors exist
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
+                            // icon error
+                            if (errors.icon && errors.icon[0]) {
+                                $("input[name='icon']").addClass('is-invalid');
+                                $('.icon').text(errors.icon[0]);
+                            }
+                            // title error
+                            if (errors.title && errors.title[0]) {
+                                $("input[name='title']").addClass('is-invalid');
+                                $('.title').text(errors.title[0]);
+                            }
+                        }
+                        // If no validation errors but general error
+                        else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            toastr.error(xhr.responseJSON.message, 'Error');
+                        }
+                        // Unknown error
+                        else {
+                            toastr.error('Something Went Wrong. Please Try Again Later.',
+                                'Error');
+                        }
+                    },
+                    complete: function() {
+                        // Button Disabled
+                        submitBtn.prop('disabled', false).text(originalText);
+                    }
+                });
+            })
+        });
     </script>
 @endsection
