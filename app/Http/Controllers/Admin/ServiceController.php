@@ -17,7 +17,7 @@ class ServiceController extends Controller
         $keys = ['services_main_title', 'services_sub_title'];
         $title = SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
         $services = Service::all();
-        return view('admin.service.index', compact('title','services'));
+        return view('admin.service.index', compact('title', 'services'));
     }
 
     /**
@@ -75,7 +75,7 @@ class ServiceController extends Controller
     {
         $request->validate([
             'icon' => ['required', 'max:255'],
-            'title' => ['required', 'max:255', 'unique:services,title,'.$id],
+            'title' => ['required', 'max:255', 'unique:services,title,' . $id],
             'description' => ['required', 'max:255'],
         ]);
 
@@ -104,8 +104,8 @@ class ServiceController extends Controller
     public function servicesMainTitleUpdate(Request $request)
     {
         $validatedData = $request->validate([
-            'services_main_title' => ['max:255'],
-            'services_sub_title' => ['max:255'],
+            'services_main_title' => ['required', 'max:255'],
+            'services_sub_title' => ['required', 'max:255'],
         ]);
 
         foreach ($validatedData as $key => $value) {
@@ -115,10 +115,6 @@ class ServiceController extends Controller
             );
         }
 
-        return redirect()->back()->with('toast', [
-            'type' => 'success',
-            'message' => 'Update Successfully!'
-        ]);
-
+        return response(['status' => 'success', 'message' => 'Update Successfully!']);
     }
 }

@@ -20,7 +20,7 @@
                     <div class="breadcrumb-title border-0 pe-3">All Services</div>
                     <div class="ms-auto">
                         <button type="button" class="btn btn-outline-primary px-5" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">Main Title Update</button>
+                            data-bs-target="#exampleModal">Main Title Update</button>
                         <a href="{{ route('admin.service.create') }}" class="btn btn-primary px-5">Create New</a>
                     </div>
                 </div>
@@ -43,8 +43,8 @@
                                     <td>{{ $item->title }}</td>
                                     <td>{{ $item->description }}</td>
                                     <td>
-                                        <a href="{{ route('admin.service.edit', $item->id) }}"
-                                            class="btn btn-primary"><i class="lni lni-pencil-alt"></i></a>
+                                        <a href="{{ route('admin.service.edit', $item->id) }}" class="btn btn-primary"><i
+                                                class="lni lni-pencil-alt"></i></a>
                                         <a href="{{ route('admin.service.destroy', $item->id) }}" id="delete"
                                             class="btn btn-danger"><i class="lni lni-trash"></i></a>
                                     </td>
@@ -76,27 +76,23 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.services.main-title.update') }}" method="POST">
+                    <form action="{{ route('admin.services.main-title.update') }}" method="POST" id="services-main-title">
                         @csrf
                         @method('PUT')
                         <div class="row g-3">
                             <div class="col-lg-12">
                                 <label class="form-label">Services Main Title <span class="text-danger">*</span></label>
-                                <input type="text" name="services_main_title"
-                                    class="form-control @error('services_main_title') is-invalid @enderror"
-                                    value="{{ old('services_main_title') ?? @$title['services_main_title'] }}" placeholder="Services Main Title">
-                                @error('services_main_title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <input type="text" name="services_main_title" class="form-control"
+                                    value="{{ old('services_main_title') ?? @$title['services_main_title'] }}"
+                                    placeholder="Services Main Title">
+                                <div class="invalid-feedback services_main_title"></div>
                             </div>
                             <div class="col-lg-12">
                                 <label class="form-label">Services Sub Title <span class="text-danger">*</span></label>
-                                <input type="text" name="services_sub_title"
-                                    class="form-control @error('services_sub_title') is-invalid @enderror"
-                                    value="{{ old('services_sub_title') ?? @$title['services_sub_title'] }}" placeholder="Services Sub Title">
-                                @error('services_sub_title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <input type="text" name="services_sub_title" class="form-control"
+                                    value="{{ old('services_sub_title') ?? @$title['services_sub_title'] }}"
+                                    placeholder="Services Sub Title">
+                                <div class="invalid-feedback services_sub_title"></div>
                             </div>
                             <div class="col-lg-12">
                                 <button type="submit" class="btn btn-primary px-5">Save Changes</button>
@@ -168,5 +164,68 @@
             })
 
         })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#services-main-title').on('submit', function(e) {
+                e.preventDefault();
+
+                // Clear previous errors
+                $('.invalid-feedback').text('');
+                $('input').removeClass('is-invalid');
+                // Button Disabled
+                let submitBtn = $(this).find('button[type="submit"]');
+                let originalText = submitBtn.text();
+                submitBtn.prop('disabled', true).text('Saving...');
+
+                $.ajax({
+                    type: 'PUT',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            toastr.success(data.message, 'Success');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Check if errors exist
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
+                            // services_main_title error
+                            if (errors.services_main_title && errors.services_main_title[
+                                    0]) {
+                                $("input[name='services_main_title']").addClass(
+                                    'is-invalid');
+                                $('.services_main_title').text(errors.services_main_title[
+                                    0]);
+                            }
+                            // services_sub_title error
+                            if (errors.services_sub_title && errors.services_sub_title[
+                                    0]) {
+                                $("input[name='services_sub_title']").addClass('is-invalid');
+                                $('.services_sub_title').text(errors.services_sub_title[
+                                    0]);
+                            }
+                        }
+                        // If no validation errors but general error
+                        else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            toastr.error(xhr.responseJSON.message, 'Error');
+                        }
+                        // Unknown error
+                        else {
+                            toastr.error('Something Went Wrong. Please Try Again Later.',
+                                'Error');
+                        }
+                    },
+                    complete: function() {
+                        // Button Disabled
+                        submitBtn.prop('disabled', false).text(originalText);
+                    }
+                });
+            })
+        });
     </script>
 @endsection
