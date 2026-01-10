@@ -17,7 +17,7 @@ class AcademicExcellenceController extends Controller
         $keys = ['academic_excellences_title', 'academic_excellences_description'];
         $title = SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
         $academicExcellences = AcademicExcellence::all();
-        return view('admin.resume.academic-excellence.index', compact('title','academicExcellences'));
+        return view('admin.resume.academic-excellence.index', compact('title', 'academicExcellences'));
     }
 
     /**
@@ -34,10 +34,10 @@ class AcademicExcellenceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'year'=> ['required', 'max:255'],
-            'title'=> ['required', 'max:255'],
-            'sub_title'=> ['required', 'max:255'],
-            'description'=> ['required', 'max:255'],
+            'year' => ['required', 'max:255'],
+            'title' => ['required', 'max:255'],
+            'sub_title' => ['required', 'max:255'],
+            'description' => ['required', 'max:255'],
         ]);
 
         $academicExcellence = new AcademicExcellence();
@@ -76,10 +76,10 @@ class AcademicExcellenceController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'year'=> ['required', 'max:255'],
-            'title'=> ['required', 'max:255'],
-            'sub_title'=> ['required', 'max:255'],
-            'description'=> ['required', 'max:255'],
+            'year' => ['required', 'max:255'],
+            'title' => ['required', 'max:255'],
+            'sub_title' => ['required', 'max:255'],
+            'description' => ['required', 'max:255'],
         ]);
 
         $academicExcellence = AcademicExcellence::findOrFail($id);
@@ -108,8 +108,8 @@ class AcademicExcellenceController extends Controller
     public function academicExcellencesTitleUpdate(Request $request)
     {
         $validatedData = $request->validate([
-            'academic_excellences_title' => ['max:255'],
-            'academic_excellences_description' => ['max:255'],
+            'academic_excellences_title' => ['required', 'max:255'],
+            'academic_excellences_description' => ['required', 'max:255'],
         ]);
 
         foreach ($validatedData as $key => $value) {
@@ -119,9 +119,6 @@ class AcademicExcellenceController extends Controller
             );
         }
 
-        return redirect()->back()->with('toast', [
-            'type' => 'success',
-            'message' => 'Update Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Update Successfully!']);
     }
 }

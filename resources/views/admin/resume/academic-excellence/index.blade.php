@@ -77,30 +77,31 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.academic-excellences-title-update') }}" method="POST">
+                    <form action="{{ route('admin.academic-excellences-title-update') }}" method="POST"
+                        id="academic-excellences-title">
                         @csrf
                         @method('PUT')
-                    <div class="row g-3">
-                        <div class="col-lg-12">
-                            <label class="form-label">Academic Excellences Title <span class="text-danger">*</span></label>
-                            <input type="text" name="academic_excellences_title" class="form-control @error('academic_excellences_title') is-invalid @enderror"
-                                value="{{ old('academic_excellences_title') ?? @$title['academic_excellences_title'] }}" placeholder="Academic Excellences Title">
-                            @error('academic_excellences_title')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label class="form-label">Academic Excellences Title <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" name="academic_excellences_title" class="form-control"
+                                    value="{{ old('academic_excellences_title') ?? @$title['academic_excellences_title'] }}"
+                                    placeholder="Academic Excellences Title">
+                                <div class="invalid-feedback academic_excellences_title"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <label class="form-label">Academic Excellences Description <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" name="academic_excellences_description" class="form-control"
+                                    value="{{ old('academic_excellences_description') ?? @$title['academic_excellences_description'] }}"
+                                    placeholder="Academic Excellences Description">
+                                <div class="invalid-feedback academic_excellences_description"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-primary px-5">Save Changes</button>
+                            </div>
                         </div>
-                        <div class="col-lg-12">
-                            <label class="form-label">Academic Excellences Description <span class="text-danger">*</span></label>
-                            <input type="text" name="academic_excellences_description" class="form-control @error('academic_excellences_description') is-invalid @enderror"
-                                value="{{ old('academic_excellences_description') ?? @$title['academic_excellences_description'] }}" placeholder="Academic Excellences Description">
-                            @error('academic_excellences_description')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="col-lg-12">
-                            <button type="submit" class="btn btn-primary px-5">Save Changes</button>
-                        </div>
-                    </div>
                     </form>
                 </div>
             </div>
@@ -167,5 +168,73 @@
             })
 
         })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#academic-excellences-title').on('submit', function(e) {
+                e.preventDefault();
+
+                // Clear previous errors
+                $('.invalid-feedback').text('');
+                $('input').removeClass('is-invalid');
+                // Button Disabled
+                let submitBtn = $(this).find('button[type="submit"]');
+                let originalText = submitBtn.text();
+                submitBtn.prop('disabled', true).text('Saving...');
+
+                $.ajax({
+                    type: 'PUT',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            toastr.success(data.message, 'Success');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Check if errors exist
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
+                            // academic_excellences_title error
+                            if (errors.academic_excellences_title && errors
+                                .academic_excellences_title[
+                                    0]) {
+                                $("input[name='academic_excellences_title']").addClass(
+                                    'is-invalid');
+                                $('.academic_excellences_title').text(errors
+                                    .academic_excellences_title[
+                                        0]);
+                            }
+                            // academic_excellences_description error
+                            if (errors.academic_excellences_description && errors
+                                .academic_excellences_description[
+                                    0]) {
+                                $("input[name='academic_excellences_description']").addClass(
+                                    'is-invalid');
+                                $('.academic_excellences_description').text(errors
+                                    .academic_excellences_description[
+                                        0]);
+                            }
+                        }
+                        // If no validation errors but general error
+                        else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            toastr.error(xhr.responseJSON.message, 'Error');
+                        }
+                        // Unknown error
+                        else {
+                            toastr.error('Something Went Wrong. Please Try Again Later.',
+                                'Error');
+                        }
+                    },
+                    complete: function() {
+                        // Button Disabled
+                        submitBtn.prop('disabled', false).text(originalText);
+                    }
+                });
+            })
+        });
     </script>
 @endsection
