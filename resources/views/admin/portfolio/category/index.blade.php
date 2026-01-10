@@ -20,7 +20,7 @@
                     <div class="breadcrumb-title border-0 pe-3">All Categories</div>
                     <div class="ms-auto">
                         <button type="button" class="btn btn-outline-primary px-5" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">Main Title Update</button>
+                            data-bs-target="#exampleModal">Main Title Update</button>
                         <a href="{{ route('admin.category.create') }}" class="btn btn-primary px-5">Create New</a>
                     </div>
                 </div>
@@ -41,8 +41,8 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->slug }}</td>
                                     <td>
-                                        <a href="{{ route('admin.category.edit', $item->id) }}"
-                                            class="btn btn-primary"><i class="lni lni-pencil-alt"></i></a>
+                                        <a href="{{ route('admin.category.edit', $item->id) }}" class="btn btn-primary"><i
+                                                class="lni lni-pencil-alt"></i></a>
                                         <a href="{{ route('admin.category.destroy', $item->id) }}" id="delete"
                                             class="btn btn-danger"><i class="lni lni-trash"></i></a>
                                     </td>
@@ -74,27 +74,24 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.portfolio.main-title.update') }}" method="POST">
+                    <form action="{{ route('admin.portfolio.main-title.update') }}" method="POST"
+                        id="portfolio-main-title">
                         @csrf
                         @method('PUT')
                         <div class="row g-3">
                             <div class="col-lg-12">
                                 <label class="form-label">Portfolio Main Title <span class="text-danger">*</span></label>
-                                <input type="text" name="portfolio_main_title"
-                                    class="form-control @error('portfolio_main_title') is-invalid @enderror"
-                                    value="{{ old('portfolio_main_title') ?? @$title['portfolio_main_title'] }}" placeholder="Portfolio Main Title">
-                                @error('portfolio_main_title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <input type="text" name="portfolio_main_title" class="form-control"
+                                    value="{{ old('portfolio_main_title') ?? @$title['portfolio_main_title'] }}"
+                                    placeholder="Portfolio Main Title">
+                                <div class="invalid-feedback portfolio_main_title"></div>
                             </div>
                             <div class="col-lg-12">
                                 <label class="form-label">Portfolio Sub Title <span class="text-danger">*</span></label>
-                                <input type="text" name="portfolio_sub_title"
-                                    class="form-control @error('portfolio_sub_title') is-invalid @enderror"
-                                    value="{{ old('portfolio_sub_title') ?? @$title['portfolio_sub_title'] }}" placeholder="Portfolio Sub Title">
-                                @error('portfolio_sub_title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <input type="text" name="portfolio_sub_title" class="form-control"
+                                    value="{{ old('portfolio_sub_title') ?? @$title['portfolio_sub_title'] }}"
+                                    placeholder="Portfolio Sub Title">
+                                <div class="invalid-feedback portfolio_sub_title"></div>
                             </div>
                             <div class="col-lg-12">
                                 <button type="submit" class="btn btn-primary px-5">Save Changes</button>
@@ -166,5 +163,68 @@
             })
 
         })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#portfolio-main-title').on('submit', function(e) {
+                e.preventDefault();
+
+                // Clear previous errors
+                $('.invalid-feedback').text('');
+                $('input').removeClass('is-invalid');
+                // Button Disabled
+                let submitBtn = $(this).find('button[type="submit"]');
+                let originalText = submitBtn.text();
+                submitBtn.prop('disabled', true).text('Saving...');
+
+                $.ajax({
+                    type: 'PUT',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            toastr.success(data.message, 'Success');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Check if errors exist
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
+                            // portfolio_main_title error
+                            if (errors.portfolio_main_title && errors.portfolio_main_title[
+                                    0]) {
+                                $("input[name='portfolio_main_title']").addClass(
+                                    'is-invalid');
+                                $('.portfolio_main_title').text(errors.portfolio_main_title[
+                                    0]);
+                            }
+                            // portfolio_sub_title error
+                            if (errors.portfolio_sub_title && errors.portfolio_sub_title[
+                                    0]) {
+                                $("input[name='portfolio_sub_title']").addClass('is-invalid');
+                                $('.portfolio_sub_title').text(errors.portfolio_sub_title[
+                                    0]);
+                            }
+                        }
+                        // If no validation errors but general error
+                        else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            toastr.error(xhr.responseJSON.message, 'Error');
+                        }
+                        // Unknown error
+                        else {
+                            toastr.error('Something Went Wrong. Please Try Again Later.',
+                                'Error');
+                        }
+                    },
+                    complete: function() {
+                        // Button Disabled
+                        submitBtn.prop('disabled', false).text(originalText);
+                    }
+                });
+            })
+        });
     </script>
 @endsection

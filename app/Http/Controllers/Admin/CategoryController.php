@@ -19,7 +19,7 @@ class CategoryController extends Controller
         $keys = ['portfolio_main_title', 'portfolio_sub_title'];
         $title = SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
         $categories = Category::all();
-        return view('admin.portfolio.category.index', compact('title','categories'));
+        return view('admin.portfolio.category.index', compact('title', 'categories'));
     }
 
     /**
@@ -73,7 +73,7 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => ['required', 'max:200', 'unique:categories,name,'.$id]
+            'name' => ['required', 'max:200', 'unique:categories,name,' . $id]
         ]);
 
         $category = Category::findOrFail($id);
@@ -104,8 +104,8 @@ class CategoryController extends Controller
     public function portfolioMainTitleUpdate(Request $request)
     {
         $validatedData = $request->validate([
-            'portfolio_main_title' => ['max:255'],
-            'portfolio_sub_title' => ['max:255'],
+            'portfolio_main_title' => ['required', 'max:255'],
+            'portfolio_sub_title' => ['required', 'max:255'],
         ]);
 
         foreach ($validatedData as $key => $value) {
@@ -115,9 +115,6 @@ class CategoryController extends Controller
             );
         }
 
-        return redirect()->back()->with('toast', [
-            'type' => 'success',
-            'message' => 'Update Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Update Successfully!']);
     }
 }
