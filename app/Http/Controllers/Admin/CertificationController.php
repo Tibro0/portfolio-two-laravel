@@ -96,8 +96,8 @@ class CertificationController extends Controller
     public function professionalExpertiseTitleUpdate(Request $request)
     {
         $validatedData = $request->validate([
-            'professional_expertise_title' => ['max:255'],
-            'professional_expertise_description' => ['max:255'],
+            'professional_expertise_title' => ['required', 'max:255'],
+            'professional_expertise_description' => ['required', 'max:255'],
         ]);
 
         foreach ($validatedData as $key => $value) {
@@ -107,9 +107,6 @@ class CertificationController extends Controller
             );
         }
 
-        return redirect()->back()->with('toast', [
-            'type' => 'success',
-            'message' => 'Update Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Update Successfully!']);
     }
 }
