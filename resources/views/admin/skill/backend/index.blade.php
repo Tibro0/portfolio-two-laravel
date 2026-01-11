@@ -15,8 +15,8 @@
 @section('content')
     <div class="page-content">
         <div class="card">
-            <div class="card-body">
-                <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+            <div class="card-header">
+                <div class="page-breadcrumb d-none d-sm-flex align-items-center">
                     <div class="breadcrumb-title border-0 pe-3">All Backend Skill</div>
                     <div class="ms-auto">
                         <button type="button" class="btn btn-outline-primary px-5" data-bs-toggle="modal"
@@ -24,6 +24,8 @@
                         <a href="{{ route('admin.backend-skill.create') }}" class="btn btn-primary px-5">Create New</a>
                     </div>
                 </div>
+            </div>
+            <div class="card-body">
                 <div class="table-responsive">
                     <table id="example" class="table table-striped table-bordered" style="width:100%">
                         <thead>

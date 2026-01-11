@@ -15,13 +15,15 @@
 @section('content')
     <div class="page-content">
         <div class="card">
-            <div class="card-body">
-                <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+            <div class="card-header">
+                <div class="page-breadcrumb d-none d-sm-flex align-items-center">
                     <div class="breadcrumb-title border-0 pe-3">All Portfolios</div>
                     <div class="ms-auto">
                         <a href="{{ route('admin.portfolio.create') }}" class="btn btn-primary px-5">Create New</a>
                     </div>
                 </div>
+            </div>
+            <div class="card-body">
                 <div class="table-responsive">
                     <table id="example" class="table table-striped table-bordered" style="width:100%">
                         <thead>
@@ -38,13 +40,13 @@
                             @forelse ($portfolios as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->category->name  }}</td>
+                                    <td>{{ $item->category->name }}</td>
                                     <td><img src="{{ asset($item->thumb_image) }}" width="100"></td>
-                                    <td>{{ $item->frontend_title  }}</td>
-                                    <td>{{ $item->frontend_description  }}</td>
+                                    <td>{{ $item->frontend_title }}</td>
+                                    <td>{{ $item->frontend_description }}</td>
                                     <td>
-                                        <a href="{{ route('admin.portfolio.edit', $item->id) }}"
-                                            class="btn btn-primary"><i class="lni lni-pencil-alt"></i></a>
+                                        <a href="{{ route('admin.portfolio.edit', $item->id) }}" class="btn btn-primary"><i
+                                                class="lni lni-pencil-alt"></i></a>
                                         <a href="{{ route('admin.portfolio.destroy', $item->id) }}" id="delete"
                                             class="btn btn-danger"><i class="lni lni-trash"></i></a>
                                     </td>

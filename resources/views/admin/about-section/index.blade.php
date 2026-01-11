@@ -11,14 +11,16 @@
                 <form action="{{ route('admin.about.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
-                        <div class="card-body">
-                            <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                        <div class="card-header">
+                            <div class="page-breadcrumb d-none d-sm-flex align-items-center">
                                 <div class="breadcrumb-title border-0 pe-3">Update About Information</div>
                                 <div class="ms-auto">
                                     <button type="button" class="btn btn-outline-primary px-5" data-bs-toggle="modal"
                                         data-bs-target="#exampleModal">Main Title Update</button>
                                 </div>
                             </div>
+                        </div>
+                        <div class="card-body">
                             <div class="row g-3">
                                 <div class="col-lg-12">
                                     <label class="form-label">Preview</label><br>
