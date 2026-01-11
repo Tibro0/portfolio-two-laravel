@@ -11,8 +11,10 @@
                 <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
+                        <div class="card-header">
+                            <h5 class="d-flex align-items-center">Update Profile Information</h5>
+                        </div>
                         <div class="card-body">
-                            <h5 class="d-flex align-items-center mb-3">Update Profile Information</h5>
                             <div class="row g-3">
                                 <div class="col-lg-12">
                                     <label class="form-label">Preview</label><br>
@@ -20,7 +22,8 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <label class="form-label">Image (PNG)</label>
-                                    <input type="file" name="avatar" class="form-control @error('avatar') is-invalid @enderror">
+                                    <input type="file" name="avatar"
+                                        class="form-control @error('avatar') is-invalid @enderror">
                                     @error('avatar')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -30,7 +33,7 @@
                                     <label class="form-label">Name <span class="text-danger">*</span></label>
                                     <input type="text" name="name"
                                         class="form-control @error('name') is-invalid @enderror"
-                                        value="{{ auth()->user()->name ?? old('name')}}" placeholder="Name">
+                                        value="{{ auth()->user()->name ?? old('name') }}" placeholder="Name">
                                     @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -57,7 +60,8 @@
                                     <label class="form-label">Phone Two</label>
                                     <input type="text" name="phone_two"
                                         class="form-control @error('phone_two') is-invalid @enderror"
-                                        value="{{ auth()->user()->phone_two ?? old('phone_two') }}" placeholder="Phone Two">
+                                        value="{{ auth()->user()->phone_two ?? old('phone_two') }}"
+                                        placeholder="Phone Two">
                                     @error('phone_two')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -66,7 +70,8 @@
                                     <label class="form-label">Address Line One <span class="text-danger">*</span></label>
                                     <input type="text" name="address_line_one"
                                         class="form-control @error('address_line_one') is-invalid @enderror"
-                                        value="{{ auth()->user()->address_line_one ?? old('address_line_one') }}" placeholder="Address Line One">
+                                        value="{{ auth()->user()->address_line_one ?? old('address_line_one') }}"
+                                        placeholder="Address Line One">
                                     @error('address_line_one')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -75,7 +80,8 @@
                                     <label class="form-label">Address Line Two</label>
                                     <input type="text" name="address_line_two"
                                         class="form-control @error('address_line_two') is-invalid @enderror"
-                                        value="{{ auth()->user()->address_line_two ?? old('address_line_two') }}" placeholder="Address Line Two">
+                                        value="{{ auth()->user()->address_line_two ?? old('address_line_two') }}"
+                                        placeholder="Address Line Two">
                                     @error('address_line_two')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -85,7 +91,8 @@
                                     <label class="form-label">Short Description <span class="text-danger">*</span></label>
                                     <input type="text" name="short_description"
                                         class="form-control @error('short_description') is-invalid @enderror"
-                                        value="{{ auth()->user()->short_description ?? old('short_description') }}" placeholder="Short Description">
+                                        value="{{ auth()->user()->short_description ?? old('short_description') }}"
+                                        placeholder="Short Description">
                                     @error('short_description')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
