@@ -26,7 +26,7 @@
     {{-- toastr Css Link --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <title>@yield('page-title')</title>
-    @yield('css-link')
+    @stack('css-link')
 </head>
 
 <body>
@@ -43,7 +43,7 @@
             @yield('content')
         </div>
         <!--end page wrapper -->
-        @yield('model')
+        @stack('model')
         <!--start overlay-->
         <div class="overlay toggle-icon"></div>
         <!--end overlay-->
@@ -86,7 +86,7 @@
             }
         });
     </script>
-    @yield('js-link')
+    @stack('js-link')
 </body>
 
 </html>

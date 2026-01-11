@@ -69,7 +69,7 @@
     </div>
 @endsection
 
-@section('js-link')
+@push('js-link')
     {{-- List Link Active --}}
     <script>
         $(document).ready(function() {
@@ -88,4 +88,4 @@
             })
         });
     </script>
-@endsection
+@endpush

@@ -4,10 +4,10 @@
     {{ config('app.name') }} | Create Portfolio
 @endsection
 
-@section('css-link')
+@push('css-link')
     <link href="{{asset('admin/assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet" />
     <link href="{{asset('admin/assets/plugins/select2/css/select2-bootstrap4.css')}}" rel="stylesheet" />
-@endsection
+@endpush
 
 @section('content')
     <div class="page-content">
@@ -108,7 +108,7 @@
     </div>
 @endsection
 
-@section('js-link')
+@push('js-link')
     <script src="{{asset('admin/assets/plugins/select2/js/select2.min.js')}}"></script>
     <script>
         $('.single-select').select2({
@@ -118,4 +118,4 @@
             allowClear: Boolean($(this).data('allow-clear')),
         });
     </script>
-@endsection
+@endpush

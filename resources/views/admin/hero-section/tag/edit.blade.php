@@ -4,11 +4,11 @@
     {{ config('app.name') }} | Update Tag
 @endsection
 
-@section('css-link')
+@push('css-link')
 {{-- Bootstrap-icons Css --}}
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" />
-@endsection
+@endpush
 
 @section('content')
     <div class="page-content">

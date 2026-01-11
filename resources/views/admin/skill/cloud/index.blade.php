@@ -4,13 +4,13 @@
     {{ config('app.name') }} | All Cloud Skills
 @endsection
 
-@section('css-link')
+@push('css-link')
     {{-- dataTables Css --}}
     <link href="{{ asset('admin/assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
     {{-- Bootstrap-icons Css --}}
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" />
-@endsection
+@endpush
 
 @section('content')
     <div class="page-content">
@@ -64,7 +64,7 @@
     </div>
 @endsection
 
-@section('model')
+@push('model')
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -106,9 +106,9 @@
             </div>
         </div>
     </div>
-@endsection
+@endpush
 
-@section('js-link')
+@push('js-link')
     {{-- dataTables Js --}}
     <script src="{{ asset('admin/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('admin/assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
@@ -228,4 +228,4 @@
             })
         });
     </script>
-@endsection
+@endpush

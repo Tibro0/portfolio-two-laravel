@@ -63,7 +63,7 @@
     </div>
 @endsection
 
-@section('model')
+@push('model')
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -100,9 +100,9 @@
             </div>
         </div>
     </div>
-@endsection
+@endpush
 
-@section('js-link')
+@push('js-link')
     <script>
         $(document).ready(function() {
             $('#about-main-title').on('submit', function(e) {
@@ -171,4 +171,4 @@
             })
         });
     </script>
-@endsection
+@endpush

@@ -4,11 +4,11 @@
     {{ config('app.name') }} | Update Counter
 @endsection
 
-@section('css-link')
-{{-- Bootstrap-icons Css --}}
+@push('css-link')
+    {{-- Bootstrap-icons Css --}}
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" />
-@endsection
+@endpush
 
 @section('content')
     <div class="page-content">
@@ -26,7 +26,9 @@
                                     <i class="{{ $counter->icon }} h1"></i>
                                 </div>
                                 <div class="col-lg-12">
-                                    <label class="form-label">Icon <span class="text-danger">*</span> (<a href="https://icons.getbootstrap.com/" target="_blank">https://icons.getbootstrap.com/</a>)</label>
+                                    <label class="form-label">Icon <span class="text-danger">*</span> (<a
+                                            href="https://icons.getbootstrap.com/"
+                                            target="_blank">https://icons.getbootstrap.com/</a>)</label>
                                     <input type="text" name="icon"
                                         class="form-control @error('icon') is-invalid @enderror"
                                         value="{{ $counter->icon ?? old('icon') }}" placeholder="Name">

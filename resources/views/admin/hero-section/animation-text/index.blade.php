@@ -4,10 +4,10 @@
     {{ config('app.name') }} | All Animation Text
 @endsection
 
-@section('css-link')
+@push('css-link')
     {{-- dataTables Css --}}
     <link href="{{ asset('admin/assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
-@endsection
+@endpush
 
 @section('content')
     <div class="page-content">
@@ -36,7 +36,8 @@
                                     <td>
                                         <a href="{{ route('admin.animation-text.edit', $item->id) }}"
                                             class="btn btn-primary"><i class="lni lni-pencil-alt"></i></a>
-                                        <a href="{{ route('admin.animation-text.destroy', $item->id) }}" id="delete" class="btn btn-danger"><i class="lni lni-trash"></i></a>
+                                        <a href="{{ route('admin.animation-text.destroy', $item->id) }}" id="delete"
+                                            class="btn btn-danger"><i class="lni lni-trash"></i></a>
                                     </td>
                                 </tr>
                             @empty
@@ -56,7 +57,7 @@
     </div>
 @endsection
 
-@section('js-link')
+@push('js-link')
     {{-- dataTables Js --}}
     <script src="{{ asset('admin/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('admin/assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
@@ -116,4 +117,4 @@
 
         })
     </script>
-@endsection
+@endpush

@@ -4,13 +4,13 @@
     {{ config('app.name') }} | All Testimonials
 @endsection
 
-@section('css-link')
+@push('css-link')
     {{-- dataTables Css --}}
     <link href="{{ asset('admin/assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
     {{-- Bootstrap-icons Css --}}
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" />
-@endsection
+@endpush
 
 @section('content')
     <div class="page-content">
@@ -74,7 +74,7 @@
     </div>
 @endsection
 
-@section('model')
+@push('model')
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -112,10 +112,9 @@
             </div>
         </div>
     </div>
-@endsection
+@endpush
 
-
-@section('js-link')
+@push('js-link')
     {{-- dataTables Js --}}
     <script src="{{ asset('admin/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('admin/assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
@@ -208,13 +207,13 @@
                             if (errors.testimonial_main_title && errors.testimonial_main_title[
                                     0]) {
                                 $("input[name='testimonial_main_title']").addClass(
-                                'is-invalid');
+                                    'is-invalid');
                                 $('.testimonial_main_title').text(errors.testimonial_main_title[
                                     0]);
                             }
                             // testimonial_sub_title error
                             if (errors.testimonial_sub_title && errors.testimonial_sub_title[
-                                0]) {
+                                    0]) {
                                 $("input[name='testimonial_sub_title']").addClass('is-invalid');
                                 $('.testimonial_sub_title').text(errors.testimonial_sub_title[
                                     0]);
@@ -238,4 +237,4 @@
             })
         });
     </script>
-@endsection
+@endpush
