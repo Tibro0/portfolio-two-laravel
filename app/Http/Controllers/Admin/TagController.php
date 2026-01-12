@@ -47,7 +47,7 @@ class TagController extends Controller
     public function edit(string $id)
     {
         $tag = Tag::findOrFail($id);
-        return view('admin.hero-section.tag.edit', compact('tag'));
+        return response(['status' => 'success', 'tag' => $tag]);
     }
 
     /**
@@ -56,19 +56,16 @@ class TagController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'icon' => ['required', 'max:255', 'unique:tags,icon,'.$id],
-            'name' => ['required', 'max:255', 'unique:tags,name,'.$id],
+            'icon' => ['required', 'max:255', 'unique:tags,icon,' . $request->id],
+            'name' => ['required', 'max:255', 'unique:tags,name,' . $request->id],
         ]);
 
-        $tag = Tag::findOrFail($id);
+        $tag = Tag::findOrFail($request->id);
         $tag->icon = $request->icon;
         $tag->name = $request->name;
         $tag->save();
 
-        return redirect()->route('admin.tag.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Updated Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Updated Successfully!', 'tag' => $tag]);
     }
 
     /**
