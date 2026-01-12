@@ -20,10 +20,10 @@ class AnimationTextController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    // public function create()
-    // {
-    //     return view('admin.hero-section.animation-text.create');
-    // }
+    public function create()
+    {
+        //
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -55,7 +55,8 @@ class AnimationTextController extends Controller
     public function edit(string $id)
     {
         $animationText = AnimationText::findOrFail($id);
-        return view('admin.hero-section.animation-text.edit', compact('animationText'));
+
+        return response(['status' => 'success', 'animationText' => $animationText]);
     }
 
     /**
@@ -64,17 +65,14 @@ class AnimationTextController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'title' => ['required', 'max:255', 'unique:animation_texts,title,'.$id]
+            'title' => ['required', 'max:255', 'unique:animation_texts,title,' . $request->id]
         ]);
 
-        $animationText = AnimationText::findOrFail($id);
+        $animationText = AnimationText::findOrFail($request->id);
         $animationText->title = $request->title;
         $animationText->save();
 
-        return redirect()->route('admin.animation-text.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Updated Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Updated Successfully!']);
     }
 
     /**
