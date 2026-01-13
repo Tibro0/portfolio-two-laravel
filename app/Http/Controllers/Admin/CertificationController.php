@@ -17,7 +17,7 @@ class CertificationController extends Controller
         $keys = ['professional_expertise_title', 'professional_expertise_description'];
         $title = SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
         $certifications = Certification::all();
-        return view('admin.certification.index', compact('title','certifications'));
+        return view('admin.certification.index', compact('title', 'certifications'));
     }
 
     /**
@@ -25,7 +25,7 @@ class CertificationController extends Controller
      */
     public function create()
     {
-        return view('admin.certification.create');
+        //
     }
 
     /**
@@ -34,17 +34,14 @@ class CertificationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'=> ['required', 'max:255', 'unique:certifications,title']
+            'title' => ['required', 'max:255', 'unique:certifications,title']
         ]);
 
         $certification = new Certification();
         $certification->title = $request->title;
         $certification->save();
 
-        return redirect()->route('admin.certification.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Created Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Created Successfully!']);
     }
 
     /**
@@ -61,7 +58,7 @@ class CertificationController extends Controller
     public function edit(string $id)
     {
         $certification = Certification::findOrFail($id);
-        return view('admin.certification.edit', compact('certification'));
+        return response(['status' => 'success', 'certification' => $certification]);
     }
 
     /**
@@ -70,17 +67,14 @@ class CertificationController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'title'=> ['required', 'max:255', 'unique:certifications,title,'.$id]
+            'title' => ['required', 'max:255', 'unique:certifications,title,' . $id]
         ]);
 
         $certification = Certification::findOrFail($id);
         $certification->title = $request->title;
         $certification->save();
 
-        return redirect()->route('admin.certification.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Update Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Updated Successfully!']);
     }
 
     /**
