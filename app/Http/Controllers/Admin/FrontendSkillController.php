@@ -16,7 +16,7 @@ class FrontendSkillController extends Controller
     {
         $frontendSkills = FrontendSkill::all();
         $skillCardTitleOne = SkillCardTitle::where('id', 1)->first();
-        return view('admin.skill.frontend.index', compact('frontendSkills','skillCardTitleOne'));
+        return view('admin.skill.frontend.index', compact('frontendSkills', 'skillCardTitleOne'));
     }
 
     /**
@@ -33,8 +33,8 @@ class FrontendSkillController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'=>['required', 'max:255', 'unique:frontend_skills,title'],
-            'percentage'=>['required', 'integer', 'max:255'],
+            'title' => ['required', 'max:255', 'unique:frontend_skills,title'],
+            'percentage' => ['required', 'integer', 'max:255'],
         ]);
 
         $frontendSkill = new FrontendSkill();
@@ -42,10 +42,7 @@ class FrontendSkillController extends Controller
         $frontendSkill->percentage = $request->percentage;
         $frontendSkill->save();
 
-        return redirect()->route('admin.frontend-skill.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Created Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Created Successfully!']);
     }
 
     /**
@@ -62,7 +59,7 @@ class FrontendSkillController extends Controller
     public function edit(string $id)
     {
         $frontendSkill = FrontendSkill::findOrFail($id);
-        return view('admin.skill.frontend.edit', compact('frontendSkill'));
+        return response(['status' => 'success', 'frontendSkill' => $frontendSkill]);
     }
 
     /**
@@ -71,8 +68,8 @@ class FrontendSkillController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'title'=>['required', 'max:255', 'unique:frontend_skills,title,'.$id],
-            'percentage'=>['required', 'integer', 'max:255'],
+            'title' => ['required', 'max:255', 'unique:frontend_skills,title,' . $id],
+            'percentage' => ['required', 'integer', 'max:255'],
         ]);
 
         $frontendSkill = FrontendSkill::findOrFail($id);
@@ -80,10 +77,7 @@ class FrontendSkillController extends Controller
         $frontendSkill->percentage = $request->percentage;
         $frontendSkill->save();
 
-        return redirect()->route('admin.frontend-skill.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Updated Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Updated Successfully!']);
     }
 
     /**
@@ -99,8 +93,8 @@ class FrontendSkillController extends Controller
     public function skillCardTitleUpdate(Request $request, string $id)
     {
         $request->validate([
-            'icon'=> ['required', 'max:255'],
-            'title'=>['required', 'max:255']
+            'icon' => ['required', 'max:255'],
+            'title' => ['required', 'max:255']
         ]);
 
         $skillCardTitleOne = SkillCardTitle::findOrFail($id);

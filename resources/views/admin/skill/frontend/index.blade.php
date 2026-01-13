@@ -21,7 +21,9 @@
                     <div class="ms-auto">
                         <button type="button" class="btn btn-outline-primary px-5" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">Card Title Update</button>
-                        <a href="{{ route('admin.frontend-skill.create') }}" class="btn btn-primary px-5">Create New</a>
+                        {{-- <a href="{{ route('admin.frontend-skill.create') }}" class="btn btn-primary px-5">Create New</a> --}}
+                        <button type="button" class="btn btn-primary px-5" data-bs-toggle="modal"
+                            data-bs-target="#frontend-skill-create-modal">Create New</button>
                     </div>
                 </div>
             </div>
@@ -43,8 +45,8 @@
                                     <td>{{ $item->title }}</td>
                                     <td>{{ $item->percentage }}</td>
                                     <td>
-                                        <a href="{{ route('admin.frontend-skill.edit', $item->id) }}"
-                                            class="btn btn-primary"><i class="lni lni-pencil-alt"></i></a>
+                                        <button class="btn btn-primary edit-btn" data-id="{{ $item->id }}"><i
+                                                class="lni lni-pencil-alt"></i></button>
                                         <a href="{{ route('admin.frontend-skill.destroy', $item->id) }}" id="delete"
                                             class="btn btn-danger"><i class="lni lni-trash"></i></a>
                                     </td>
@@ -108,6 +110,75 @@
             </div>
         </div>
     </div>
+
+    <!-- Create Frontend Skill Modal -->
+    <div class="modal fade" id="frontend-skill-create-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Animation Text</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.frontend-skill.store') }}" method="POST"
+                        id="frontend-skill-create-form">
+                        @csrf
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label class="form-label">Title <span class="text-danger">*</span></label>
+                                <input type="text" name="title" class="form-control" value="{{ old('title') }}"
+                                    placeholder="Title">
+                                <div class="invalid-feedback title"></div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <label class="form-label">Percentage <span class="text-danger">*</span>
+                                    (95)</label>
+                                <input type="text" name="percentage" class="form-control"
+                                    value="{{ old('percentage') }}" placeholder="Percentage">
+                                <div class="invalid-feedback percentage"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-primary px-5">Save Changes</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Animation Text Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Update Animation Text</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editModalForm">
+                        <input type="hidden" name="id">
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label class="form-label">Title <span class="text-danger">*</span></label>
+                                <input type="text" name="title" class="form-control" placeholder="Title">
+                                <div class="invalid-feedback title"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <label class="form-label">Percentage <span class="text-danger">*</span> (95)</label>
+                                <input type="text" name="percentage" class="form-control" placeholder="Percentage">
+                                <div class="invalid-feedback percentage"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-primary px-5">Save Changes</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endpush
 
 @push('js-link')
@@ -151,7 +222,9 @@
                                         data.message,
                                         'success'
                                     )
-                                    window.location.reload();
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 3000);
                                 } else if (data.status == 'error') {
                                     Swal.fire(
                                         'Cant Delete',
@@ -228,6 +301,174 @@
                     }
                 });
             })
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Create Frontend Skill
+            $('#frontend-skill-create-form').on('submit', function(e) {
+                e.preventDefault();
+
+                // Clear previous errors
+                $('.invalid-feedback').text('');
+                $('input').removeClass('is-invalid');
+                // Button Disabled
+                let submitBtn = $(this).find('button[type="submit"]');
+                let originalText = submitBtn.text();
+                submitBtn.prop('disabled', true).text('Saving...');
+
+                $.ajax({
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            toastr.success(data.message, 'Success');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 3000);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Check if errors exist
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
+                            // title error
+                            if (errors.title && errors
+                                .title[
+                                    0]) {
+                                $("input[name='title']").addClass(
+                                    'is-invalid');
+                                $('.title').text(errors
+                                    .title[
+                                        0]);
+                            }
+                            // percentage error
+                            if (errors.percentage && errors
+                                .percentage[
+                                    0]) {
+                                $("input[name='percentage']").addClass(
+                                    'is-invalid');
+                                $('.percentage').text(errors
+                                    .percentage[
+                                        0]);
+                            }
+                        }
+                        // If no validation errors but general error
+                        else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            toastr.error(xhr.responseJSON.message, 'Error');
+                        }
+                        // Unknown error
+                        else {
+                            toastr.error('Something Went Wrong. Please Try Again Later.',
+                                'Error');
+                        }
+                    },
+                    complete: function() {
+                        // Button Disabled
+                        submitBtn.prop('disabled', false).text(originalText);
+                    }
+                });
+            })
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Edit Button Click
+            $('.edit-btn').on('click', function() {
+                let id = $(this).data('id');
+                openEditModal(id);
+            });
+
+            // Open Edit Modal with Data
+            function openEditModal(id) {
+                // Show modal
+                $('#editModal').modal('show');
+
+                // Fetch data via AJAX
+                $.ajax({
+                    url: '{{ route('admin.frontend-skill.edit', ':id') }}'.replace(":id", id),
+                    type: 'GET',
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            $("input[name='id']").val(data.frontendSkill.id);
+                            $("input[name='title']").val(data.frontendSkill.title);
+                            $("input[name='percentage']").val(data.frontendSkill.percentage);
+                        }
+                    },
+                    error: function(xhr) {
+                        $('#editModal').modal('hide');
+                        toastr.error('Something Went Wrong. Please Try Again Later', 'Error');
+                    }
+                });
+            }
+
+            // Edit Form Submission
+            $('#editModalForm').submit(function(e) {
+                e.preventDefault();
+
+                // Clear previous errors
+                $('.invalid-feedback').text('');
+                $('input').removeClass('is-invalid');
+                // Button Disabled
+                let submitBtn = $(this).find('button[type="submit"]');
+                let originalText = submitBtn.text();
+                submitBtn.prop('disabled', true).text('Saving...');
+
+                // Send AJAX request
+                $.ajax({
+                    url: '{{ route('admin.frontend-skill.update', ':id') }}'.replace(":id", $(
+                        "input[name='id']").val()),
+                    type: 'PUT',
+                    data: $(this).serialize(),
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            toastr.success(data.message, 'Success');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 3000);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Check if errors exist
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
+                            // title error
+                            if (errors.title && errors.title[0]) {
+                                $("input[name='title']").addClass('is-invalid');
+                                $('.title').text(errors.title[0]);
+                            }
+                            // percentage error
+                            if (errors.percentage && errors.percentage[0]) {
+                                $("input[name='percentage']").addClass('is-invalid');
+                                $('.percentage').text(errors.percentage[0]);
+                            }
+                        }
+                        // If no validation errors but general error
+                        else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            toastr.error(xhr.responseJSON.message, 'Error');
+                        }
+                        // Unknown error
+                        else {
+                            toastr.error('Something Went Wrong. Please Try Again Later.',
+                                'Error');
+                        }
+                    },
+                    complete: function() {
+                        // Button Disabled
+                        submitBtn.prop('disabled', false).text(originalText);
+                    }
+                });
+            });
         });
     </script>
 @endpush
