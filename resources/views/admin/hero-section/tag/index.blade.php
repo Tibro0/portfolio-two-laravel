@@ -113,59 +113,6 @@
             $('#example').DataTable();
         });
     </script>
-    <!--sweetalert cdn -->
-    <script src="{{ asset('admin/assets/js/sweetalert2@11.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('body').on('click', '#delete', function(e) {
-                e.preventDefault();
-
-                let deleteUrl = $(this).attr('href');
-
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-
-                        $.ajax({
-                            type: 'DELETE',
-                            url: deleteUrl,
-
-                            success: function(data) {
-
-                                if (data.status == 'success') {
-                                    Swal.fire(
-                                        'Deleted!',
-                                        data.message,
-                                        'success'
-                                    )
-                                    setTimeout(() => {
-                                        window.location.reload();
-                                    }, 3000);
-                                } else if (data.status == 'error') {
-                                    Swal.fire(
-                                        'Cant Delete',
-                                        data.message,
-                                        'error'
-                                    )
-                                }
-                            },
-                            error: function(xhr, status, error) {
-                                console.log(error);
-                            }
-                        })
-                    }
-                })
-            })
-
-        })
-    </script>
     <script>
         $(document).ready(function() {
             // Edit Button Click
@@ -228,9 +175,6 @@
                             $('#editModalForm').find('i').removeClass().addClass(
                                 `${data.tag.icon} h1`);
                             toastr.success(data.message, 'Success');
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 3000);
                         }
                     },
                     error: function(xhr, status, error) {
@@ -261,6 +205,9 @@
                     complete: function() {
                         // Button Disabled
                         submitBtn.prop('disabled', false).text(originalText);
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 3000);
                     }
                 });
             });

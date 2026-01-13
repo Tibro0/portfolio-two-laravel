@@ -158,9 +158,6 @@
                                         data.message,
                                         'success'
                                     )
-                                    setTimeout(() => {
-                                        window.location.reload();
-                                    }, 3000);
                                 } else if (data.status == 'error') {
                                     Swal.fire(
                                         'Cant Delete',
@@ -171,6 +168,11 @@
                             },
                             error: function(xhr, status, error) {
                                 console.log(error);
+                            },
+                            complete: function() {
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 3000);
                             }
                         })
                     }
@@ -203,10 +205,6 @@
                     success: function(data) {
                         if (data.status === 'success') {
                             toastr.success(data.message, 'Success');
-
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 3000);
                         }
                     },
                     error: function(xhr, status, error) {
@@ -237,6 +235,9 @@
                     complete: function() {
                         // Button Disabled
                         submitBtn.prop('disabled', false).text(originalText);
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 3000);
                     }
                 });
             })
@@ -299,9 +300,6 @@
                     success: function(data) {
                         if (data.status === 'success') {
                             toastr.success(data.message, 'Success');
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 3000);
                         }
                     },
                     error: function(xhr, status, error) {
@@ -327,6 +325,9 @@
                     complete: function() {
                         // Button Disabled
                         submitBtn.prop('disabled', false).text(originalText);
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 3000);
                     }
                 });
             });
