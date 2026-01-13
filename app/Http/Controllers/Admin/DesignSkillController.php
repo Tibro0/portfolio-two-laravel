@@ -24,7 +24,7 @@ class DesignSkillController extends Controller
      */
     public function create()
     {
-        return view('admin.skill.design.create');
+        //
     }
 
     /**
@@ -42,10 +42,7 @@ class DesignSkillController extends Controller
         $designSkill->percentage = $request->percentage;
         $designSkill->save();
 
-        return redirect()->route('admin.design-skill.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Created Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Created Successfully!']);
     }
 
     /**
@@ -62,7 +59,7 @@ class DesignSkillController extends Controller
     public function edit(string $id)
     {
         $designSkill = DesignSkill::findOrFail($id);
-        return view('admin.skill.design.edit', compact('designSkill'));
+        return response(['status' => 'success', 'designSkill' => $designSkill]);
     }
 
     /**
@@ -80,10 +77,7 @@ class DesignSkillController extends Controller
         $designSkill->percentage = $request->percentage;
         $designSkill->save();
 
-        return redirect()->route('admin.design-skill.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Updated Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Updated Successfully!']);
     }
 
     /**
