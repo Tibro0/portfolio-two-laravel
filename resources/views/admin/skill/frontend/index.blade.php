@@ -21,7 +21,6 @@
                     <div class="ms-auto">
                         <button type="button" class="btn btn-outline-primary px-5" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">Card Title Update</button>
-                        {{-- <a href="{{ route('admin.frontend-skill.create') }}" class="btn btn-primary px-5">Create New</a> --}}
                         <button type="button" class="btn btn-primary px-5" data-bs-toggle="modal"
                             data-bs-target="#frontend-skill-create-modal">Create New</button>
                     </div>
@@ -148,7 +147,7 @@
         </div>
     </div>
 
-    <!-- Update Animation Text Modal -->
+    <!-- Update Frontend Skill Modal -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">

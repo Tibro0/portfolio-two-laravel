@@ -24,7 +24,7 @@ class BackendSkillController extends Controller
      */
     public function create()
     {
-        return view('admin.skill.backend.create');
+        //
     }
 
     /**
@@ -42,10 +42,7 @@ class BackendSkillController extends Controller
         $backendSkill->percentage = $request->percentage;
         $backendSkill->save();
 
-        return redirect()->route('admin.backend-skill.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Created Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Created Successfully!']);
     }
 
     /**
@@ -62,7 +59,7 @@ class BackendSkillController extends Controller
     public function edit(string $id)
     {
         $backendSkill = BackendSkill::findOrFail($id);
-        return view('admin.skill.backend.edit', compact('backendSkill'));
+        return response(['status' => 'success', 'backendSkill' => $backendSkill]);
     }
 
     /**
@@ -80,10 +77,7 @@ class BackendSkillController extends Controller
         $backendSkill->percentage = $request->percentage;
         $backendSkill->save();
 
-        return redirect()->route('admin.backend-skill.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Updated Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Updated Successfully!']);
     }
 
     /**
