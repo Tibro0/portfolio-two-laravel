@@ -16,7 +16,7 @@ class CloudSkillController extends Controller
     {
         $cloudSkills = CloudSkill::all();
         $skillCardTitleOne = SkillCardTitle::where('id', 4)->first();
-        return view('admin.skill.cloud.index', compact('cloudSkills','skillCardTitleOne'));
+        return view('admin.skill.cloud.index', compact('cloudSkills', 'skillCardTitleOne'));
     }
 
     /**
@@ -24,7 +24,7 @@ class CloudSkillController extends Controller
      */
     public function create()
     {
-        return view('admin.skill.cloud.create');
+        //
     }
 
     /**
@@ -33,8 +33,8 @@ class CloudSkillController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'=>['required', 'max:255', 'unique:cloud_skills,title'],
-            'percentage'=>['required', 'integer', 'max:255'],
+            'title' => ['required', 'max:255', 'unique:cloud_skills,title'],
+            'percentage' => ['required', 'integer', 'max:255'],
         ]);
 
         $cloudSkill = new CloudSkill();
@@ -42,10 +42,7 @@ class CloudSkillController extends Controller
         $cloudSkill->percentage = $request->percentage;
         $cloudSkill->save();
 
-        return redirect()->route('admin.cloud-skill.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Created Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Created Successfully!']);
     }
 
     /**
@@ -62,7 +59,7 @@ class CloudSkillController extends Controller
     public function edit(string $id)
     {
         $cloudSkill = CloudSkill::findOrFail($id);
-        return view('admin.skill.cloud.edit', compact('cloudSkill'));
+        return response(['status' => 'success', 'cloudSkill' => $cloudSkill]);
     }
 
     /**
@@ -71,8 +68,8 @@ class CloudSkillController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'title'=>['required', 'max:255', 'unique:cloud_skills,title,'.$id],
-            'percentage'=>['required', 'integer', 'max:255'],
+            'title' => ['required', 'max:255', 'unique:cloud_skills,title,' . $id],
+            'percentage' => ['required', 'integer', 'max:255'],
         ]);
 
         $cloudSkill = CloudSkill::findOrFail($id);
@@ -80,10 +77,7 @@ class CloudSkillController extends Controller
         $cloudSkill->percentage = $request->percentage;
         $cloudSkill->save();
 
-        return redirect()->route('admin.cloud-skill.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Updated Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Updated Successfully!']);
     }
 
     /**
@@ -99,8 +93,8 @@ class CloudSkillController extends Controller
     public function cloudSkillCardTitleUpdate(Request $request, string $id)
     {
         $request->validate([
-            'icon'=> ['required', 'max:255'],
-            'title'=>['required', 'max:255']
+            'icon' => ['required', 'max:255'],
+            'title' => ['required', 'max:255']
         ]);
 
         $skillCardTitleOne = SkillCardTitle::findOrFail($id);
