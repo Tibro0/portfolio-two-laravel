@@ -56,11 +56,11 @@ class TagController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'icon' => ['required', 'max:255', 'unique:tags,icon,' . $request->id],
-            'name' => ['required', 'max:255', 'unique:tags,name,' . $request->id],
+            'icon' => ['required', 'max:255', 'unique:tags,icon,' . $id],
+            'name' => ['required', 'max:255', 'unique:tags,name,' . $id],
         ]);
 
-        $tag = Tag::findOrFail($request->id);
+        $tag = Tag::findOrFail($id);
         $tag->icon = $request->icon;
         $tag->name = $request->name;
         $tag->save();

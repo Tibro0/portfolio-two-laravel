@@ -65,10 +65,10 @@ class AnimationTextController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'title' => ['required', 'max:255', 'unique:animation_texts,title,' . $request->id]
+            'title' => ['required', 'max:255', 'unique:animation_texts,title,' . $id]
         ]);
 
-        $animationText = AnimationText::findOrFail($request->id);
+        $animationText = AnimationText::findOrFail($id);
         $animationText->title = $request->title;
         $animationText->save();
 

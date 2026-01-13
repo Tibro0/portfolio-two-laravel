@@ -47,7 +47,7 @@ class CounterController extends Controller
     public function edit(string $id)
     {
         $counter = Counter::findOrFail($id);
-        return view('admin.hero-section.counter.edit', compact('counter'));
+        return response(['status' => 'success', 'counter' =>  $counter]);
     }
 
     /**
@@ -67,10 +67,7 @@ class CounterController extends Controller
         $counter->title = $request->title;
         $counter->save();
 
-        return redirect()->route('admin.counter.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Updated Successfully!'
-        ]);
+        return response(['status' => 'success', 'message'=> 'Updated Successfully!', 'counter' =>  $counter]);
     }
 
     /**

@@ -54,9 +54,9 @@ class SocialIconController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id, Request $request)
+    public function edit(string $id)
     {
-        $socialIcon = SocialIcon::findOrFail($request->id);
+        $socialIcon = SocialIcon::findOrFail($id);
         return response(['status' => 'success', 'socialIcon' => $socialIcon]);
     }
 
@@ -66,11 +66,11 @@ class SocialIconController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'icon' => ['required', 'max:255', 'unique:social_icons,icon,' . $request->id],
+            'icon' => ['required', 'max:255', 'unique:social_icons,icon,' . $id],
             'url' => ['required', 'url', 'max:255']
         ]);
 
-        $socialIcon = SocialIcon::findOrFail($request->id);
+        $socialIcon = SocialIcon::findOrFail($id);
         $socialIcon->icon = $request->icon;
         $socialIcon->url = $request->url;
         $socialIcon->save();
