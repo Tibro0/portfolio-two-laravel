@@ -175,6 +175,9 @@
                             $('#editModalForm').find('i').removeClass().addClass(
                                 `${data.tag.icon} h1`);
                             toastr.success(data.message, 'Success');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 3000);
                         }
                     },
                     error: function(xhr, status, error) {
@@ -205,9 +208,6 @@
                     complete: function() {
                         // Button Disabled
                         submitBtn.prop('disabled', false).text(originalText);
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 3000);
                     }
                 });
             });

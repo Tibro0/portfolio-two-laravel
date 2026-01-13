@@ -57,7 +57,7 @@ Route::middleware('auth')->prefix('admin')->as('admin.')->group(function () {
     /** Animation Text All Route */
     Route::controller(AnimationTextController::class)->group(function () {
         Route::get('animation-text', 'index')->name('animation-text.index');
-        Route::get('animation-text/create', 'create')->name('animation-text.create');
+        // Route::get('animation-text/create', 'create')->name('animation-text.create');
         Route::post('animation-text/store', 'store')->name('animation-text.store');
         Route::get('animation-text/edit/{id}', 'edit')->name('animation-text.edit');
         Route::put('animation-text/{id}', 'update')->name('animation-text.update');
@@ -74,7 +74,7 @@ Route::middleware('auth')->prefix('admin')->as('admin.')->group(function () {
     /** Social Icon All Route */
     Route::controller(SocialIconController::class)->group(function () {
         Route::get('social-icon', 'index')->name('social-icon.index');
-        Route::get('social-icon/create', 'create')->name('social-icon.create');
+        // Route::get('social-icon/create', 'create')->name('social-icon.create');
         Route::post('social-icon/store', 'store')->name('social-icon.store');
         Route::get('social-icon/edit/{id}', 'edit')->name('social-icon.edit');
         Route::put('social-icon/{id}', 'update')->name('social-icon.update');

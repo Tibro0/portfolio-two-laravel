@@ -22,7 +22,7 @@ class SocialIconController extends Controller
      */
     public function create()
     {
-        return view('admin.hero-section.social-icon.create');
+        //
     }
 
     /**
@@ -40,10 +40,7 @@ class SocialIconController extends Controller
         $socialIcon->url = $request->url;
         $socialIcon->save();
 
-        return redirect()->route('admin.social-icon.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Created Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Created Successfully!']);
     }
 
     /**
@@ -57,10 +54,10 @@ class SocialIconController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id, Request $request)
     {
-        $socialIcon = SocialIcon::findOrFail($id);
-        return view('admin.hero-section.social-icon.edit', compact('socialIcon'));
+        $socialIcon = SocialIcon::findOrFail($request->id);
+        return response(['status' => 'success', 'socialIcon' => $socialIcon]);
     }
 
     /**
@@ -69,19 +66,16 @@ class SocialIconController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'icon' => ['required', 'max:255', 'unique:social_icons,icon,'. $id],
+            'icon' => ['required', 'max:255', 'unique:social_icons,icon,' . $request->id],
             'url' => ['required', 'url', 'max:255']
         ]);
 
-        $socialIcon = SocialIcon::findOrFail($id);
+        $socialIcon = SocialIcon::findOrFail($request->id);
         $socialIcon->icon = $request->icon;
         $socialIcon->url = $request->url;
         $socialIcon->save();
 
-        return redirect()->route('admin.social-icon.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Updated Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Updated Successfully!', 'socialIcon' => $socialIcon]);
     }
 
     /**

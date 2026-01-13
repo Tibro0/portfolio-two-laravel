@@ -19,7 +19,9 @@
                 <div class="page-breadcrumb d-none d-sm-flex align-items-center">
                     <div class="breadcrumb-title border-0 pe-3">All Social Icon</div>
                     <div class="ms-auto">
-                        <a href="{{ route('admin.social-icon.create') }}" class="btn btn-primary px-5">Create New</a>
+                        {{-- <a href="{{ route('admin.social-icon.create') }}" class="btn btn-primary px-5">Create New</a> --}}
+                        <button type="button" class="btn btn-primary px-5" data-bs-toggle="modal"
+                            data-bs-target="#social-icon-create-modal">Create New</button>
                     </div>
                 </div>
             </div>
@@ -41,8 +43,8 @@
                                     <td><i class="{{ $item->icon }} h1"></i></td>
                                     <td>{{ $item->url }}</td>
                                     <td>
-                                        <a href="{{ route('admin.social-icon.edit', $item->id) }}"
-                                            class="btn btn-primary"><i class="lni lni-pencil-alt"></i></a>
+                                        <button class="btn btn-primary edit-btn" data-id="{{ $item->id }}"><i
+                                                class="lni lni-pencil-alt"></i></button>
                                         <a href="{{ route('admin.social-icon.destroy', $item->id) }}" id="delete"
                                             class="btn btn-danger"><i class="lni lni-trash"></i></a>
                                     </td>
@@ -63,6 +65,83 @@
         </div>
     </div>
 @endsection
+
+@push('model')
+    <!-- Create Social Icon Modal -->
+    <div class="modal fade" id="social-icon-create-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Social Icon</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.social-icon.store') }}" method="POST" id="social-icon-create-form">
+                        @csrf
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label class="form-label">Icon <span class="text-danger">*</span> (<a
+                                        href="https://icons.getbootstrap.com/"
+                                        target="_blank">https://icons.getbootstrap.com/</a>)</label>
+                                <input type="text" name="icon" class="form-control" value="{{ old('icon') }}"
+                                    placeholder="Icon">
+                                <div class="invalid-feedback icon"></div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <label class="form-label">URL <span class="text-danger">*</span></label>
+                                <input type="text" name="url" class="form-control" value="{{ old('url') }}"
+                                    placeholder="URL">
+                                <div class="invalid-feedback url"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-primary px-5">Save Changes</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Animation Text Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Update Animation Text</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editModalForm">
+                        <input type="hidden" name="id">
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <label class="form-label">Preview</label><br>
+                                <i class="h1"></i>
+                            </div>
+                            <div class="col-lg-12">
+                                <label class="form-label">Icon <span class="text-danger">*</span> (<a
+                                        href="https://icons.getbootstrap.com/"
+                                        target="_blank">https://icons.getbootstrap.com/</a>)</label>
+                                <input type="text" name="icon" class="form-control" placeholder="Icon">
+                                <div class="invalid-feedback icon"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <label class="form-label">URL <span class="text-danger">*</span></label>
+                                <input type="text" name="url" class="form-control" placeholder="URL">
+                                <div class="invalid-feedback url"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-primary px-5">Save Changes</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endpush
 
 @push('js-link')
     {{-- dataTables Js --}}
@@ -105,7 +184,9 @@
                                         data.message,
                                         'success'
                                     )
-                                    window.location.reload();
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 3000);
                                 } else if (data.status == 'error') {
                                     Swal.fire(
                                         'Cant Delete',
@@ -116,12 +197,175 @@
                             },
                             error: function(xhr, status, error) {
                                 console.log(error);
-                            }
+                            },
+                            complete: function() {}
                         })
                     }
                 })
             })
 
         })
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Create Social Icon
+            $('#social-icon-create-form').on('submit', function(e) {
+                e.preventDefault();
+
+                // Clear previous errors
+                $('.invalid-feedback').text('');
+                $('input').removeClass('is-invalid');
+                // Button Disabled
+                let submitBtn = $(this).find('button[type="submit"]');
+                let originalText = submitBtn.text();
+                submitBtn.prop('disabled', true).text('Saving...');
+
+                $.ajax({
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            toastr.success(data.message, 'Success');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 3000);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Check if errors exist
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
+                            // icon error
+                            if (errors.icon && errors.icon[0]) {
+                                $("input[name='icon']").addClass('is-invalid');
+                                $('.icon').text(errors.icon[0]);
+                            }
+                            // url error
+                            if (errors.url && errors.url[0]) {
+                                $("input[name='url']").addClass('is-invalid');
+                                $('.url').text(errors.url[0]);
+                            }
+                        }
+                        // If no validation errors but general error
+                        else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            toastr.error(xhr.responseJSON.message, 'Error');
+                        }
+                        // Unknown error
+                        else {
+                            toastr.error('Something Went Wrong. Please Try Again Later.',
+                                'Error');
+                        }
+                    },
+                    complete: function(data) {
+                        // Button Disabled
+                        submitBtn.prop('disabled', false).text(originalText);
+                    }
+                });
+            })
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Edit Button Click
+            $('.edit-btn').on('click', function() {
+                let id = $(this).data('id');
+                openEditModal(id);
+            });
+
+            // Open Edit Modal with Data
+            function openEditModal(id) {
+                // Show modal
+                $('#editModal').modal('show');
+
+                // Fetch data via AJAX
+                $.ajax({
+                    url: '{{ route('admin.social-icon.edit', ':id') }}'.replace(":id", id),
+                    type: 'GET',
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            $("input[name='id']").val(data.socialIcon.id);
+                            $('#editModalForm').find('i').removeClass().addClass(
+                                `${data.socialIcon.icon} h1`);
+                            $("input[name='icon']").val(data.socialIcon.icon);
+                            $("input[name='url']").val(data.socialIcon.url);
+                        }
+                    },
+                    error: function(xhr) {
+                        $('#editModal').modal('hide');
+                        toastr.error('Something Went Wrong. Please Try Again Later', 'Error');
+                    }
+                });
+            }
+
+            // Edit Form Submission
+            $('#editModalForm').submit(function(e) {
+                e.preventDefault();
+
+                // Clear previous errors
+                $('.invalid-feedback').text('');
+                $('input').removeClass('is-invalid');
+                // Button Disabled
+                let submitBtn = $(this).find('button[type="submit"]');
+                let originalText = submitBtn.text();
+                submitBtn.prop('disabled', true).text('Saving...');
+
+                // Send AJAX request
+                $.ajax({
+                    url: '{{ route('admin.social-icon.update', ':id') }}'.replace(":id", $(
+                        "input[name='id']").val()),
+                    type: 'PUT',
+                    data: $(this).serialize(),
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            toastr.success(data.message, 'Success');
+                            $('#editModalForm').find('i').removeClass().addClass(
+                                `${data.socialIcon.icon} h1`);
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 3000);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Check if errors exist
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
+                            // icon error
+                            if (errors.icon && errors.icon[0]) {
+                                $("input[name='icon']").addClass('is-invalid');
+                                $('.icon').text(errors.icon[0]);
+                            }
+                            // url error
+                            if (errors.url && errors.url[0]) {
+                                $("input[name='url']").addClass('is-invalid');
+                                $('.url').text(errors.url[0]);
+                            }
+                        }
+                        // If no validation errors but general error
+                        else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            toastr.error(xhr.responseJSON.message, 'Error');
+                        }
+                        // Unknown error
+                        else {
+                            toastr.error('Something Went Wrong. Please Try Again Later.',
+                                'Error');
+                        }
+                    },
+                    complete: function() {
+                        // Button Disabled
+                        submitBtn.prop('disabled', false).text(originalText);
+                    }
+                });
+            });
+        });
     </script>
 @endpush
