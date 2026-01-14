@@ -39,9 +39,7 @@ Follow these steps to set up the project locally:
     ````bash
     git clone https://github.com/Tibro0/portfolio-two-laravel.git portfolio-two-laravel
     cd portfolio-two-laravel
-    code .```
-
-    ````
+    code .````
 
 2. **Open App\Providers\CustomMailServiceProvider.php**
 
