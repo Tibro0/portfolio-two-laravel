@@ -25,7 +25,7 @@ class AcademicExcellenceController extends Controller
      */
     public function create()
     {
-        return view('admin.resume.academic-excellence.create');
+        //
     }
 
     /**
@@ -47,10 +47,7 @@ class AcademicExcellenceController extends Controller
         $academicExcellence->description = $request->description;
         $academicExcellence->save();
 
-        return redirect()->route('admin.academic-excellence.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Created Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Created Successfully!']);
     }
 
     /**
@@ -67,7 +64,7 @@ class AcademicExcellenceController extends Controller
     public function edit(string $id)
     {
         $academicExcellence = AcademicExcellence::findOrFail($id);
-        return view('admin.resume.academic-excellence.edit', compact('academicExcellence'));
+        return response(['status' => 'success', 'academicExcellence' => $academicExcellence]);
     }
 
     /**
@@ -89,10 +86,7 @@ class AcademicExcellenceController extends Controller
         $academicExcellence->description = $request->description;
         $academicExcellence->save();
 
-        return redirect()->route('admin.academic-excellence.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Update Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Created Successfully!']);
     }
 
     /**
