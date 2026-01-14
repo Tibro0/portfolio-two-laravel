@@ -25,7 +25,7 @@ class ProfessionalJourneyController extends Controller
      */
     public function create()
     {
-        return view('admin.resume.professional-journey.create');
+        //
     }
 
     /**
@@ -47,10 +47,7 @@ class ProfessionalJourneyController extends Controller
         $professionalJourney->description = $request->description;
         $professionalJourney->save();
 
-        return redirect()->route('admin.professional-journey.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Created Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Created Successfully!']);
     }
 
     /**
@@ -67,7 +64,7 @@ class ProfessionalJourneyController extends Controller
     public function edit(string $id)
     {
         $professionalJourney = ProfessionalJourney::findOrFail($id);
-        return view('admin.resume.professional-journey.edit', compact('professionalJourney'));
+        return response(['status' => 'success', 'professionalJourney' => $professionalJourney]);
     }
 
     /**
@@ -89,10 +86,7 @@ class ProfessionalJourneyController extends Controller
         $professionalJourney->description = $request->description;
         $professionalJourney->save();
 
-        return redirect()->route('admin.professional-journey.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Update Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Updated Successfully!']);
     }
 
     /**
