@@ -94,3 +94,80 @@ class CustomMailServiceProvider extends ServiceProvider
     }
 }
 ```
+
+3. **Open App\Providers\SettingsServiceProvider.php**
+
+```bash
+<?php
+
+namespace App\Providers;
+
+use App\Models\Setting;
+use App\Services\SettingsService;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\ServiceProvider;
+
+class SettingsServiceProvider extends ServiceProvider
+{
+    /**
+     * Register services.
+     */
+    public function register(): void
+    {
+        // $this->app->singleton(SettingsService::class, function () {
+        //     return new SettingsService();
+        // });
+    }
+
+    /**
+     * Bootstrap services.
+     */
+    public function boot(): void
+    {
+        // $settingsService = $this->app->make(SettingsService::class);
+        // $settingsService->setGlobalSettings();
+    }
+}
+```
+
+4. **Install PHP Dependencies**
+
+```bash
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
+```
+
+5. **Configure Environment Variables**
+   Edit the .env file with your database credentials and other settings:
+
+```bash
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+
+6. **Run database migrations and seeders**
+
+```bash
+php artisan migrate:fresh --seed
+npm run dev
+npm run build
+```
+
+7. **Start The Development Server**
+
+```bash
+php artisan serve
+```
+
+8. **Access The Application**
+
+```bash
+http://127.0.0.1:8000/
+```
