@@ -38,3 +38,9 @@ Follow these steps to set up the project locally:
    ```bash
    git clone https://github.com/Tibro0/portfolio-two-laravel.git portfolio-two-laravel
    cd portfolio-two-laravel
+   code .
+   ```
+
+2. **Open Tibro**
+```bash
+
