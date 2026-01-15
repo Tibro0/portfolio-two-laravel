@@ -25,7 +25,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('admin.service.create');
+        //
     }
 
     /**
@@ -45,10 +45,7 @@ class ServiceController extends Controller
         $service->description = $request->description;
         $service->save();
 
-        return redirect()->route('admin.service.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Created Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Created Successfully!']);
     }
 
     /**
@@ -65,7 +62,7 @@ class ServiceController extends Controller
     public function edit(string $id)
     {
         $service = Service::findOrFail($id);
-        return view('admin.service.edit', compact('service'));
+        return response(['status' => 'success', 'service' => $service]);
     }
 
     /**
@@ -85,10 +82,7 @@ class ServiceController extends Controller
         $service->description = $request->description;
         $service->save();
 
-        return redirect()->route('admin.service.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Updated Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Updated Successfully!',  'service' => $service]);
     }
 
     /**

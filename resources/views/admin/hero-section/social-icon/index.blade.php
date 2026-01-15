@@ -19,7 +19,6 @@
                 <div class="page-breadcrumb d-none d-sm-flex align-items-center">
                     <div class="breadcrumb-title border-0 pe-3">All Social Icon</div>
                     <div class="ms-auto">
-                        {{-- <a href="{{ route('admin.social-icon.create') }}" class="btn btn-primary px-5">Create New</a> --}}
                         <button type="button" class="btn btn-primary px-5" data-bs-toggle="modal"
                             data-bs-target="#social-icon-create-modal">Create New</button>
                     </div>
