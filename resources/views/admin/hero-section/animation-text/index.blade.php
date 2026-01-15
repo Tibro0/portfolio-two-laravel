@@ -106,9 +106,9 @@
                                 <input type="text" class="form-control" name="title">
                                 <div class="invalid-feedback title"></div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary px-5">Save Changes</button>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary px-5">Save Changes</button>
+                            </div>
                         </div>
                     </form>
                 </div>
