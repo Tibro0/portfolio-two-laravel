@@ -43,10 +43,7 @@ class FaqController extends Controller
         $faq->answer = $request->answer;
         $faq->save();
 
-        return redirect()->route('admin.faq.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Created Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Created Successfully!']);
     }
 
     /**
@@ -60,10 +57,10 @@ class FaqController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id, Request $request)
     {
         $faq = Faq::findOrFail($id);
-        return view('admin.faq.edit', compact('faq'));
+        return response(['status' => 'success', 'faq' => $faq]);
     }
 
     /**
@@ -81,10 +78,7 @@ class FaqController extends Controller
         $faq->answer = $request->answer;
         $faq->save();
 
-        return redirect()->route('admin.faq.index')->with('toast', [
-            'type' => 'success',
-            'message' => 'Updated Successfully!'
-        ]);
+        return response(['status' => 'success', 'message' => 'Updated Successfully!']);
     }
 
     /**

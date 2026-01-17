@@ -21,7 +21,8 @@
                     <div class="ms-auto">
                         <button type="button" class="btn btn-outline-primary px-5" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">Main Title Update</button>
-                        <a href="{{ route('admin.faq.create') }}" class="btn btn-primary px-5">Create New</a>
+                        <button type="button" class="btn btn-primary px-5" data-bs-toggle="modal"
+                            data-bs-target="#faq-create-modal">Create New</button>
                     </div>
                 </div>
             </div>
@@ -43,8 +44,8 @@
                                     <td>{{ Str::limit($item->question, 50) }}</td>
                                     <td>{{ Str::limit($item->answer, 100) }}</td>
                                     <td>
-                                        <a href="{{ route('admin.faq.edit', $item->id) }}" class="btn btn-primary"><i
-                                                class="lni lni-pencil-alt"></i></a>
+                                        <button class="btn btn-primary edit-btn" data-id="{{ $item->id }}"><i
+                                                class="lni lni-pencil-alt"></i></button>
                                         <a href="{{ route('admin.faq.destroy', $item->id) }}" id="delete"
                                             class="btn btn-danger"><i class="lni lni-trash"></i></a>
                                     </td>
@@ -103,6 +104,72 @@
             </div>
         </div>
     </div>
+
+    <!-- Create Faq Modal -->
+    <div class="modal fade" id="faq-create-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Faq</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.faq.store') }}" method="POST" id="faq-create-form">
+                        @csrf
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label class="form-label">Question <span class="text-danger">*</span></label>
+                                <input type="text" name="question" class="form-control" value="{{ old('question') }}"
+                                    placeholder="Question">
+                                <div class="invalid-feedback question"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <label class="form-label">Answer <span class="text-danger">*</span></label>
+                                <textarea name="answer" cols="30" rows="10" class="form-control" placeholder="Answer">{{ old('answer') }}</textarea>
+                                <div class="invalid-feedback answer"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-primary px-5">Save Changes</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Faq Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Update Faq</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editModalForm">
+                        <input type="hidden" name="id">
+                        <div class="row g-3">
+                            <div class="col-lg-12">
+                                <label class="form-label">Question <span class="text-danger">*</span></label>
+                                <input type="text" name="question" class="form-control"
+                                    value="{{ old('question') }}" placeholder="Question">
+                                <div class="invalid-feedback question"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <label class="form-label">Answer <span class="text-danger">*</span></label>
+                                <textarea name="answer" cols="30" rows="10" class="form-control" placeholder="Answer">{{ old('answer') }}</textarea>
+                                <div class="invalid-feedback answer"></div>
+                            </div>
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-primary px-5">Save Changes</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endpush
 
 @push('js-link')
@@ -146,7 +213,9 @@
                                         data.message,
                                         'success'
                                     )
-                                    window.location.reload();
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 3000);
                                 } else if (data.status == 'error') {
                                     Swal.fire(
                                         'Cant Delete',
@@ -221,6 +290,168 @@
                     }
                 });
             })
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Create Faq
+            $('#faq-create-form').on('submit', function(e) {
+                e.preventDefault();
+
+                // Clear previous errors
+                $('.invalid-feedback').text('');
+                $('input, textarea').removeClass('is-invalid');
+                // Button Disabled
+                let submitBtn = $(this).find('button[type="submit"]');
+                let originalText = submitBtn.text();
+                submitBtn.prop('disabled', true).text('Saving...');
+
+                $.ajax({
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            toastr.success(data.message, 'Success');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 3000);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Check if errors exist
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
+                            // question error
+                            if (errors.question && errors.question[0]) {
+                                $("input[name='question']").addClass(
+                                    'is-invalid');
+                                $('.question').text(errors.question[0]);
+                            }
+                            // answer error
+                            if (errors.answer && errors.answer[0]) {
+                                $("textarea[name='answer']").addClass(
+                                    'is-invalid');
+                                $('.answer').text(errors.answer[0]);
+                            }
+                        }
+                        // If no validation errors but general error
+                        else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            toastr.error(xhr.responseJSON.message, 'Error');
+                        }
+                        // Unknown error
+                        else {
+                            toastr.error('Something Went Wrong. Please Try Again Later.',
+                                'Error');
+                        }
+                    },
+                    complete: function() {
+                        // Button Disabled
+                        submitBtn.prop('disabled', false).text(originalText);
+                    }
+                });
+            })
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Edit Button Click
+            $('.edit-btn').on('click', function() {
+                let id = $(this).data('id');
+                openEditModal(id);
+            });
+
+            // Open Edit Modal with Data
+            function openEditModal(id) {
+                // Show modal
+                $('#editModal').modal('show');
+
+                // Fetch data via AJAX
+                $.ajax({
+                    url: '{{ route('admin.faq.edit', ':id') }}'.replace(":id", id),
+                    type: 'GET',
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            $("input[name='id']").val(data.faq.id);
+                            $("input[name='question']").val(data.faq.question);
+                            $("textarea[name='answer']").val(data.faq.answer);
+                        }
+                    },
+                    error: function(xhr) {
+                        $('#editModal').modal('hide');
+                        toastr.error('Something Went Wrong. Please Try Again Later', 'Error');
+                    }
+                });
+            }
+
+            // Edit Form Submission
+            $('#editModalForm').submit(function(e) {
+                e.preventDefault();
+
+                // Clear previous errors
+                $('.invalid-feedback').text('');
+                $('input, textarea').removeClass('is-invalid');
+                // Button Disabled
+                let submitBtn = $(this).find('button[type="submit"]');
+                let originalText = submitBtn.text();
+                submitBtn.prop('disabled', true).text('Saving...');
+
+                // Send AJAX request
+                $.ajax({
+                    url: '{{ route('admin.faq.update', ':id') }}'.replace(":id", $(
+                        "input[name='id']").val()),
+                    type: 'PUT',
+                    data: $(this).serialize(),
+                    beforeSend: function() {
+
+                    },
+                    success: function(data) {
+                        if (data.status === 'success') {
+                            toastr.success(data.message, 'Success');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 3000);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Check if errors exist
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            let errors = xhr.responseJSON.errors;
+                            // question error
+                            if (errors.question && errors.question[0]) {
+                                $("input[name='question']").addClass(
+                                    'is-invalid');
+                                $('.question').text(errors.question[0]);
+                            }
+                            // answer error
+                            if (errors.answer && errors.answer[0]) {
+                                $("textarea[name='answer']").addClass(
+                                    'is-invalid');
+                                $('.answer').text(errors.answer[0]);
+                            }
+                        }
+                        // If no validation errors but general error
+                        else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            toastr.error(xhr.responseJSON.message, 'Error');
+                        }
+                        // Unknown error
+                        else {
+                            toastr.error('Something Went Wrong. Please Try Again Later.',
+                                'Error');
+                        }
+                    },
+                    complete: function() {
+                        // Button Disabled
+                        submitBtn.prop('disabled', false).text(originalText);
+                    }
+                });
+            });
         });
     </script>
 @endpush
