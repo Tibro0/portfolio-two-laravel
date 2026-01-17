@@ -28,7 +28,6 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-
                                 <div class="col-lg-12">
                                     <label class="form-label">Name <span class="text-danger">*</span></label>
                                     <input type="text" name="name"
@@ -42,7 +41,8 @@
                                     <label class="form-label">Email <span class="text-danger">*</span></label>
                                     <input type="email" name="email"
                                         class="form-control @error('email') is-invalid @enderror"
-                                        value="{{ auth()->user()->email ?? old('email') }}" placeholder="Email">
+                                        value="{{ auth()->user()->email ?? old('email') }}" placeholder="Email"
+                                        @readonly(Auth::user()->password === null)>
                                     @error('email')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -107,46 +107,50 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <form action="{{ route('admin.profile.password.update') }}" method="POST">
-                    @csrf
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="d-flex align-items-center mb-3">Update Password</h5>
-                            <div class="row g-3">
-                                <div class="col-lg-12">
-                                    <label class="form-label">Current Password <span class="text-danger">*</span></label>
-                                    <input type="password" name="current_password"
-                                        class="form-control @error('current_password') is-invalid @enderror">
-                                    @error('current_password')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="col-lg-12">
-                                    <label class="form-label">New Password <span class="text-danger">*</span></label>
-                                    <input type="password" name="password"
-                                        class="form-control @error('password') is-invalid @enderror">
-                                    @error('password')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="col-lg-12">
-                                    <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
-                                    <input type="password" name="password_confirmation"
-                                        class="form-control @error('password_confirmation') is-invalid @enderror">
-                                    @error('password_confirmation')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="col-lg-12">
-                                    <button type="submit" class="btn btn-primary px-5">Save Changes</button>
+        @if (Auth::user()->password !== null)
+            <div class="row">
+                <div class="col-lg-12">
+                    <form action="{{ route('admin.profile.password.update') }}" method="POST">
+                        @csrf
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="d-flex align-items-center mb-3">Update Password</h5>
+                                <div class="row g-3">
+                                    <div class="col-lg-12">
+                                        <label class="form-label">Current Password <span
+                                                class="text-danger">*</span></label>
+                                        <input type="password" name="current_password"
+                                            class="form-control @error('current_password') is-invalid @enderror">
+                                        @error('current_password')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label class="form-label">New Password <span class="text-danger">*</span></label>
+                                        <input type="password" name="password"
+                                            class="form-control @error('password') is-invalid @enderror">
+                                        @error('password')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label class="form-label">Confirm Password <span
+                                                class="text-danger">*</span></label>
+                                        <input type="password" name="password_confirmation"
+                                            class="form-control @error('password_confirmation') is-invalid @enderror">
+                                        @error('password_confirmation')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <button type="submit" class="btn btn-primary px-5">Save Changes</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
+        @endif
     </div>
 @endsection
