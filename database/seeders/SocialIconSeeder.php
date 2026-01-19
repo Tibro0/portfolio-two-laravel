@@ -34,7 +34,7 @@ class SocialIconSeeder extends Seeder
             ],
             [
                 'icon'=> 'bi bi-whatsapp',
-                'url'=> 'https://api.whatsapp.com/send/?phone=8801734449023&text=Hello&type=phone_number&app_absent=0',
+                'url'=> 'https://api.whatsapp.com/send/?phone=8801575827988&text=Hello&type=phone_number&app_absent=0',
                 'created_at'=> now(),
                 'updated_at'=> now(),
             ],
