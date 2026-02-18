@@ -34,10 +34,6 @@ class CustomMailServiceProvider extends ServiceProvider
             Config::set('mail.mailers.smtp.username', $mailSetting['mail_username']);
             Config::set('mail.mailers.smtp.password', $mailSetting['mail_password']);
             Config::set('mail.from.address', $mailSetting['mail_from_address']);
-
-            Config::set('services.google.client_id', $mailSetting['google_client_id']);
-            Config::set('services.google.client_secret', $mailSetting['google_client_secret']);
-            Config::set('services.google.redirect', $mailSetting['google_redirect_url']);
         }
     }
 }
