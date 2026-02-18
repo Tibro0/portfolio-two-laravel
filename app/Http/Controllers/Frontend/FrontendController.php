@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Http\Controllers\Admin\SubscriberController;
 use App\Http\Controllers\Controller;
 use App\Mail\ContactFormMail;
 use App\Models\About;
@@ -57,6 +58,8 @@ class FrontendController extends Controller
 
     public function contactForm(Request $request)
     {
+        SubscriberController::emailApiSetting();
+
         $request->validate([
             'name' => ['required', 'max:255'],
             'email' => ['required', 'max:255'],
@@ -67,12 +70,6 @@ class FrontendController extends Controller
         $email = User::where('id', 1)->first()->pluck('email')->toArray();
         Mail::to($email)->send(new ContactFormMail($request->name, $request->email, $request->subject, $request->message));
         return response(['message' => 'Your Message Has been Sent!']);
-
-
-        // $email = User::where('id', 1)->first()->pluck('email')->toArray();
-        // Mail::to($email)->send(new ContactFormMail($request->name, $request->email, $request->subject, $request->message));
-        // toastr()->success('Your Message Has been Sent!');
-        // return redirect()->back();
     }
 
     public function downloadCv()

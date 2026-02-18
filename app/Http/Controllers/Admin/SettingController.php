@@ -7,6 +7,7 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Services\SettingsService;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 
 class SettingController extends Controller
@@ -59,10 +60,6 @@ class SettingController extends Controller
             );
         }
 
-        $settingsService = app(SettingsService::class);
-        $settingsService->clearCachedSettings();
-        Cache::forget('mail_settings');
-
         return redirect()->back()->with('toast', [
             'type' => 'success',
             'message' => 'Updated Successfully!'
@@ -84,16 +81,12 @@ class SettingController extends Controller
             );
         }
 
-        $settingsService = app(SettingsService::class);
-        $settingsService->clearCachedSettings();
-        Cache::forget('mail_settings');
-
         return redirect()->back()->with('toast', [
             'type' => 'success',
             'message' => 'Updated Successfully!'
         ]);
     }
-    
+
     public function updateGoogleSetting(Request $request)
     {
         $validatedData = $request->validate([
@@ -108,10 +101,6 @@ class SettingController extends Controller
                 ['value' => $value]
             );
         }
-
-        $settingsService = app(SettingsService::class);
-        $settingsService->clearCachedSettings();
-        Cache::forget('mail_settings');
 
         return redirect()->back()->with('toast', [
             'type' => 'success',
