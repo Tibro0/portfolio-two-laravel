@@ -5,12 +5,25 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Mail\SubscriberMail;
 use App\Models\SectionTitle;
+use App\Models\Setting;
 use App\Models\Subscriber;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 
 class SubscriberController extends Controller
 {
+    public static function emailApiSetting()
+    {
+        $emailSettings = Setting::pluck('value', 'key')->toArray();
+
+        Config::set('mail.mailers.smtp.host', $emailSettings['mail_host']);
+        Config::set('mail.mailers.smtp.port', $emailSettings['mail_port']);
+        Config::set('mail.mailers.smtp.username', $emailSettings['mail_username']);
+        Config::set('mail.mailers.smtp.password', $emailSettings['mail_password']);
+        Config::set('mail.from.address', $emailSettings['mail_from_address']);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -109,6 +122,8 @@ class SubscriberController extends Controller
 
     public function subscriberSent(Request $request)
     {
+        $this->emailApiSetting();
+
         $request->validate([
             'subject' => ['required', 'max:255'],
             'message' => ['required']
