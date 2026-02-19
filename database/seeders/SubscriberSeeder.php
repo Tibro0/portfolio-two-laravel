@@ -15,10 +15,10 @@ class SubscriberSeeder extends Seeder
     {
         Subscriber::insert([
             [
-                'email'=> 'faysaltibro@gmail.com',
-                'status'=> '1',
-                'created_at'=> now(),
-                'updated_at'=> now(),
+                'email' => 'faysaltibro@gmail.com',
+                'status' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
     }

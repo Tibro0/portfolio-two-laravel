@@ -15,22 +15,22 @@ class DesignSkillSeeder extends Seeder
     {
         DesignSkill::insert([
             [
-                'title'=> 'Figma',
-                'percentage'=> '95',
-                'created_at'=> now(),
-                'updated_at'=> now(),
+                'title' => 'Figma',
+                'percentage' => '95',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
-                'title'=> 'Photoshop',
-                'percentage'=> '96',
-                'created_at'=> now(),
-                'updated_at'=> now(),
+                'title' => 'Photoshop',
+                'percentage' => '96',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
-                'title'=> 'Illustrator',
-                'percentage'=> '94',
-                'created_at'=> now(),
-                'updated_at'=> now(),
+                'title' => 'Illustrator',
+                'percentage' => '94',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
     }

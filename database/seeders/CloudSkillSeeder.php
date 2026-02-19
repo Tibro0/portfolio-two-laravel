@@ -15,22 +15,22 @@ class CloudSkillSeeder extends Seeder
     {
         CloudSkill::insert([
             [
-                'title'=> 'Git',
-                'percentage'=> '99',
-                'created_at'=> now(),
-                'updated_at'=> now(),
+                'title' => 'Git',
+                'percentage' => '99',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
-                'title'=> 'AWS',
-                'percentage'=> '98',
-                'created_at'=> now(),
-                'updated_at'=> now(),
+                'title' => 'AWS',
+                'percentage' => '98',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
-                'title'=> 'cPanel ',
-                'percentage'=> '98',
-                'created_at'=> now(),
-                'updated_at'=> now(),
+                'title' => 'cPanel ',
+                'percentage' => '98',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
     }

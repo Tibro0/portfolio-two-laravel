@@ -30,8 +30,8 @@ class CategorySeeder extends Seeder
             Category::create([
                 'name' => $category['name'],
                 'slug' => Str::slug($category['name']),
-                'created_at'=> now(),
-                'updated_at'=> now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
     }
