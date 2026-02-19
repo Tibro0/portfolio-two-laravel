@@ -142,13 +142,7 @@ DB_PASSWORD=your_password
 php artisan migrate:fresh --seed
 ```
 
-7. **Start The Development Server**
-
-```bash
-php artisan serve
-```
-
-8. **Open App\Providers\CustomMailServiceProvider.php**
+7. **Open App\Providers\CustomMailServiceProvider.php**
 
 ```bash
 <?php
@@ -200,7 +194,7 @@ class CustomMailServiceProvider extends ServiceProvider
 }
 ```
 
-9. **Open App\Providers\SettingsServiceProvider.php**
+8. **Open App\Providers\SettingsServiceProvider.php**
 
 ```bash
 <?php
@@ -234,6 +228,12 @@ class SettingsServiceProvider extends ServiceProvider
         $settingsService->setGlobalSettings();
     }
 }
+```
+
+9. **Start The Development Server**
+
+```bash
+php artisan serve
 ```
 
 10. **Access The Application**
