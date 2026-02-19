@@ -19,7 +19,7 @@ A brief description of your Laravel project and its purpose.
 Before you begin, ensure you have met the following requirements:
 
 - PHP >= 8.2
-- Composer 2.8.12
+- Composer 2.9.5
 - Node.js >= 14 (if using frontend build tools)
 - NPM or Yarn
 - Database (MySQL)
