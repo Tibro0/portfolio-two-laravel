@@ -1,9 +1,5 @@
 # Personal Portfolio Website
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
-[![Laravel Version](https://img.shields.io/badge/Laravel-10.x%2B-red.svg)](https://laravel.com)
-[![PHP Version](https://img.shields.io/badge/PHP-8.1%2B-blue.svg)](https://php.net)
-
 A brief description of your Laravel project and its purpose.
 
 ## ✨ Features
