@@ -20,7 +20,7 @@ Before you begin, ensure you have met the following requirements:
 
 - PHP >= 8.3.29
 - Composer 2.9.5
-- Node.js >= 14 (if using frontend build tools)
+- Node.js >= 22.22.0 (if using frontend build tools)
 - NPM or Yarn
 - Database (MySQL)
 - Web server (Apache/Nginx) or PHP built-in server
