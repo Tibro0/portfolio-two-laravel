@@ -19,7 +19,7 @@ class TestimonialController extends Controller
         $keys = ['testimonial_main_title', 'testimonial_sub_title'];
         $title = SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
         $testimonials = Testimonial::all();
-        return view('admin.testimonial.index', compact('title','testimonials'));
+        return view('admin.testimonial.index', compact('title', 'testimonials'));
     }
 
     /**
@@ -97,6 +97,7 @@ class TestimonialController extends Controller
             'ratting' => ['required', 'integer', 'max:255'],
         ]);
 
+        $oldImage = $request->old_image;
         if ($request->file('image')) {
             $image = $request->file('image');
             $manager = new ImageManager(new Driver());
@@ -114,11 +115,22 @@ class TestimonialController extends Controller
             $testimonial->ratting = $request->ratting;
             $testimonial->save();
 
+            $defaultImages = [
+                'frontend/assets/img/person/person-f-1.webp',
+                'frontend/assets/img/person/person-m-2.webp',
+                'frontend/assets/img/person/person-f-3.webp',
+                'frontend/assets/img/person/person-m-4.webp',
+            ];
+
+            if ($oldImage && !in_array($oldImage, $defaultImages) && file_exists($oldImage)) {
+                unlink($oldImage);
+            }
+
             return redirect()->route('admin.testimonial.index')->with('toast', [
                 'type' => 'success',
                 'message' => 'Updated Successfully!'
             ]);
-        }else{
+        } else {
             $testimonial = Testimonial::findOrFail($id);
             $testimonial->name = $request->name;
             $testimonial->designation = $request->designation;
@@ -139,9 +151,19 @@ class TestimonialController extends Controller
     public function destroy(string $id)
     {
         $testimonial = Testimonial::findOrFail($id);
-        unlink($testimonial->image);
-        $testimonial->delete();
 
+        $defaultImages = [
+            'frontend/assets/img/person/person-f-1.webp',
+            'frontend/assets/img/person/person-m-2.webp',
+            'frontend/assets/img/person/person-f-3.webp',
+            'frontend/assets/img/person/person-m-4.webp',
+        ];
+
+        if ($testimonial->image && !in_array($testimonial->image, $defaultImages) && file_exists($testimonial->image)) {
+            unlink($testimonial->image);
+        }
+
+        $testimonial->delete();
         return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 
