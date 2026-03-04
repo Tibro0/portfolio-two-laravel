@@ -106,6 +106,7 @@ class PortfolioController extends Controller
             'github_link' => ['url', 'nullable', 'max:255'],
         ]);
 
+        $oldImage = $request->old_thumb_image;
         if ($request->file('thumb_image')) {
             $image = $request->file('thumb_image');
             $manager = new ImageManager(new Driver());
@@ -126,11 +127,24 @@ class PortfolioController extends Controller
             $portfolio->github_link = $request->github_link;
             $portfolio->save();
 
+            $defaultImages = [
+                'frontend/assets/img/portfolio/portfolio-1.png',
+                'frontend/assets/img/portfolio/portfolio-2.png',
+                'frontend/assets/img/portfolio/portfolio-3.png',
+                'frontend/assets/img/portfolio/portfolio-4.png',
+                'frontend/assets/img/portfolio/portfolio-5.png',
+                'frontend/assets/img/portfolio/portfolio-6.png',
+            ];
+
+            if ($oldImage && !in_array($oldImage, $defaultImages) && file_exists($oldImage)) {
+                unlink($oldImage);
+            }
+
             return redirect()->route('admin.portfolio.index')->with('toast', [
                 'type' => 'success',
                 'message' => 'Updated Successfully!'
             ]);
-        }else{
+        } else {
             $portfolio = Portfolio::findOrFail($id);
             $portfolio->category_id = $request->category;
             $portfolio->frontend_title = $request->frontend_title;
@@ -154,9 +168,21 @@ class PortfolioController extends Controller
     public function destroy(string $id)
     {
         $portfolio = Portfolio::findOrFail($id);
-        unlink($portfolio->thumb_image);
-        $portfolio->delete();
 
+        $defaultImages = [
+            'frontend/assets/img/portfolio/portfolio-1.png',
+            'frontend/assets/img/portfolio/portfolio-2.png',
+            'frontend/assets/img/portfolio/portfolio-3.png',
+            'frontend/assets/img/portfolio/portfolio-4.png',
+            'frontend/assets/img/portfolio/portfolio-5.png',
+            'frontend/assets/img/portfolio/portfolio-6.png',
+        ];
+
+        if ($portfolio->thumb_image && !in_array($portfolio->thumb_image, $defaultImages) && file_exists($portfolio->thumb_image)) {
+            unlink($portfolio->thumb_image);
+        }
+
+        $portfolio->delete();
         return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 }

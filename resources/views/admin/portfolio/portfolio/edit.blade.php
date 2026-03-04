@@ -30,6 +30,7 @@
                                     <input type="file" name="thumb_image"
                                         class="form-control @error('thumb_image') is-invalid @enderror"
                                         value="{{ old('thumb_image') }}" placeholder="Thumb Image">
+                                    <input type="hidden" name="old_thumb_image" value="{{ $portfolio->thumb_image }}">
                                     @error('thumb_image')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
