@@ -24,6 +24,7 @@
                                     <label class="form-label">Image (PNG)</label>
                                     <input type="file" name="avatar"
                                         class="form-control @error('avatar') is-invalid @enderror">
+                                    <input type="hidden" name="old_avatar" value="{{ Auth::user()->avatar }}">
                                     @error('avatar')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

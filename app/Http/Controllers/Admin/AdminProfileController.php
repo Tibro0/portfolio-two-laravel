@@ -22,13 +22,14 @@ class AdminProfileController extends Controller
             'avatar' => ['image', 'nullable', 'mimes:png',],
             'name' => ['required', 'max:255'],
             'email' => ['required', 'max:255', 'unique:users,email,' . Auth::user()->id],
-            'phone_one'=> ['required', 'max:255'],
-            'phone_two'=> ['nullable', 'max:255'],
-            'address_line_one'=> ['required', 'max:255'],
-            'address_line_two'=> ['nullable', 'max:255'],
-            'short_description'=> ['required', 'max:255']
+            'phone_one' => ['required', 'max:255'],
+            'phone_two' => ['nullable', 'max:255'],
+            'address_line_one' => ['required', 'max:255'],
+            'address_line_two' => ['nullable', 'max:255'],
+            'short_description' => ['required', 'max:255']
         ]);
 
+        $oldImage = $request->old_avatar;
         if ($request->file('avatar')) {
             $image = $request->file('avatar');
             $manager = new ImageManager(new Driver());
@@ -48,6 +49,14 @@ class AdminProfileController extends Controller
             $user->address_line_two = $request->address_line_two;
             $user->short_description = $request->short_description;
             $user->save();
+
+            $defaultImages = [
+                'uploads/avatar.png',
+            ];
+
+            if ($oldImage && !in_array($oldImage, $defaultImages) && file_exists($oldImage)) {
+                unlink($oldImage);
+            }
 
             return redirect()->back()->with('toast', [
                 'type' => 'success',

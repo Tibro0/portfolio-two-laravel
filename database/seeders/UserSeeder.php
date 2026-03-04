@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         User::insert([
             [
                 'name' => 'MD. Faysal Hossain Tibro',
-                'email' => 'faysaltibro@gmail.com',
+                'email' => 'admin@gmail.com',
                 'phone_one' => '+8801575827988',
                 'address_line_one' => 'House No : 101, Maowlana Vashani Road,',
                 'address_line_two' => 'Tongi East, Banomala Road.',
