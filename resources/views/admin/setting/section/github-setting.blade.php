@@ -7,8 +7,8 @@
             <div class="col-md-12">
                 <label class="form-label">Github Client ID <span class="text-danger">*</span></label>
                 <input type="text" name="github_client_id"
-                    value="{{ old('github_client_id') ?? config('settings.github_client_id') }}"
-                    placeholder="Github Client ID" class="form-control @error('github_client_id') is-invalid @enderror">
+                    value="{{ old('github_client_id') ?? $setting['github_client_id'] }}" placeholder="Github Client ID"
+                    class="form-control @error('github_client_id') is-invalid @enderror">
                 @error('github_client_id')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -16,7 +16,7 @@
             <div class="col-md-12">
                 <label class="form-label">Github Client Secret <span class="text-danger">*</span></label>
                 <input type="text" name="github_client_secret"
-                    value="{{ old('github_client_secret') ?? config('settings.github_client_secret') }}"
+                    value="{{ old('github_client_secret') ?? $setting['github_client_secret'] }}"
                     placeholder="Github Client Secret"
                     class="form-control @error('github_client_secret') is-invalid @enderror">
                 @error('github_client_secret')
@@ -26,7 +26,7 @@
             <div class="col-md-12">
                 <label class="form-label">Github Redirect URL <span class="text-danger">*</span></label>
                 <input type="text" name="github_redirect_url"
-                    value="{{ old('github_redirect_url') ?? config('settings.github_redirect_url') }}"
+                    value="{{ old('github_redirect_url') ?? $setting['github_redirect_url'] }}"
                     placeholder="Github Redirect URL"
                     class="form-control @error('github_redirect_url') is-invalid @enderror">
                 @error('github_redirect_url')
