@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 Route::controller(AuthController::class)->group(function () {
-    Route::post('login', 'authenticate');
+    Route::post('login', 'login');
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
