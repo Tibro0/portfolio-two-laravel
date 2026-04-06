@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Admin\AnimationTextController;
 use App\Http\Controllers\Api\Admin\ProfileController;
+use App\Http\Controllers\Api\Admin\SocialIconController;
 use App\Http\Controllers\Api\Admin\TagController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use Illuminate\Http\Request;
@@ -41,6 +42,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::get('tag', 'index');
             Route::get('tag/{id}', 'show');
             Route::put('tag/{id}', 'update');
+        });
+
+        /** Social Icon All Route */
+        Route::controller(SocialIconController::class)->group(function () {
+            Route::get('social-icon', 'index');
+            Route::post('social-icon/store', 'store');
+            Route::get('social-icon/{id}', 'show');
+            Route::put('social-icon/{id}', 'update');
+            Route::delete('social-icon/{id}', 'destroy');
         });
     });
 });
