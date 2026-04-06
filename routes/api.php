@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Admin\AnimationTextController;
 use App\Http\Controllers\Api\Admin\ProfileController;
+use App\Http\Controllers\Api\Admin\TagController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,5 +36,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::delete('animation-text/{id}', 'destroy');
         });
 
+        /** Tag All Route */
+        Route::controller(TagController::class)->group(function () {
+            Route::get('tag', 'index');
+            Route::get('tag/{id}', 'show');
+            Route::put('tag/{id}', 'update');
+        });
     });
 });
