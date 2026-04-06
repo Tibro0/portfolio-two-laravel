@@ -15,9 +15,9 @@ class ProfileController extends Controller
     public function index()
     {
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'data' => Auth::user(),
-        ]);
+        ], 200);
     }
 
     public function updateProfile(Request $request)
@@ -35,9 +35,9 @@ class ProfileController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'status' => false,
+                'status' => 400,
                 'errors' => $validator->errors(),
-            ]);
+            ], 400);
         }
 
         $oldImage = $request->old_avatar;
@@ -70,10 +70,10 @@ class ProfileController extends Controller
             }
 
             return response()->json([
-                'status' => true,
+                'status' => 200,
                 'message' => 'Updated Successfully!',
                 'data' => $user,
-            ]);
+            ], 200);
         } else {
             $user = Auth::user();
             $user->name = $request->name;
@@ -86,10 +86,10 @@ class ProfileController extends Controller
             $user->save();
 
             return response()->json([
-                'status' => true,
+                'status' => 200,
                 'message' => 'Updated Successfully!',
                 'data' => $user,
-            ]);
+            ], 200);
         }
     }
 
@@ -105,9 +105,9 @@ class ProfileController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'status' => false,
+                'status' => 400,
                 'errors' => $validator->errors(),
-            ]);
+            ], 400);
         }
 
         $user = Auth::user();
@@ -115,8 +115,8 @@ class ProfileController extends Controller
         $user->save();
 
         return response()->json([
-            'status' => true,
+            'status' => 200,
             'message' => 'Updated Successfully!',
-        ]);
+        ], 200);
     }
 }
