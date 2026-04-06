@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\AnimationTextController;
 use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use Illuminate\Http\Request;
@@ -24,5 +25,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::post('profile', 'updateProfile');
             Route::post('profile/password', 'updatePassword');
         });
+
+        /** Animation Text All Route */
+        Route::controller(AnimationTextController::class)->group(function () {
+            Route::get('animation-text', 'index');
+            Route::post('animation-text/store', 'store');
+            Route::get('animation-text/{id}', 'show');
+            Route::put('animation-text/{id}', 'update');
+            Route::delete('animation-text/{id}', 'destroy');
+        });
+
     });
 });
