@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Api\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Mail\ContactFormMail;
 use App\Models\About;
 use App\Models\AcademicExcellence;
 use App\Models\AnimationText;
@@ -24,7 +23,6 @@ use App\Models\Tag;
 use App\Models\Testimonial;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class FrontendController extends Controller
 {
@@ -52,29 +50,32 @@ class FrontendController extends Controller
         $categories = Category::all();
         $testimonials = Testimonial::all();
         $faqs = Faq::all();
-        return view('frontend.home.index', compact('sectionTitle', 'user', 'animationTexts', 'tags', 'socialIcons', 'counters', 'about', 'skillCardTitleOne', 'skillCardTitleTwo', 'skillCardTitleThree', 'skillCardTitleFour', 'frontendSkills', 'backendSkills', 'designSkills', 'cloudSkills', 'certifications', 'professionalJourneys', 'academicExcellences', 'services', 'categories', 'testimonials', 'faqs'));
-    }
-
-    public function contactForm(Request $request)
-    {
-        AllApiCredentialController::emailApiSetting();
-
-        $request->validate([
-            'name' => ['required', 'max:255'],
-            'email' => ['required', 'max:255'],
-            'subject' => ['required', 'max:255'],
-            'message' => ['required', 'max:1000'],
+        return response()->json([
+            'status' => 200,
+            'data' => [
+                'sectionTitle' => $sectionTitle,
+                'user' => $user,
+                'animationTexts' => $animationTexts,
+                'tags' => $tags,
+                'socialIcons' => $socialIcons,
+                'counters' => $counters,
+                'about' => $about,
+                'skillCardTitleOne' => $skillCardTitleOne,
+                'skillCardTitleTwo' => $skillCardTitleTwo,
+                'skillCardTitleThree' => $skillCardTitleThree,
+                'skillCardTitleFour' => $skillCardTitleFour,
+                'frontendSkills' => $frontendSkills,
+                'backendSkills' => $backendSkills,
+                'designSkills' => $designSkills,
+                'cloudSkills' => $cloudSkills,
+                'certifications' => $certifications,
+                'professionalJourneys' => $professionalJourneys,
+                'academicExcellences' => $academicExcellences,
+                'services' => $services,
+                'categories' => $categories,
+                'testimonials' => $testimonials,
+                'faqs' => $faqs
+            ]
         ]);
-
-        $email = User::where('id', 1)->first()->pluck('email')->toArray();
-        Mail::to($email)->send(new ContactFormMail($request->name, $request->email, $request->subject, $request->message));
-        return response(['message' => 'Your Message Has been Sent!']);
-    }
-
-    public function downloadCv()
-    {
-        $file =  public_path('frontend/assets/cv/Tibro-resume.pdf');
-
-        return response()->download($file);
     }
 }

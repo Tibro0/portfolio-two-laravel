@@ -5,12 +5,18 @@ use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\SocialIconController;
 use App\Http\Controllers\Api\Admin\TagController;
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Frontend\FrontendController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');
+
+// Frontend All Route
+Route::controller(FrontendController::class)->group(function () {
+    Route::get('/', 'index');
+});
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
