@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\AnimationTextController;
+use App\Http\Controllers\Api\Admin\CounterController;
 use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\SocialIconController;
 use App\Http\Controllers\Api\Admin\TagController;
@@ -58,5 +59,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::put('social-icon/{id}', 'update');
             Route::delete('social-icon/{id}', 'destroy');
         });
+
+        // Counter All Route
+        Route::controller(CounterController::class)->group(function () {
+            Route::get('counter', 'index');
+            Route::get('counter/{id}', 'show');
+            Route::put('counter/{id}', 'update');
+        });
+        
     });
 });
