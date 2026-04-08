@@ -16,12 +16,12 @@ class DesignSkillController extends Controller
     public function index()
     {
         $designSkills = DesignSkill::all();
-        $skillCardTitleOne = SkillCardTitle::where('id', 3)->first();
+        $designSkillCardTitle = SkillCardTitle::where('id', 3)->first();
         return response()->json([
             'status' => 200,
             'data' => [
                 'designSkills' => $designSkills,
-                'skillCardTitleOne' => $skillCardTitleOne,
+                'designSkillCardTitle' => $designSkillCardTitle,
             ]
         ], 200);
     }

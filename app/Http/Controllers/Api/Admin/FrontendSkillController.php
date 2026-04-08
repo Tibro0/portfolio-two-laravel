@@ -16,12 +16,12 @@ class FrontendSkillController extends Controller
     public function index()
     {
         $frontendSkills = FrontendSkill::all();
-        $skillCardTitleOne = SkillCardTitle::where('id', 1)->first();
+        $frontendSkillCardTitle = SkillCardTitle::where('id', 1)->first();
         return response()->json([
             'status' => 200,
             'data' => [
                 'frontendSkills' => $frontendSkills,
-                'skillCardTitleOne' => $skillCardTitleOne,
+                'frontendSkillCardTitle' => $frontendSkillCardTitle,
             ]
         ], 200);
     }

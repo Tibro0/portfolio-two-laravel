@@ -16,12 +16,12 @@ class BackendSkillController extends Controller
     public function index()
     {
         $backendSkills = BackendSkill::all();
-        $skillCardTitleOne = SkillCardTitle::where('id', 2)->first();
+        $backendSkillCardTitle = SkillCardTitle::where('id', 2)->first();
         return response()->json([
             'status' => 200,
             'data' => [
                 'backendSkills' => $backendSkills,
-                'skillCardTitleOne' => $skillCardTitleOne,
+                'backendSkillCardTitle' => $backendSkillCardTitle,
             ]
         ], 200);
     }

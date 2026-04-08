@@ -16,12 +16,12 @@ class CloudSkillController extends Controller
     public function index()
     {
         $cloudSkills = CloudSkill::all();
-        $skillCardTitleOne = SkillCardTitle::where('id', 4)->first();
+        $cloudSkillCardTitle = SkillCardTitle::where('id', 4)->first();
         return response()->json([
             'status' => 200,
             'data' => [
                 'cloudSkills' => $cloudSkills,
-                'skillCardTitleOne' => $skillCardTitleOne,
+                'cloudSkillCardTitle' => $cloudSkillCardTitle,
             ]
         ], 200);
     }
