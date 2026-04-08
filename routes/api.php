@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Admin\AboutController;
 use App\Http\Controllers\Api\Admin\AnimationTextController;
 use App\Http\Controllers\Api\Admin\CounterController;
+use App\Http\Controllers\Api\Admin\FrontendSkillController;
 use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\SocialIconController;
 use App\Http\Controllers\Api\Admin\TagController;
@@ -73,6 +74,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::get('about', 'index');
             Route::post('about/update', 'update');
             Route::put('about/main-title/update', 'aboutMainTitleUpdate');
+        });
+
+        /** Social Icon All Route */
+        Route::controller(FrontendSkillController::class)->group(function () {
+            Route::get('frontend-skill', 'index');
+            Route::post('frontend-skill/store', 'store');
+            Route::get('frontend-skill/{id}', 'show');
+            Route::put('frontend-skill/{id}', 'update');
+            Route::delete('frontend-skill/{id}', 'destroy');
+            Route::put('skill-card-title-update', 'skillCardTitleUpdate');
         });
 
     });
