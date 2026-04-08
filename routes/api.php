@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Admin\AboutController;
 use App\Http\Controllers\Api\Admin\AnimationTextController;
 use App\Http\Controllers\Api\Admin\BackendSkillController;
 use App\Http\Controllers\Api\Admin\CounterController;
+use App\Http\Controllers\Api\Admin\DesignSkillController;
 use App\Http\Controllers\Api\Admin\FrontendSkillController;
 use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\SocialIconController;
@@ -95,6 +96,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::put('backend-skill/{id}', 'update');
             Route::delete('backend-skill/{id}', 'destroy');
             Route::put('backend-skill-card-title-update', 'backendSkillCardTitleUpdate');
+        });
+
+        /** Design Skill All Route */
+        Route::controller(DesignSkillController::class)->group(function () {
+            Route::get('design-skill', 'index');
+            Route::post('design-skill/store', 'store');
+            Route::get('design-skill/{id}', 'show');
+            Route::put('design-skill/{id}', 'update');
+            Route::delete('design-skill/{id}', 'destroy');
+            Route::put('design-skill-card-title-update', 'designSkillCardTitleUpdate');
         });
 
 
