@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\AboutController;
 use App\Http\Controllers\Api\Admin\AnimationTextController;
 use App\Http\Controllers\Api\Admin\CounterController;
 use App\Http\Controllers\Api\Admin\ProfileController;
@@ -66,6 +67,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::get('counter/{id}', 'show');
             Route::put('counter/{id}', 'update');
         });
-        
+
+        // About All Route
+        Route::controller(AboutController::class)->group(function () {
+            Route::get('about', 'index');
+            Route::post('about/update', 'update');
+            Route::put('about/main-title/update', 'aboutMainTitleUpdate');
+        });
+
     });
 });

@@ -26,6 +26,9 @@ class AboutController extends Controller
             'signature_description' => ['required', 'max:255'],
             'description' => ['required'],
         ]);
+
+        $oldImage = About::where('id', 1)->value('signature');
+
         if ($request->file('signature')) {
             $image = $request->file('signature');
             $manager = new ImageManager(new Driver());
@@ -34,6 +37,14 @@ class AboutController extends Controller
             $img = $img->resize(300, 73);
             $img->toPng()->save(base_path('public/uploads/signature/' . $name_gen));
             $save_url = 'uploads/signature/' . $name_gen;
+
+            $defaultImages = [
+                'frontend/assets/img/misc/signature-1.webp',
+            ];
+
+            if ($oldImage && !in_array($oldImage, $defaultImages) && file_exists($oldImage)) {
+                unlink($oldImage);
+            }
 
             About::updateOrCreate(
                 ['id' => 1],
