@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Admin\AboutController;
 use App\Http\Controllers\Api\Admin\AnimationTextController;
 use App\Http\Controllers\Api\Admin\BackendSkillController;
+use App\Http\Controllers\Api\Admin\CloudSkillController;
 use App\Http\Controllers\Api\Admin\CounterController;
 use App\Http\Controllers\Api\Admin\DesignSkillController;
 use App\Http\Controllers\Api\Admin\FrontendSkillController;
@@ -106,6 +107,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::put('design-skill/{id}', 'update');
             Route::delete('design-skill/{id}', 'destroy');
             Route::put('design-skill-card-title-update', 'designSkillCardTitleUpdate');
+        });
+
+        /** Cloud Skill All Route */
+        Route::controller(CloudSkillController::class)->group(function () {
+            Route::get('cloud-skill', 'index');
+            Route::post('cloud-skill/store', 'store');
+            Route::get('cloud-skill/{id}', 'show');
+            Route::put('cloud-skill/{id}', 'update');
+            Route::delete('cloud-skill/{id}', 'destroy');
+            Route::put('cloud-skill-card-title-update', 'cloudSkillCardTitleUpdate');
         });
 
 
