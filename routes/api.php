@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Admin\AboutController;
 use App\Http\Controllers\Api\Admin\AnimationTextController;
+use App\Http\Controllers\Api\Admin\BackendSkillController;
 use App\Http\Controllers\Api\Admin\CounterController;
 use App\Http\Controllers\Api\Admin\FrontendSkillController;
 use App\Http\Controllers\Api\Admin\ProfileController;
@@ -76,15 +77,26 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::put('about/main-title/update', 'aboutMainTitleUpdate');
         });
 
-        /** Social Icon All Route */
+        /** Frontend Skill All Route */
         Route::controller(FrontendSkillController::class)->group(function () {
             Route::get('frontend-skill', 'index');
             Route::post('frontend-skill/store', 'store');
             Route::get('frontend-skill/{id}', 'show');
             Route::put('frontend-skill/{id}', 'update');
             Route::delete('frontend-skill/{id}', 'destroy');
-            Route::put('skill-card-title-update', 'skillCardTitleUpdate');
+            Route::put('frontend-skill-card-title-update', 'frontendSkillCardTitleUpdate');
         });
+
+        /** Backend Skill All Route */
+        Route::controller(BackendSkillController::class)->group(function () {
+            Route::get('backend-skill', 'index');
+            Route::post('backend-skill/store', 'store');
+            Route::get('backend-skill/{id}', 'show');
+            Route::put('backend-skill/{id}', 'update');
+            Route::delete('backend-skill/{id}', 'destroy');
+            Route::put('backend-skill-card-title-update', 'backendSkillCardTitleUpdate');
+        });
+
 
     });
 });

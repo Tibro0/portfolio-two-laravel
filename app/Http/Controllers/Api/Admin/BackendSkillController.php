@@ -3,24 +3,24 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\FrontendSkill;
+use App\Models\BackendSkill;
 use App\Models\SkillCardTitle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class FrontendSkillController extends Controller
+class BackendSkillController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $frontendSkills = FrontendSkill::all();
-        $skillCardTitleOne = SkillCardTitle::where('id', 1)->first();
+        $backendSkills = BackendSkill::all();
+        $skillCardTitleOne = SkillCardTitle::where('id', 2)->first();
         return response()->json([
             'status' => 200,
             'data' => [
-                'frontendSkills' => $frontendSkills,
+                'backendSkills' => $backendSkills,
                 'skillCardTitleOne' => $skillCardTitleOne,
             ]
         ], 200);
@@ -40,21 +40,21 @@ class FrontendSkillController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|max:255|unique:frontend_skills,title',
+            'title' => 'required|max:255|unique:backend_skills,title',
             'percentage' => 'required|integer|max:255',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'status' => 400,
-                'errors' => $validator->errors()
+                'errors' => $validator->errors(),
             ], 400);
         }
 
-        $frontendSkill = new FrontendSkill();
-        $frontendSkill->title = $request->title;
-        $frontendSkill->percentage = $request->percentage;
-        $frontendSkill->save();
+        $backendSkill = new BackendSkill();
+        $backendSkill->title = $request->title;
+        $backendSkill->percentage = $request->percentage;
+        $backendSkill->save();
 
         return response()->json([
             'status' => 200,
@@ -67,18 +67,18 @@ class FrontendSkillController extends Controller
      */
     public function show(string $id)
     {
-        $frontendSkill = FrontendSkill::find($id);
+        $backendSkill = BackendSkill::find($id);
 
-        if ($frontendSkill == null) {
+        if ($backendSkill == null) {
             return response()->json([
                 'status' => 404,
-                'message' => 'Frontend Skill Not Found!'
+                'message' => 'Backend Skill Not Found!',
             ], 404);
         }
 
         return response()->json([
             'status' => 200,
-            'data' => $frontendSkill
+            'data' => $backendSkill
         ], 200);
     }
 
@@ -95,30 +95,30 @@ class FrontendSkillController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $frontendSkill = FrontendSkill::find($id);
+        $backendSkill = BackendSkill::find($id);
 
-        if ($frontendSkill == null) {
+        if ($backendSkill == null) {
             return response()->json([
                 'status' => 404,
-                'message' => 'Frontend Skill Not Found!'
+                'message' => 'Backend Skill Not Found!',
             ], 404);
         }
 
         $validator = Validator::make($request->all(), [
-            'title' => 'required|max:255|unique:frontend_skills,title,' . $id,
+            'title' => 'required|max:255|unique:backend_skills,title,' . $id,
             'percentage' => 'required|integer|max:255',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'status' => 400,
-                'errors' => $validator->errors()
+                'errors' => $validator->errors(),
             ], 400);
         }
 
-        $frontendSkill->title = $request->title;
-        $frontendSkill->percentage = $request->percentage;
-        $frontendSkill->save();
+        $backendSkill->title = $request->title;
+        $backendSkill->percentage = $request->percentage;
+        $backendSkill->save();
 
         return response()->json([
             'status' => 200,
@@ -131,16 +131,16 @@ class FrontendSkillController extends Controller
      */
     public function destroy(string $id)
     {
-        $frontendSkill = FrontendSkill::find($id);
+        $backendSkill = BackendSkill::find($id);
 
-        if ($frontendSkill == null) {
+        if ($backendSkill == null) {
             return response()->json([
                 'status' => 404,
-                'message' => 'Frontend Skill Not Found!'
+                'message' => 'Backend Skill Not Found!',
             ], 404);
         }
 
-        $frontendSkill->delete();
+        $backendSkill->delete();
 
         return response()->json([
             'status' => 200,
@@ -148,9 +148,9 @@ class FrontendSkillController extends Controller
         ], 200);
     }
 
-    public function frontendSkillCardTitleUpdate(Request $request)
+    public function backendSkillCardTitleUpdate(Request $request)
     {
-        $skillCardTitleOne = SkillCardTitle::find(1);
+        $skillCardTitleOne = SkillCardTitle::find(2);
 
         $validator = Validator::make($request->all(), [
             'icon' => 'required|max:255',
