@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Admin\CloudSkillController;
 use App\Http\Controllers\Api\Admin\CounterController;
 use App\Http\Controllers\Api\Admin\DesignSkillController;
 use App\Http\Controllers\Api\Admin\FrontendSkillController;
+use App\Http\Controllers\Api\Admin\ProfessionalJourneyController;
 use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\SocialIconController;
 use App\Http\Controllers\Api\Admin\TagController;
@@ -130,6 +131,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::put('professional-expertise-title-update', 'professionalExpertiseTitleUpdate');
         });
 
-
+        /** Professional Journey All Route */
+        Route::controller(ProfessionalJourneyController::class)->group(function () {
+            Route::get('professional-journey', 'index');
+            Route::post('professional-journey/store', 'store');
+            Route::get('professional-journey/{id}', 'show');
+            Route::put('professional-journey/{id}', 'update');
+            Route::delete('professional-journey/{id}', 'destroy');
+            Route::put('professional-journey-title-update', 'professionalJourneyTitleUpdate');
+            Route::put('resume/main-title/update', 'resumeMainTitleUpdate');
+        });
     });
 });
