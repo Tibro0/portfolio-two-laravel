@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Admin\DesignSkillController;
 use App\Http\Controllers\Api\Admin\FrontendSkillController;
 use App\Http\Controllers\Api\Admin\ProfessionalJourneyController;
 use App\Http\Controllers\Api\Admin\ProfileController;
+use App\Http\Controllers\Api\Admin\ServiceController;
 use App\Http\Controllers\Api\Admin\SocialIconController;
 use App\Http\Controllers\Api\Admin\TagController;
 use App\Http\Controllers\Api\Auth\AuthController;
@@ -151,6 +152,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::put('academic-excellence/{id}', 'update');
             Route::delete('academic-excellence/{id}', 'destroy');
             Route::put('academic-excellence-title-update', 'academicExcellenceTitleUpdate');
+        });
+
+        /** Service All Route */
+        Route::controller(ServiceController::class)->group(function () {
+            Route::get('service', 'index');
+            Route::post('service/store', 'store');
+            Route::get('service/{id}', 'show');
+            Route::put('service/{id}', 'update');
+            Route::delete('service/{id}', 'destroy');
+            Route::put('service-main-title-update', 'servicesMainTitleUpdate');
         });
 
     });
