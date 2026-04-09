@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Portfolio;
 use App\Models\SectionTitle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -138,6 +139,14 @@ class CategoryController extends Controller
                 'status' => 404,
                 'message' => 'Category Not Found!',
             ], 404);
+        }
+
+        $portfolio = Portfolio::where('category_id', $category->id)->count();
+        if ($portfolio > 0) {
+            return response()->json([
+                'status' => 403,
+                'message' => 'This Items Contain, Sub Items For Delete This you Have to Delete the Sub Item First!'
+            ], 403);
         }
 
         $category->delete();

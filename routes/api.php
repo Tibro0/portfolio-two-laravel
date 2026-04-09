@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Admin\CloudSkillController;
 use App\Http\Controllers\Api\Admin\CounterController;
 use App\Http\Controllers\Api\Admin\DesignSkillController;
 use App\Http\Controllers\Api\Admin\FrontendSkillController;
+use App\Http\Controllers\Api\Admin\PortfolioController;
 use App\Http\Controllers\Api\Admin\ProfessionalJourneyController;
 use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\ServiceController;
@@ -173,6 +174,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::put('category/{id}', 'update');
             Route::delete('category/{id}', 'destroy');
             Route::put('portfolio-main-title-update', 'portfolioMainTitleUpdate');
+        });
+
+        /** Portfolio All Route */
+        Route::controller(PortfolioController::class)->group(function () {
+            Route::get('portfolio', 'index');
+            Route::post('portfolio/store', 'store');
+            Route::get('portfolio/{id}', 'show');
+            Route::post('portfolio/{id}', 'update');
+            Route::delete('portfolio/{id}', 'destroy');
         });
 
     });
