@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\AboutController;
+use App\Http\Controllers\Api\Admin\AcademicExcellenceController;
 use App\Http\Controllers\Api\Admin\AnimationTextController;
 use App\Http\Controllers\Api\Admin\BackendSkillController;
 use App\Http\Controllers\Api\Admin\CertificationController;
@@ -141,5 +142,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::put('professional-journey-title-update', 'professionalJourneyTitleUpdate');
             Route::put('resume/main-title/update', 'resumeMainTitleUpdate');
         });
+
+        /** Academic Excellence All Route */
+        Route::controller(AcademicExcellenceController::class)->group(function () {
+            Route::get('academic-excellence', 'index');
+            Route::post('academic-excellence/store', 'store');
+            Route::get('academic-excellence/{id}', 'show');
+            Route::put('academic-excellence/{id}', 'update');
+            Route::delete('academic-excellence/{id}', 'destroy');
+            Route::put('academic-excellence-title-update', 'academicExcellenceTitleUpdate');
+        });
+
     });
 });
