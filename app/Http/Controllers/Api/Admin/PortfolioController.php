@@ -156,7 +156,7 @@ class PortfolioController extends Controller
             $img->toPng()->save(base_path('public/uploads/portfolio/' . $name_gen));
             $save_url = 'uploads/portfolio/' . $name_gen;
 
-            
+
             $portfolio->thumb_image = $save_url;
             $portfolio->category_id = $request->category;
             $portfolio->frontend_title = $request->frontend_title;
@@ -182,7 +182,7 @@ class PortfolioController extends Controller
 
             return response()->json([
                 'status' => 200,
-                'message' => 'Created Successfully!',
+                'message' => 'Updated Successfully!',
             ], 200);
         } else {
             $portfolio->category_id = $request->category;
