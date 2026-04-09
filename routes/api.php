@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\ServiceController;
 use App\Http\Controllers\Api\Admin\SocialIconController;
 use App\Http\Controllers\Api\Admin\TagController;
+use App\Http\Controllers\Api\Admin\TestimonialController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Frontend\FrontendController;
 use Illuminate\Http\Request;
@@ -183,6 +184,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::get('portfolio/{id}', 'show');
             Route::post('portfolio/{id}', 'update');
             Route::delete('portfolio/{id}', 'destroy');
+        });
+
+        /** Testimonial All Route */
+        Route::controller(TestimonialController::class)->group(function () {
+            Route::get('testimonial', 'index');
+            Route::post('testimonial/store', 'store');
+            Route::get('testimonial/{id}', 'show');
+            Route::post('testimonial/{id}', 'update');
+            Route::delete('testimonial/{id}', 'destroy');
+            Route::put('testimonial/main-title/update', 'testimonialMainTitleUpdate');
         });
 
     });
