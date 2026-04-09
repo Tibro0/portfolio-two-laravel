@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\Admin\AboutController;
 use App\Http\Controllers\Api\Admin\AcademicExcellenceController;
 use App\Http\Controllers\Api\Admin\AnimationTextController;
 use App\Http\Controllers\Api\Admin\BackendSkillController;
+use App\Http\Controllers\Api\Admin\CategoryController;
 use App\Http\Controllers\Api\Admin\CertificationController;
 use App\Http\Controllers\Api\Admin\CloudSkillController;
 use App\Http\Controllers\Api\Admin\CounterController;
@@ -162,6 +163,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::put('service/{id}', 'update');
             Route::delete('service/{id}', 'destroy');
             Route::put('service-main-title-update', 'servicesMainTitleUpdate');
+        });
+
+        /** Category All Route */
+        Route::controller(CategoryController::class)->group(function () {
+            Route::get('category', 'index');
+            Route::post('category/store', 'store');
+            Route::get('category/{id}', 'show');
+            Route::put('category/{id}', 'update');
+            Route::delete('category/{id}', 'destroy');
+            Route::put('portfolio-main-title-update', 'portfolioMainTitleUpdate');
         });
 
     });
