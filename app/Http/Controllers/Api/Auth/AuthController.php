@@ -39,17 +39,23 @@ class AuthController extends Controller
         } elseif (!User::where(['email' => $request->email])->exists()) {
             return response()->json([
                 'status' => 401,
-                'message' => 'Your Email is Incorrect.',
+                'errors' => [
+                    'email' => ['Your Email is Incorrect.']
+                ],
             ], 401);
         } elseif (!User::where(['password' => $request->password])->exists()) {
             return response()->json([
                 'status' => 401,
-                'message' => 'Your Password is Incorrect.',
+                'errors' => [
+                    'password' => ['Your Password is Incorrect.']
+                ],
             ], 401);
         } else {
             return response()->json([
                 'status' => 401,
-                'message' => 'These credentials do not match our records.',
+                'errors' => [
+                    'email' => ['These credentials do not match our records.']
+                ],
             ], 401);
         }
     }
