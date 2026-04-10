@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\Admin\ProfessionalJourneyController;
 use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\ServiceController;
 use App\Http\Controllers\Api\Admin\SocialIconController;
+use App\Http\Controllers\Api\Admin\SubscriberController;
 use App\Http\Controllers\Api\Admin\TagController;
 use App\Http\Controllers\Api\Admin\TestimonialController;
 use App\Http\Controllers\Api\Auth\AuthController;
@@ -196,6 +197,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::delete('testimonial/{id}', 'destroy');
             Route::put('testimonial/main-title/update', 'testimonialMainTitleUpdate');
         });
+
         // Faq All Route
         Route::controller(FaqController::class)->group(function () {
             Route::get('faq', 'index');
@@ -204,6 +206,18 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::put('faq/{id}', 'update');
             Route::delete('faq/{id}', 'destroy');
             Route::put('faq/main-title/update', 'faqMainTitleUpdate');
+        });
+
+        /** Subscriber All Route */
+        Route::controller(SubscriberController::class)->group(function () {
+            Route::get('subscriber', 'index');
+            Route::post('subscriber/store', 'store');
+            Route::get('subscriber/{id}', 'show');
+            Route::put('subscriber/{id}', 'update');
+
+            Route::get('subscriber-block', 'subscriberBlock');
+            Route::post('subscriber-sent', 'subscriberSent');
+            Route::put('contact/main-title/update', 'contactMainTitleUpdate');
         });
 
     });
