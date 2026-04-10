@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Admin\CertificationController;
 use App\Http\Controllers\Api\Admin\CloudSkillController;
 use App\Http\Controllers\Api\Admin\CounterController;
 use App\Http\Controllers\Api\Admin\DesignSkillController;
+use App\Http\Controllers\Api\Admin\FaqController;
 use App\Http\Controllers\Api\Admin\FrontendSkillController;
 use App\Http\Controllers\Api\Admin\PortfolioController;
 use App\Http\Controllers\Api\Admin\ProfessionalJourneyController;
@@ -194,6 +195,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::post('testimonial/{id}', 'update');
             Route::delete('testimonial/{id}', 'destroy');
             Route::put('testimonial/main-title/update', 'testimonialMainTitleUpdate');
+        });
+        // Faq All Route
+        Route::controller(FaqController::class)->group(function () {
+            Route::get('faq', 'index');
+            Route::post('faq/store', 'store');
+            Route::get('faq/{id}', 'show');
+            Route::put('faq/{id}', 'update');
+            Route::delete('faq/{id}', 'destroy');
+            Route::put('faq/main-title/update', 'faqMainTitleUpdate');
         });
 
     });
