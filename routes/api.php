@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\Admin\PortfolioController;
 use App\Http\Controllers\Api\Admin\ProfessionalJourneyController;
 use App\Http\Controllers\Api\Admin\ProfileController;
 use App\Http\Controllers\Api\Admin\ServiceController;
+use App\Http\Controllers\Api\Admin\SettingController;
 use App\Http\Controllers\Api\Admin\SocialIconController;
 use App\Http\Controllers\Api\Admin\SubscriberController;
 use App\Http\Controllers\Api\Admin\TagController;
@@ -220,5 +221,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::put('contact/main-title/update', 'contactMainTitleUpdate');
         });
 
+        /** Setting All Route */
+        Route::controller(SettingController::class)->group(function () {
+            Route::get('setting', 'index');
+            Route::put('setting/general', 'updateGeneralSetting');
+            Route::put('setting/mail-setting', 'updateMailSetting');
+            Route::put('setting/github', 'updateGithubSetting');
+            Route::put('setting/google', 'updateGoogleSetting');
+        });
     });
 });
