@@ -15,6 +15,14 @@ class AcademicExcellenceSeeder extends Seeder
     {
         AcademicExcellence::insert([
             [
+                'year' => '2026',
+                'title' => 'World University Of Bangladesh',
+                'sub_title' => 'B.Sc. in Computer Science and Engineering (Running)',
+                'description' => 'B.Sc. CSE: Design, develop, and integrate software & hardware systems. Core topics: programming, algorithms, AI.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
                 'year' => '2025',
                 'title' => 'Dhaka Central Polytechnic Institute',
                 'sub_title' => 'Diploma Engineering Computer Technology',
